@@ -10,12 +10,9 @@ else{
 include('../db/config.php');
 
 //car used chart Mysql
-// $q2="SELECT `car_name`, COUNT(*) as number FROM `car_booking` GROUP BY `car_id`";
-// $r2 = mysqli_query($con, $q2);
-
-
-$query2="SELECT `car_number`, COUNT(*) as number FROM `car_booking` GROUP BY `car_number`";
+$query2="SELECT `car_name`,`car_number`, COUNT(*) as number FROM `car_booking` GROUP BY `car_id`";
 $result2 = mysqli_query($con, $query2);
+
         
 $query3="SELECT `user_name`, COUNT(*) as number FROM `car_booking` GROUP BY `user_name`";
 $result3 = mysqli_query($con, $query3);
@@ -176,7 +173,6 @@ $booking=mysqli_num_rows($sql4);
                                     <div class="card-body">
                                         <h4 class="card-title">Car chart</h4>
                                         <div id="carChart" style="height:300px;"></div>
-                                        
 
                                         <div id="chart_wrap">
                                         <div id="chart_div"></div>
@@ -190,8 +186,8 @@ $booking=mysqli_num_rows($sql4);
                                 <div class="card">
                                     <div class="card-body">
                                         <h4 class="card-title">User chart</h4>
-                                        <div id="userChart" style="height:300px;"></div>
-                                        
+                                        <div id="Calendar_u" style="height:300px;"></div>
+                                        <!-- <canvas id="Calendar_u" style="height:250px"></canvas> -->
                                     </div>
                                 </div>
                             </div>
@@ -216,10 +212,7 @@ $booking=mysqli_num_rows($sql4);
         <!-- container-scroller -->
 
 
-       <!--  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> -->
-
-       <script type="text/javascript" src="js/saif/chart.js" ></script>
-
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <script type="text/javascript">
             google.charts.load('current', {
                 'packages': ['corechart']
@@ -228,19 +221,15 @@ $booking=mysqli_num_rows($sql4);
 
             function carChart() {
                 var data = google.visualization.arrayToDataTable([
-                    ['car_number', 'Number'],  
-                          <?php  
-                          while($row2 = mysqli_fetch_array($result2))  
-                          {  
-                               echo "['".$row2["car_number"]."', ".$row2["number"]."],";  
-                          }  
-                          ?>  
+                    
+                    ['Gender', 'Overall'],
+                    ['M', 110],
+                    ['F', 20]
                 ]);
                 var options = {
-
-                    title: 'Percentage of Car Booking Pai Chart', 'width':'auto', 'height':'auto',
-                    is3D: true,
-                    //pieHole: 0.5  
+                    title: 'Percentage of Car Pulled',
+                    //is3D:true,  
+                    pieHole: 0.4
                 };
                 var chart = new google.visualization.PieChart(document.getElementById('carChart'));
                 chart.draw(data, options);
@@ -251,29 +240,24 @@ $booking=mysqli_num_rows($sql4);
             google.charts.load('current', {
                 'packages': ['corechart']
             });
-            google.charts.setOnLoadCallback(userChart);
+            google.charts.setOnLoadCallback(Calendar_u);
 
-            function userChart() {
+            function Calendar_u() {
                 var data = google.visualization.arrayToDataTable([
-                    ['user_name', 'Number'],  
-                          <?php  
-                          while($row3 = mysqli_fetch_array($result3))  
-                          {  
-                               echo "['".$row3["user_name"]."', ".$row3["number"]."],";  
-                          }  
-                          ?>  
+                    ['Gender', 'Overall'],
+                    ['M', 210],
+                    ['F', 70]
                 ]);
                 var options = {
-                    title: 'Percentage of User Requests', 'width':'auto', 'height':'auto',
-                    //is3D:true,  
-                    pieHole: 0.4
+
+                    title: 'User Booking Pai Chart', 'width':'auto', 'height':'auto',
+                    is3D: true,
+                    //pieHole: 0.5  
                 };
-                var chart = new google.visualization.PieChart(document.getElementById('userChart'));
+                var chart = new google.visualization.PieChart(document.getElementById('Calendar_u'));
                 chart.draw(data, options);
             }
         </script>
-
-       
 
 
 
