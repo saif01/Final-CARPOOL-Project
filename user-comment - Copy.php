@@ -60,7 +60,7 @@ if (isset($_POST['submit'])) {
                     <article class="single-article">
                         <div class="row">
                             <!-- Articles Thumbnail Start -->
-                            <div class="col-lg-5">
+                            <div class="col-lg-4">
                                 <div class="article-thumb">
                                     <a href="car-details.php?car_id=<?php echo htmlentities($row['car_id']);?> ">  <img src="admin/p_img/carImg/<?php echo($row['car_img']);?>" class="img-responsive" alt="Image" /></a>
                                 </div>
@@ -68,7 +68,7 @@ if (isset($_POST['submit'])) {
                             <!-- Articles Thumbnail End -->
 
                             <!-- Articles Content Start -->
-                            <div class="col-lg-5">
+                            <div class="col-lg-6">
                                 <div class="display-table">
                                     <div class="display-table-cell">
                                         <div class="article-body">
@@ -94,22 +94,22 @@ if (isset($_POST['submit'])) {
                                                 
                                                 <tr>
                                                     <th>Start Mileage :</th>
-                                                    <td><?php echo htmlentities($row['start_mileage']); ?> K.M. </td>
+                                                    <td><input type="Number" name="start_mileage" placeholder="Put Meter Reading" value="<?php echo htmlentities($row['start_mileage']); ?>" >  </td>
                                                 </tr>
 
                                                 <tr>
                                                     <th>End Mileage :</th>
-                                                    <td><?php echo htmlentities($row['end_mileage']); ?> K.M. </td>
+                                                    <td><input type="Number" name="end_mileage" placeholder="Put Meter Reading" value="<?php echo htmlentities($row['end_mileage']); ?>" >  </td>
                                                 </tr>
 
                                                 <tr>
                                                     <th>Fuel Cost :</th>
-                                                    <td><?php echo htmlentities($row['booking_cost']); ?> Taka </td>
+                                                    <td><input type="Number" name="cost" placeholder="Amount of Taka" value="<?php echo htmlentities($row['booking_cost']); ?>" >  </td>
                                                 </tr>
                                                 <tr>
                                                     <th>Driver Rating :</th>
                                                     <td>
-                                                    <?php echo htmlentities($row['driver_rating']); ?> 
+                                                    <input type="Number"  min="0" max="10" name="driver_rating" placeholder="Put marking out of 10" value="<?php echo htmlentities($row['driver_rating']); ?>" >
 
                                                      </td>
                                                 
@@ -119,9 +119,11 @@ if (isset($_POST['submit'])) {
                                                 	<th>
                                                 	
                                                 	
-                                                    <button class="readmore-btn" type="button" data-toggle="modal" data-target="#exampleModal"> Update <i class="fa fa-long-arrow-right"></i></button>
+                                                    <button class="readmore-btn" name="submit" type="Submit"> Update <i class="fa fa-long-arrow-right"></i></button>
 
-                                                   
+                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                                      Launch modal
+                                                    </button>
 
                                                     </th>
                                                 </tr>
@@ -204,28 +206,26 @@ $row2 = $query2->fetch_assoc();
 
 
 
-        <form method="post" >
+        <form method="post">
 
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">Start Mileage :</label>
-            <input type="Number" name="start_mileage" placeholder="Put Meter Reading" class="form-control" value="<?php echo htmlentities($row['start_mileage']); ?>">
+            <input type="Number" name="start_mileage" placeholder="Put Meter Reading" class="form-control" >
             </div>
 
             <div class="form-group">
             <label for="recipient-name" class="col-form-label">End Mileage :</label>
-            <input type="Number" name="end_mileage" placeholder="Put Meter Reading" class="form-control" value="<?php echo htmlentities($row['start_mileage']); ?>">
+            <input type="Number" name="end_mileage" placeholder="Put Meter Reading" class="form-control" >
             </div>
             
             <div class="form-group">
             <label for="recipient-name" class="col-form-label">Fuel Cost :</label>
-            <input type="Number" name="cost" placeholder="Amount of Taka" class="form-control" value="<?php echo htmlentities($row['booking_cost']); ?>">
+            <input type="Number" name="cost" placeholder="Amount of Taka" class="form-control" >
             </div>
             <div class="form-group">
             <label for="recipient-name" class="col-form-label">Driver Rating :</label>
-            <input type="Number"  min="0" max="10" name="driver_rating" placeholder="Put marking out of 10" class="form-control" value="<?php echo htmlentities($row['driver_rating']); ?>">
+            <input type="Number"  min="0" max="10" name="driver_rating" placeholder="Put marking out of 10" class="form-control" >
             </div>
-
-            <button type="submit" name="submit" class="btn btn-primary" >Update</button>
           
         </form>
        
@@ -235,7 +235,7 @@ $row2 = $query2->fetch_assoc();
 
        
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        
+        <button type="button" name="submit" class="btn btn-primary" id="btnsubmit">Save changes</button>
       </div>
     </div>
   </div>

@@ -11,12 +11,6 @@ header('location:index');
 }
 else{ 
 
-                    
-     ?>
-
-
- <?php   
-
  include('include/header.php');
  include('include/social_link_top.php');
  include('include/manu.php');
@@ -171,67 +165,10 @@ else{
      $query2=mysqli_query($con,"SELECT `driver_id` FROM `car_driver` WHERE `car_id`='$car_id' ");
     $row2=$query2->fetch_assoc();
                         
-?><a href="user-comment?booking_id=<?php echo htmlentities($row['booking_id']); ?> &driver_id=<?php echo htmlentities($row2['driver_id']); ?>" class="rent-btn">Comment</a> 
+?><a href="user-comment?booking_id=<?php echo htmlentities($row['booking_id']); ?> &driver_id=<?php echo htmlentities($row2['driver_id']); ?>" class="rent-btn">Comment</a> <?php
 
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Launch modal
-</button>
-
-<?php
-       }?>
-
-
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-
-
-
-        <form method="post">
-
-          <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Start Mileage :</label>
-            <input type="Number" name="start_mileage" placeholder="Put Meter Reading" class="form-control" >
-            </div>
-
-            <div class="form-group">
-            <label for="recipient-name" class="col-form-label">End Mileage :</label>
-            <input type="Number" name="end_mileage" placeholder="Put Meter Reading" class="form-control" >
-            </div>
-            
-            <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Fuel Cost :</label>
-            <input type="Number" name="cost" placeholder="Amount of Taka" class="form-control" >
-            </div>
-            <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Driver Rating :</label>
-            <input type="Number"  min="0" max="10" name="driver_rating" placeholder="Put marking out of 10" class="form-control" >
-            </div>
-          
-        </form>
-       
-      </div>
-      <div class="modal-footer">
-
-
-       
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" name="submit" class="btn btn-primary" id="btnsubmit">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
+}
+                 ?>
 
 
                        
@@ -263,29 +200,5 @@ else{
     <!--== Footer and Common js File start ==-->
     <?php include('include/footer.php'); ?>
     <!--== Footer and Common js File end ==-->
-
- 
- <!-- After input show Submit button  -->
-
-<!-- <input type="text" name ="mytxt" id="mytxt"> 
-<a href="#" id="btnsubmit" class="btn1">Submit</a> -->
-
-<!-- <script type="text/javascript">
-    
-$("#btnsubmit").hide();
-$("#valagency").keyup(function() {
-  if ($(this).val()) {
-    $("#btnsubmit").show();
-  } else {
-    $("#btnsubmit").hide();
-  }
-});
-
-</script> -->
-
-
-
-
-
 
     <?php } ?>
