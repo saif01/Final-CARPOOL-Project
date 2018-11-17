@@ -1,6 +1,8 @@
 <?php
 session_start();
 error_reporting(0);
+date_default_timezone_set('Asia/Dhaka');// change according timezone
+$currentTime = date( 'Y-m-d H:i:s', time () );//H, Time in 24 hours show , h, for 12 hours
 if(strlen($_SESSION['username'])==0)
   { 
 header('location:index');
@@ -136,14 +138,14 @@ foreach($result as $row)
         center: 'title',
         right: 'month,agendaWeek,agendaDay,listWeek'
       },
-      //defaultDate: '2018-03-12',
-      navLinks: true, // can click day/week names to navigate views
+      //defaultDate: '<?php echo $currentTime; ?>',
+      //navLinks: true, // can click day/week names to navigate views
 
       weekNumbers: true,
       weekNumbersWithinDays: true,
       weekNumberCalculation: 'ISO',
 
-      editable: true,
+      //editable: true,
       eventLimit: true, // allow "more" link when too many events
       events: <?php echo json_encode($data); ?>
         

@@ -137,9 +137,7 @@ foreach($result as $row)
         <script src='../admin/cal/locale-all.js'></script>
 
 
-
-        <script>
-
+<script>
   $(document).ready(function() {
 
     $('#calendar').fullCalendar({
@@ -155,15 +153,12 @@ foreach($result as $row)
       weekNumbersWithinDays: true,
       weekNumberCalculation: 'ISO',
 
-      editable: true,
+      //editable: true,
       eventLimit: true, // allow "more" link when too many events
       events: <?php echo json_encode($data); ?>
         
-    });
-
-    
+    });    
   });
-
 </script>
 
 

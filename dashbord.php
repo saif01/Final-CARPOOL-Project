@@ -69,7 +69,7 @@ else{  ?>
                     <div class="slideshowcontent">
                         <div class="display-table">
                             <div class="display-table-cell">
-                               <a href="car-list.php" > <h1>BOOK A CAR TODAY!</h1> </a>
+                               <a href="car-list3" > <h1>BOOK A CAR TODAY!</h1> </a>
 
                                 
 

@@ -11,8 +11,10 @@ header('location:index');
 }
 else{ 
 
-                    
-     ?>
+ include('db/config.php');
+
+                 
+?>
 
 
  <?php   
@@ -21,7 +23,6 @@ else{
  include('include/social_link_top.php');
  include('include/manu.php');
  
- include('db/config.php');
 ?>
 <!--== Page Title Area Start ==-->
     <section id="page-title-area" class="section-padding overlay">
@@ -138,6 +139,7 @@ $edate2=$date2->format('d-m-Y h:i:s A');
                 <?php 
             $booking_status=$row['boking_status'];
             $booked_Date = date($endDate);
+
                 if ($booked_Date > $currentTime && $booking_status==1) {?>                   
                     <a href="cancle-booking?booking_id=<?php echo htmlentities($row['booking_id']); ?>" class="rent-btn">Cancle Booking</a>
                <?php
@@ -151,90 +153,30 @@ $edate2=$date2->format('d-m-Y h:i:s A');
 ?> <button type="button" class="btn btn-danger">Date Expaired</button> <?php
                 }
 
-$cost=$row['booking_cost'];
-$driver_rating=$row['driver_rating'];
-$start_mileage=$row['start_mileage'];
-$end_mileage=$row['end_mileage'];
+// $cost=$row['booking_cost'];
+// $driver_rating=$row['driver_rating'];
+// $start_mileage=$row['start_mileage'];
+// $end_mileage=$row['end_mileage'];
+// $comit_st=$row['comit_st'];
 
 
-
-if ($cost !=='' && $driver_rating !=='' && $start_mileage !=='' && $end_mileage !=='' && $booking_status==1 ) {
+if ($row['booking_cost'] !=='' && $row['driver_rating'] !=='' && $row['start_mileage'] !=='' && $end_mileage=$row['end_mileage'] !=='' && $row['comit_st'] =='' ) {
     
-?> <button type="button" class="btn btn-success">Thank You For Comment</button> <?php
+?> <button type="button" class="btn btn-info"> Commended </button> 
+<?php
 }
-elseif($booking_status==0 ){
+    
 
-}
-else{
+if($comit_st==''){
 
     $car_id=$row['car_id'];
      $query2=mysqli_query($con,"SELECT `driver_id` FROM `car_driver` WHERE `car_id`='$car_id' ");
     $row2=$query2->fetch_assoc();
                         
 ?><a href="user-comment?booking_id=<?php echo htmlentities($row['booking_id']); ?> &driver_id=<?php echo htmlentities($row2['driver_id']); ?>" class="rent-btn">Comment</a> 
+<?php }?>
 
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Launch modal
-</button>
-
-<?php
-       }?>
-
-
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-
-
-
-        <form method="post">
-
-          <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Start Mileage :</label>
-            <input type="Number" name="start_mileage" placeholder="Put Meter Reading" class="form-control" >
-            </div>
-
-            <div class="form-group">
-            <label for="recipient-name" class="col-form-label">End Mileage :</label>
-            <input type="Number" name="end_mileage" placeholder="Put Meter Reading" class="form-control" >
-            </div>
-            
-            <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Fuel Cost :</label>
-            <input type="Number" name="cost" placeholder="Amount of Taka" class="form-control" >
-            </div>
-            <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Driver Rating :</label>
-            <input type="Number"  min="0" max="10" name="driver_rating" placeholder="Put marking out of 10" class="form-control" >
-            </div>
-          
-        </form>
-       
-      </div>
-      <div class="modal-footer">
-
-
-       
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" name="submit" class="btn btn-primary" id="btnsubmit">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-
-                       
+                     
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -260,6 +202,9 @@ else{
     </section>
     <!--== FAQ Area End ==-->
 
+
+
+
     <!--== Footer and Common js File start ==-->
     <?php include('include/footer.php'); ?>
     <!--== Footer and Common js File end ==-->
@@ -283,9 +228,4 @@ $("#valagency").keyup(function() {
 
 </script> -->
 
-
-
-
-
-
-    <?php } ?>
+<?php } ?>

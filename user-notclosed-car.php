@@ -2,7 +2,7 @@
 session_start();
 error_reporting(0);
 date_default_timezone_set('Asia/Dhaka');// change according timezone
-$currentTime = date( 'Y-m-d h:i:s', time () );
+$currentTime = date( 'Y-m-d H:i:s', time () );//H, Time in 24 hours show , h, for 12 hours 
 if(strlen($_SESSION['username'])==0)
   { 
 header('location:index');
@@ -24,7 +24,7 @@ else{
                     <div class="section-title  text-center">
 
                        <h2> 
-                        <?php echo htmlentities($_SESSION['username']) ?>'s Non Commented Cars</h2>
+                        <?php echo htmlentities($_SESSION['username']) ?>'s Not Closed Comment</h2>
                         <span class="title-line"><i class="fa fa-car"></i></span>
                         
                     </div>
@@ -50,7 +50,7 @@ else{
 
                             <?php
             $user_id=$_SESSION['user_id'];
-                           $query=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `user_id`='$user_id' AND (`booking_cost`= '' OR `driver_rating`= '' OR `start_mileage`= '' OR `end_mileage` = '') ");
+                           $query=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `user_id`='$user_id' AND `comit_st`='' ORDER BY`booking_id` DESC ");
                     while($row=mysqli_fetch_array($query))
                     {  
 
@@ -125,15 +125,23 @@ $edate2=$date2->format('d-m-Y h:i:s A');
                                                 </li>
                                                 </ul>
                     <?php
+
                         $car_id=$row['car_id'];
                         $query2=mysqli_query($con,"SELECT `driver_id` FROM `car_driver` WHERE `car_id`='$car_id' ");
                         $row2=$query2->fetch_assoc();
                         ?>
                <a href="user-comment2?booking_id=<?php echo htmlentities($row['booking_id']); ?> &driver_id=<?php echo htmlentities($row2['driver_id']); ?>" class="rent-btn">Comment</a> 
 
+               <?php 
 
+
+if ($row['booking_cost'] !=='' && $row['driver_rating'] !=='' && $row['start_mileage'] !=='' && $end_mileage=$row['end_mileage'] !=='' && $row['comit_st'] =='' ) {
+    
+?> <button type="button" class="btn btn-info"> Commended </button> 
+<?php
+}
                        
-                                                                        </div>
+                     ?>                                                   </div>
                                                                     </div>
                                                                 </div>
                                                             </div>

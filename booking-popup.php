@@ -181,7 +181,7 @@ error:function (){}
                 		<div class="login-form">
                 			<h3>Car Booking Entry <span id="user-availability-status1" style="font-size:12px;"></span>
                             </h3>
-							<form action="" method="POST">
+							<form action="" method="POST" onsubmit="return Validate(this);">
 								<div class="name">
 									<div class="row">
 										<div class="col-md-6">
@@ -237,7 +237,7 @@ error:function (){}
                                     <div class="row">
                                         <div >
                                             <label >Start time -:
-                                    <select name="start_time"> 
+                                    <select id="first" name="start_time"> 
                                     		<option value="01:00:00">Select Time </option>
                                             <option value="09:00:00">9.00 AM </option>
                                             <option value="09:30:00">9.30 AM </option>
@@ -264,7 +264,7 @@ error:function (){}
                                         </div>
                                         <div >
                                             <label>Return Time 
-                                        <select name="return_time"> 
+                                        <select id="second" name="return_time"> 
                                         	<option value="23:59:00">Select Time </option>
                                             <option value="09:00:00">9.00 AM </option>
                                             <option value="09:30:00">9.30 AM </option>
@@ -322,6 +322,26 @@ error:function (){}
     <!--=======================Javascript============================-->
 
 <?php include('include/footer.php'); ?>
+
+<script type="text/javascript">
+        function Validate(objForm) {
+            if(document.getElementById("first").value == document.getElementById("second").value)
+            {
+    alert("Can't Input Same Time !! ");
+    return false;
+            }
+            else if(document.getElementById("first").value >= document.getElementById("second").value)
+            {
+    alert("Can't Put Lower Time from Start Time !! ");
+    return false;
+            }
+            return true;
+        }
+
+</script>
+
+
+
 
 
 <?php } ?>

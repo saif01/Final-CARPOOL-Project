@@ -1,12 +1,15 @@
 <?php
 session_start();
 error_reporting(0);
+date_default_timezone_set('Asia/Dhaka');// change according timezone
+$currentTime = date( 'Y-m-d H:i:s', time () );//H, Time in 24 hours show , h, for 12 hours 
 if(strlen($_SESSION['username'])==0)
   { 
 header('location:index');
 }
 else{
-$currentTime = date( 'Y-m-d h:i:s', time () );
+
+
 
  include('db/config.php');
 include('db/calDB.php');
@@ -199,30 +202,27 @@ if (isset($_POST['submit'])) {
 
 
 <script>
-
   $(document).ready(function() {
-    var initialLocaleCode = 'en';
 
     $('#calendar').fullCalendar({
       header: {
         left: 'prev,next today',
         center: 'title',
-        right: 'month,agendaWeek,agendaDay,listMonth'
+        right: 'month,agendaWeek,agendaDay,listWeek'
       },
       //defaultDate: '2018-03-12',
-      locale: initialLocaleCode,
-      buttonIcons: false, // show the prev/next text
-      weekNumbers: true,
       navLinks: true, // can click day/week names to navigate views
-      editable: true,
+
+      weekNumbers: true,
+      weekNumbersWithinDays: true,
+      weekNumberCalculation: 'ISO',
+
+      //editable: true,
       eventLimit: true, // allow "more" link when too many events
       events: <?php echo json_encode($data); ?>
         
-    });
-
-    
+    });    
   });
-
 </script>
   
 
@@ -271,7 +271,7 @@ if (isset($_POST['submit'])) {
               
                        ?>
 
-              <form action="" method="POST">
+              <form action="" method="POST" onsubmit="return Validate(this);">
                 
 
                   <div class="row">
@@ -292,7 +292,7 @@ if (isset($_POST['submit'])) {
                        <div class="pickup-location book-item">
                       <label>Choose Location : </label>
                                   
-                        <select name="location" class="custom-select" required>
+                        <select  name="location" class="custom-select" required>
                             <option value="">Select Location</option> 
                                     
 									<?php
@@ -315,7 +315,7 @@ if (isset($_POST['submit'])) {
                                     <div class="row">
                                         <div class="col-lg-6 " >
                                             <label>Booking Start time :
-                                    <select name="start_time" class="custom-select" > 
+                                    <select id="first" name="start_time" class="custom-select" > 
                                         <option value="01:00:00">Select Time </option>
                                             <option value="09:00:00">9.00 AM </option>
                                             <option value="09:30:00">9.30 AM </option>
@@ -333,7 +333,7 @@ if (isset($_POST['submit'])) {
                                             <option value="15:30:00">3.30 PM </option>
                                             <option value="16:00:00">4.00 PM </option>
                                             <option value="16:30:00">4.30 PM </option>
-                                            <option value="17:00:00">5.00 PM </option>
+                                           
                                             
                                                                                   
                                          </select>
@@ -342,9 +342,9 @@ if (isset($_POST['submit'])) {
 
                                         <div  class="col-md-6">
                                             <label>Booking Return Time :
-                                        <select name="return_time" class="custom-select"> 
+                                        <select id="second" name="return_time" class="custom-select"> 
                                           <option value="23:59:00">Select Time </option>
-                                            <option value="09:00:00">9.00 AM </option>
+                                            
                                             <option value="09:30:00">9.30 AM </option>
                                             <option value="10:00:00">10.00 AM </option>
                                             <option value="10:30:00">10.30 AM </option>
@@ -468,7 +468,22 @@ Copyright &copy;<script>document.write(new Date().getFullYear()); </script> C.P.
     <script src="assets/js/main.js"></script>
 
 
+<script type="text/javascript">
+        function Validate(objForm) {
+            if(document.getElementById("first").value == document.getElementById("second").value)
+            {
+    alert("Can't Input Same Time !! ");
+    return false;
+            }
+            else if(document.getElementById("first").value >= document.getElementById("second").value)
+            {
+    alert("Can't Put Lower Time from Start Time !! ");
+    return false;
+            }
+            return true;
+        }
 
+</script>
 
 </body>
 

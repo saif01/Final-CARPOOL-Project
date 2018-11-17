@@ -57,7 +57,7 @@
                                        <img src="admin/p_img/userImg/<?php echo($row2['user_img']);?>" class="img-responsive r_user" alt="Image" />  </a>
                                     <ul>
                                         <li><a href="user-booked-car">My Booked Car</a></li>
-                                        <li><a href="user-noncommented-car">None Commented </a></li>
+                                        <li><a href="user-notclosed-car">Not Closed Commend</a></li>
                                         <li><a href="user-info">My Profile</a></li>
                                         <li><a href="user-history">My Booking History</a></li>
                                         
@@ -68,7 +68,7 @@
                                  </li>
                                  
 
-                                  <li><a href="car-list3"> Car List </a>
+                                  <li><a href="#"> Car List </a>
                                     <ul>
                                         <li><a href="car-list3">Regular Car</a></li>
                                         <li><a href="car-list-temp">Temporary Car</a></li>

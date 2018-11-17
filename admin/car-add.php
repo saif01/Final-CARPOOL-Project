@@ -308,7 +308,7 @@ $query=mysqli_query($con,"INSERT INTO `tbl_car`(`car_name`, `car_namePlate`, `te
                                                         <div class="col-sm-9">
                                                             <select class="form-control" name="temp_car" required>
                               <option value=""> Select Value</option>
-                              <option value="0">Normal Car</option>
+                              <option value="0">Regular Car</option>
                               <option value="1">Temporary Car</option>
                             </select>
                                                         </div>

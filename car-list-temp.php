@@ -38,7 +38,7 @@ else{
         <div class="container">
             <div class="row">
 
-            	<?php
+                <?php
                     $query=mysqli_query($con,"SELECT * FROM `tbl_car` WHERE `temp_car`='1'");
                     while($row=mysqli_fetch_array($query))
                     {     
@@ -106,9 +106,9 @@ if ($car_status==1) {
                                                 
                                                 </tr>
                                                 <tr>
-                                                	<th>
-                                                	<a href="calendar-view-temp?car_id=<?php echo htmlentities($row['car_id']);?>" class="readmore-btn">Book  <i class="fa fa-long-arrow-right"></i></a>
-                                                	</th>
+                                                    <th>
+                                                    <a href="calendar-view-temp?car_id=<?php echo htmlentities($row['car_id']);?>" class="readmore-btn">Book  <i class="fa fa-long-arrow-right"></i></a>
+                                                    </th>
                                                     <!-- <td>
                                                         <a href="calendar-view2-temp?car_id=<?php echo htmlentities($row['car_id']);?>" class="readmore-btn">Calendar <i class="fa fa-long-arrow-right"></i></a>
                                                     </td> -->

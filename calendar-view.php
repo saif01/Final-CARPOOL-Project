@@ -224,7 +224,7 @@ if (isset($_POST['submit'])) {
       weekNumbersWithinDays: true,
       weekNumberCalculation: 'ISO',
 
-      editable: true,
+      //editable: true,
       eventLimit: true, // allow "more" link when too many events
       events: <?php echo json_encode($data); ?>
         
@@ -236,10 +236,6 @@ if (isset($_POST['submit'])) {
 </script>
 
 
-
-
-
-  
 
 
 <script>
@@ -323,7 +319,7 @@ if (isset($_POST['submit'])) {
               
                        ?>
 
-              <form action="" method="POST">
+              <form  method="POST" onsubmit="return Validate(this);">
                 
 
                   <div class="row">
@@ -382,7 +378,7 @@ if (isset($_POST['submit'])) {
                                     <div class="row">
                                         <div class="col-lg-6 " >
                                             <label>Booking Start time :
-                                    <select name="start_time" class="custom-select" > 
+                                    <select id="first" name="start_time" class="custom-select" > 
                                         <option value="01:00:00">Select Time </option>
                                             <option value="09:00:00">9.00 AM </option>
                                             <option value="09:30:00">9.30 AM </option>
@@ -410,7 +406,7 @@ if (isset($_POST['submit'])) {
 
                                         <div  class="col-md-6">
                                             <label>Booking Return Time :
-                                        <select name="return_time" class="custom-select"> 
+                                        <select id="second" name="return_time" class="custom-select"> 
                                           <option value="23:59:00">Select Time </option>
                                             <option value="09:00:00">9.00 AM </option>
                                             <option value="09:30:00">9.30 AM </option>
@@ -542,6 +538,23 @@ Copyright &copy;<script>document.write(new Date().getFullYear()); </script> C.P.
     <script src="assets/js/main.js"></script>
 
 
+
+<script type="text/javascript">
+        function Validate(objForm) {
+            if(document.getElementById("first").value == document.getElementById("second").value)
+            {
+    alert("Can't Input Same Time !! ");
+    return false;
+            }
+            else if(document.getElementById("first").value >= document.getElementById("second").value)
+            {
+    alert("Can't Put Lower Time from Start Time !!");
+    return false;
+            }
+            return true;
+        }
+
+</script>
 
 
 </body>
