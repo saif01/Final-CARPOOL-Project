@@ -253,9 +253,9 @@ $row2 = $query2->fetch_assoc();
 
             <div class="field form-group">
             <label for="recipient-name" class="col-form-label">End Mileage :</label>
-            <input type="Number"  name="end_mileage" placeholder="Put Meter Reading" class="form-control" onBlur="userAvailability()" value="<?php echo htmlentities($row['start_mileage']); ?>">
+            <input type="Number"  name="end_mileage" placeholder="Put Meter Reading" class="form-control"  value="<?php echo htmlentities($row['end_mileage']); ?>">
 
-            <span id="user-availability-status1" style="font-size:12px;"></span>
+            
             </div>
             
             <div class="field form-group">

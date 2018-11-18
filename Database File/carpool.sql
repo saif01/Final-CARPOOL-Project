@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 16, 2018 at 02:39 AM
+-- Generation Time: Nov 18, 2018 at 10:36 AM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.4
 
@@ -62,7 +62,6 @@ CREATE TABLE `car_booking` (
   `user_name` varchar(100) NOT NULL,
   `car_name` varchar(100) NOT NULL,
   `car_number` varchar(255) NOT NULL,
-  `carNumber` varchar(250) NOT NULL,
   `car_img` varchar(255) NOT NULL,
   `start_date` varchar(100) NOT NULL,
   `end_date` varchar(100) NOT NULL,
@@ -74,6 +73,7 @@ CREATE TABLE `car_booking` (
   `driver_id` varchar(20) NOT NULL,
   `start_mileage` varchar(50) NOT NULL,
   `end_mileage` varchar(50) NOT NULL,
+  `comit_st` varchar(20) NOT NULL,
   `reg_date_booking` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -81,14 +81,25 @@ CREATE TABLE `car_booking` (
 -- Dumping data for table `car_booking`
 --
 
-INSERT INTO `car_booking` (`booking_id`, `car_id`, `user_id`, `user_name`, `car_name`, `car_number`, `carNumber`, `car_img`, `start_date`, `end_date`, `location`, `day_count`, `boking_status`, `booking_cost`, `driver_rating`, `driver_id`, `start_mileage`, `end_mileage`, `reg_date_booking`) VALUES
-(1, '17', '4', 'rana', 'Nissan 2', 'DM-THA-15-7078', 'DM-THA-15-7078', 'rewre.jpg', '2018-11-16 01:00:00', '2018-11-16 23:59:00', 'valuka', '1', '1', '', '', '', '', '', '2018-11-16 01:16:06.091096'),
-(2, '17', '4', 'rana', 'Nissan 2', 'DM-THA-15-7078', 'DM-THA-15-7078', 'rewre.jpg', '2018-11-17 01:00:00', '2018-11-18 23:59:00', 'Mymensingh', '2', '1', '', '', '', '', '', '2018-11-16 01:16:12.962349'),
-(3, '25', '4', 'rana', 'Hiace\r\n', 'DM-CHA-15-7076', 'DM-CHA-15-7076', 'IMG_7944.JPG', '2018-11-16 01:00:00', '2018-11-17 23:59:00', 'Savar', '2', '1', '', '', '', '', '', '2018-11-16 01:16:19.355216'),
-(4, '26', '4', 'rana', 'Toytota Noah', 'DM-DHA-15-7081', 'DM-DHA-15-7081', 'IMG_7929.JPG', '2018-11-24 01:00:00', '2018-11-25 23:59:00', 'Dhaka', '2', '1', '', '', '', '', '', '2018-11-16 01:16:25.060578'),
-(5, '26', '4', 'rana', 'Toytota Noah', 'DM-DHA-15-7081', 'DM-DHA-15-7081', 'IMG_7929.JPG', '2018-11-18 01:00:00', '2018-11-19 23:59:00', 'Savar', '2', '1', '', '', '', '', '', '2018-11-16 01:16:32.661193'),
-(6, '17', '1', 'saif', 'Nissan 2', 'DM-THA-15-7078', 'DM-THA-15-7078', 'rewre.jpg', '2018-11-23 01:00:00', '2018-11-24 23:59:00', 'Savar', '2', '1', '', '', '', '', '', '2018-11-16 01:16:37.991907'),
-(7, '26', '1', 'saif', 'Toytota Noah', 'DM-DHA-15-7081', 'DM-DHA-15-7081', 'IMG_7929.JPG', '2018-11-29 01:00:00', '2018-11-29 23:59:00', 'Mymensingh', '1', '1', '', '', '', '', '', '2018-11-16 01:16:46.672588');
+INSERT INTO `car_booking` (`booking_id`, `car_id`, `user_id`, `user_name`, `car_name`, `car_number`, `car_img`, `start_date`, `end_date`, `location`, `day_count`, `boking_status`, `booking_cost`, `driver_rating`, `driver_id`, `start_mileage`, `end_mileage`, `comit_st`, `reg_date_booking`) VALUES
+(1, '17', '4', 'rana', 'Nissan 2', 'DM-THA-15-7078', 'rewre.jpg', '2018-11-16 01:00:00', '2018-11-16 23:59:00', 'valuka', '1', '1', '', '', '', '', '', '', '2018-11-16 01:16:06.091096'),
+(2, '17', '4', 'rana', 'Nissan 2', 'DM-THA-15-7078', 'rewre.jpg', '2018-11-17 01:00:00', '2018-11-18 23:59:00', 'Mymensingh', '2', '1', '', '', '12', '4582', '', '', '2018-11-17 09:30:55.874921'),
+(3, '25', '4', 'rana', 'Hiace\r\n', 'DM-CHA-15-7076', 'IMG_7944.JPG', '2018-11-16 01:00:00', '2018-11-17 23:59:00', 'Savar', '2', '1', '', '', '', '', '', '', '2018-11-16 01:16:19.355216'),
+(4, '26', '4', 'rana', 'Toytota Noah', 'DM-DHA-15-7081', 'IMG_7929.JPG', '2018-11-24 01:00:00', '2018-11-25 23:59:00', 'Dhaka', '2', '1', '568', '2', '21', '1425', '1425', '', '2018-11-17 04:38:27.361989'),
+(5, '26', '4', 'rana', 'Toytota Noah', 'DM-DHA-15-7081', 'IMG_7929.JPG', '2018-11-18 01:00:00', '2018-11-19 23:59:00', 'Savar', '2', '1', '1423', '10', '21', '2568', '2568', '1', '2018-11-17 04:12:13.369350'),
+(6, '17', '1', 'saif', 'Nissan 2', 'DM-THA-15-7078', 'rewre.jpg', '2018-11-23 01:00:00', '2018-11-24 23:59:00', 'Savar', '2', '1', '', '', '', '', '', '', '2018-11-16 01:16:37.991907'),
+(7, '26', '1', 'saif', 'Toytota Noah', 'DM-DHA-15-7081', 'IMG_7929.JPG', '2018-11-29 01:00:00', '2018-11-29 23:59:00', 'Mymensingh', '1', '1', '', '', '', '', '', '', '2018-11-16 01:16:46.672588'),
+(8, '14', '4', 'rana', 'Toyotassss', 'DM-THA-15-7080', 'ddd (1).jpg', '2018-11-17 09:00:00', '2018-11-17 10:30:00', 'valuka', '0', '1', '', '', '', '', '', '', '2018-11-17 04:16:01.724696'),
+(9, '14', '4', 'rana', 'Toyotassss', 'DM-THA-15-7080', 'ddd (1).jpg', '2018-11-17 11:00:00', '2018-11-17 14:00:00', 'Dhaka', '0', '1', '', '', '', '', '', '', '2018-11-17 04:56:48.213770'),
+(10, '16', '4', 'rana', 'Suzuki', 'DM-THA-15-7079', 'ddd (2).jpg', '2018-11-17 09:00:00', '2018-11-17 12:30:00', 'Dhaka', '0', '1', '', '', '1', '1234', '2345', '', '2018-11-17 05:38:27.936852'),
+(11, '26', '4', 'rana', 'Toytota Noah', 'DM-DHA-15-7081', 'IMG_7929.JPG', '2018-11-17 01:00:00', '2018-11-17 23:59:00', 'Savar', '1', '1', '', '', '21', '1234', '2345', '', '2018-11-17 05:34:36.329152'),
+(12, '14', '4', 'rana', 'Toyotassss', 'DM-THA-15-7080', 'ddd (1).jpg', '2018-11-18 12:00:00', '2018-11-18 13:00:00', 'valuka', '0', '1', '', '', '', '', '', '', '2018-11-17 05:47:26.703358'),
+(13, '27', '4', 'rana', 'Toytota', 'DM-DHA-15-7083', 'IMG_7915.JPG', '2018-11-18 01:00:00', '2018-11-19 23:59:00', 'valuka', '2', '1', '', '', '', '', '', '', '2018-11-17 05:49:05.857366'),
+(14, '27', '4', 'rana', 'Toytota', 'DM-DHA-15-7083', 'IMG_7915.JPG', '2018-11-21 12:00:00', '2018-11-21 09:30:00', 'Mymensingh', '0', '1', '', '', '22', '3456', '', '', '2018-11-17 09:30:29.831191'),
+(15, '27', '4', 'rana', 'Toytota', 'DM-DHA-15-7083', 'IMG_7915.JPG', '2018-11-22 12:00:00', '2018-11-22 14:30:00', 'Mymensingh', '0', '1', '458', '8', '22', '4568', '4568', '', '2018-11-17 06:59:58.243206'),
+(16, '17', '4', 'rana', 'Nissan 2', 'DM-THA-15-7078', 'rewre.jpg', '2018-11-25 12:00:00', '2018-11-25 11:30:00', 'valuka', '0', '1', '', '', '', '', '', '', '2018-11-17 08:07:25.991902'),
+(17, '17', '4', 'rana', 'Nissan 2', 'DM-THA-15-7078', 'rewre.jpg', '2018-11-25 11:00:00', '2018-11-25 14:00:00', 'Mymensingh', '0', '1', '258', '5', '12', '4785', '7894', '1', '2018-11-17 08:58:12.488490'),
+(18, '17', '4', 'rana', 'Nissan 2', 'DM-THA-15-7078', 'rewre.jpg', '2018-11-25 14:30:00', '2018-11-25 15:00:00', 'Dhaka', '0', '1', '582', '6', '12', '1254', '4568', '1', '2018-11-18 09:31:04.532545');
 
 -- --------------------------------------------------------
 
@@ -117,37 +128,10 @@ CREATE TABLE `car_driver` (
 INSERT INTO `car_driver` (`driver_id`, `car_id`, `driver_name`, `driver_phone`, `driver_img`, `driver_license`, `driver_nid`, `driver_status`, `leave_start`, `leave_end`, `driver_reg`) VALUES
 (1, 16, 'Belal', '01707080401', 'driver2.png', '65448161', '25525826522', '1', '', '', '2018-11-13 04:55:29.879465'),
 (11, 14, 'Rahim', '01707080401', 'Driver Default.jpg', '644444444', '2552582652258888', '1', '', '', '2018-10-17 05:37:55.848103'),
-(12, 17, 'Hadi', '1707080401', 'driver2.png', '5689586521', '199235689548', '0', '2018-11-12 01:01:01', '2018-11-12 23:59:01', '2018-11-12 09:56:17.939457'),
-(21, 26, 'Dulal', '01715788357', 'IMG_7965.JPG', '000000000000', '000000000000', '0', '2018-11-17 01:01:01', '2018-11-18 23:59:01', '2018-11-13 04:56:06.263759'),
+(12, 17, 'Hadi', '1707080401', 'driver2.png', '5689586521', '199235689548', '1', '2018-11-12 01:01:01', '2018-11-12 23:59:01', '2018-11-16 05:20:21.291143'),
+(21, 26, 'Dulal', '01715788357', 'IMG_7965.JPG', '000000000000', '000000000000', '1', '2018-11-17 01:01:01', '2018-11-18 23:59:01', '2018-11-16 05:20:25.723605'),
 (22, 27, 'Kalam', '01921311474', 'IMG_7971.JPG', '000000000000', '000000000000', '1', '', '', '2018-11-10 08:53:05.660591'),
 (23, 25, 'Rofiq(Jr)', '01984548331', 'IMG_7968.JPG', '000000000000', '000000000000', '1', '', '', '2018-11-10 08:56:04.460375');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `chart_info`
---
-
-CREATE TABLE `chart_info` (
-  `chart_id` int(6) NOT NULL,
-  `year` varchar(100) NOT NULL,
-  `month` varchar(100) NOT NULL,
-  `carName_number` varchar(100) NOT NULL,
-  `booking_days` varchar(50) NOT NULL,
-  `chart_reg` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `chart_info`
---
-
-INSERT INTO `chart_info` (`chart_id`, `year`, `month`, `carName_number`, `booking_days`, `chart_reg`) VALUES
-(1, '2018', 'january', 'Toyta-003', '5', '0000-00-00 00:00:00.000000'),
-(2, '2018', 'february', 'sujuki-002', '3', '0000-00-00 00:00:00.000000'),
-(3, '2018', 'march', 'Toyta2-0034', '5', '2018-10-22 05:28:31.152809'),
-(4, '2018', 'february', 'sujuki2-0022', '4', '2018-10-22 05:28:50.754792'),
-(5, '2016', 'march', 'Toyta2-0034', '5', '2018-10-22 05:28:31.152809'),
-(6, '2017', 'march', 'Toyta2-0034', '5', '2018-10-22 05:28:31.152809');
 
 -- --------------------------------------------------------
 
@@ -290,7 +274,7 @@ INSERT INTO `loginlog` (`login_id`, `user_name`, `user_id`, `user_ip`, `user_os`
 (60, 'admin', '1', '::1', 'Windows 10', 'Chrome', 'Syful-IT', '1', '2018-11-13 05:29:52.678961', '2018-13-11 11:29:52 AM', '2018-11-13 05:29:52.678961'),
 (61, 'admin', '3', '::1', 'Windows 10', 'Chrome', 'Syful-IT', '1', '2018-11-13 05:30:53.471398', '2018-13-11 11:30:53 AM', '2018-11-13 05:30:53.471398'),
 (62, 'admin2', '', '::1', '0', 'Firefox', 'Computer', '', '2018-11-13 05:31:10.603604', '', '2018-11-13 05:31:10.603604'),
-(63, 'admin2', '1', '::1', 'Windows 10', 'Firefox', 'Syful-IT', '1', '2018-11-16 00:26:57.272364', '2018-16-11 06:26:57 AM', '2018-11-16 00:26:57.272364'),
+(63, 'admin2', '1', '::1', 'Windows 10', 'Firefox', 'Syful-IT', '1', '2018-11-18 03:34:09.427011', '2018-18-11 09:34:09 AM', '2018-11-18 03:34:09.427011'),
 (64, 'admin', '3', '::1', 'Windows 10', 'Firefox', 'Syful-IT', '1', '2018-11-13 05:31:57.385745', '', '2018-11-13 05:31:57.385745'),
 (65, 'rana', '4', '::1', 'Windows 10', 'Firefox', 'DESKTOP-N65QGSV', '1', '2018-11-15 04:43:44.522058', '2018-11-15 10:43:44 AM', '2018-11-15 04:43:44.522058'),
 (66, '', '1', '::1', 'Windows 10', 'Firefox', 'DESKTOP-N65QGSV', '1', '2018-11-15 16:44:23.453186', '', '2018-11-15 16:44:23.453186'),
@@ -300,7 +284,25 @@ INSERT INTO `loginlog` (`login_id`, `user_name`, `user_id`, `user_ip`, `user_os`
 (70, 'saif', '1', '::1', 'Windows 10', 'Firefox', 'Syful-IT', '0', '2018-11-16 00:30:24.243615', '', '2018-11-16 00:30:24.243615'),
 (71, 'admin', '3', '::1', 'Windows 10', 'Firefox', 'Syful-IT', '1', '2018-11-16 00:30:36.590365', '', '2018-11-16 00:30:36.590365'),
 (72, 'saif', '1', '::1', 'Windows 10', 'Firefox', 'Syful-IT', '1', '2018-11-16 00:38:00.817658', '2018-11-16 06:38:00 AM', '2018-11-16 00:38:00.817658'),
-(73, 'admin', '3', '::1', 'Windows 10', 'Firefox', 'Syful-IT', '1', '2018-11-16 00:41:51.173481', '', '2018-11-16 00:41:51.173481');
+(73, 'admin', '3', '::1', 'Windows 10', 'Firefox', 'Syful-IT', '1', '2018-11-16 01:54:02.079354', '2018-16-11 07:54:02 AM', '2018-11-16 01:54:02.079354'),
+(74, 'rana', '4', '::1', 'Windows 10', 'Firefox', 'Syful-IT', '1', '2018-11-16 05:15:29.027677', '', '2018-11-16 05:15:29.027677'),
+(75, 'admin', '3', '::1', 'Windows 10', 'Firefox', 'Syful-IT', '1', '2018-11-16 05:17:47.464047', '', '2018-11-16 05:17:47.464047'),
+(76, 'rana', '4', '::1', 'Windows 10', 'Firefox', 'Syful-IT', '1', '2018-11-16 08:41:14.441292', '', '2018-11-16 08:41:14.441292'),
+(77, 'rana', '4', '::1', 'Windows 10', 'Firefox', 'Syful-IT', '1', '2018-11-17 02:30:15.960352', '', '2018-11-17 02:30:15.960352'),
+(78, 'admin', '3', '::1', 'Windows 10', 'Chrome', 'Syful-IT', '1', '2018-11-17 03:50:32.041389', '', '2018-11-17 03:50:32.041389'),
+(79, 'rana', '4', '::1', 'Windows 10', 'Firefox', 'Syful-IT', '1', '2018-11-17 04:55:18.968225', '', '2018-11-17 04:55:18.968225'),
+(80, 'rana', '4', '::1', 'Windows 10', 'Firefox', 'Syful-IT', '1', '2018-11-17 06:21:42.137252', '', '2018-11-17 06:21:42.137252'),
+(81, 'rana', '4', '::1', 'Windows 10', 'Chrome', 'Syful-IT', '1', '2018-11-17 09:00:55.415052', '2018-11-17 03:00:55 PM', '2018-11-17 09:00:55.415052'),
+(82, 'admin', '3', '::1', 'Windows 10', 'Firefox', 'Syful-IT', '1', '2018-11-17 09:27:42.793115', '2018-17-11 03:27:42 PM', '2018-11-17 09:27:42.793115'),
+(83, 'rana', '4', '::1', 'Windows 10', 'Firefox', 'Syful-IT', '1', '2018-11-17 09:58:32.924380', '2018-11-17 03:58:32 PM', '2018-11-17 09:58:32.924380'),
+(84, 'rana', '4', '::1', 'Windows 10', 'Firefox', 'Syful-IT', '1', '2018-11-17 09:58:47.151958', '', '2018-11-17 09:58:47.151958'),
+(85, 'admin', '3', '::1', 'Windows 10', 'Firefox', 'Syful-IT', '1', '2018-11-17 10:00:52.063171', '2018-17-11 04:00:52 PM', '2018-11-17 10:00:52.063171'),
+(86, '', '1', '::1', 'Windows 10', 'Firefox', 'Syful-IT', '1', '2018-11-17 10:00:55.859606', '', '2018-11-17 10:00:55.859606'),
+(87, 'admin', '3', '::1', 'Windows 10', 'Chrome', 'Syful-IT', '1', '2018-11-17 10:08:09.346329', '2018-17-11 04:08:09 PM', '2018-11-17 10:08:09.346329'),
+(88, '', '1', '::1', 'Windows 10', 'Chrome', 'Syful-IT', '1', '2018-11-17 10:08:15.199480', '', '2018-11-17 10:08:15.199480'),
+(89, '', '1', '::1', 'Windows 10', 'Chrome', 'Syful-IT', '1', '2018-11-17 10:09:24.054871', '', '2018-11-17 10:09:24.054871'),
+(90, 'rana', '4', '::1', 'Windows 10', 'Firefox', 'Syful-IT', '1', '2018-11-18 05:03:48.783395', '2018-11-18 11:03:48 AM', '2018-11-18 05:03:48.783395'),
+(91, 'rana', '4', '::1', 'Windows 10', 'Firefox', 'Syful-IT', '1', '2018-11-18 05:58:36.423869', '', '2018-11-18 05:58:36.423869');
 
 -- --------------------------------------------------------
 
@@ -393,12 +395,6 @@ ALTER TABLE `car_driver`
   ADD PRIMARY KEY (`driver_id`);
 
 --
--- Indexes for table `chart_info`
---
-ALTER TABLE `chart_info`
-  ADD PRIMARY KEY (`chart_id`);
-
---
 -- Indexes for table `driver_leave`
 --
 ALTER TABLE `driver_leave`
@@ -442,19 +438,13 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `car_booking`
 --
 ALTER TABLE `car_booking`
-  MODIFY `booking_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `booking_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `car_driver`
 --
 ALTER TABLE `car_driver`
   MODIFY `driver_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
-
---
--- AUTO_INCREMENT for table `chart_info`
---
-ALTER TABLE `chart_info`
-  MODIFY `chart_id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `driver_leave`
@@ -472,7 +462,7 @@ ALTER TABLE `location`
 -- AUTO_INCREMENT for table `loginlog`
 --
 ALTER TABLE `loginlog`
-  MODIFY `login_id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+  MODIFY `login_id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 
 --
 -- AUTO_INCREMENT for table `tbl_car`
