@@ -20,7 +20,7 @@ else{
                 <!-- Page Title Start -->
                 <div class="col-lg-12">
                     <div class="section-title  text-center">
-                        <h2>Car Dedails info.</h2>
+                        <h2>Driver Dedails info.</h2>
                         <span class="title-line"><i class="fa fa-car"></i></span>
                        <!--  <p>C.P. Bangladesh Car List.. </p> -->
                     </div>
