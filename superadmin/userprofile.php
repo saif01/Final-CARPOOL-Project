@@ -74,6 +74,11 @@ $row=$query->fetch_assoc();
                                         <th> <strong><?php echo $row['user_name'];?></strong> </th>
                                     </tr>
 
+                                     <tr>
+                                        <td> User Department:</td>
+                                        <th> <strong><?php echo $row['user_department'];?></strong> </th>
+                                    </tr>
+
                                     <tr>
                                         <td> User Contract:</td>
                                         <th> <strong><?php echo $row['user_contract'];?></strong> </th>

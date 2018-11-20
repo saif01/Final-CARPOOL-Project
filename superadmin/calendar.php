@@ -14,7 +14,7 @@ include('../db/calDB.php');
 //start For Load data for show on calender.......................
 $data = array();
 
-$query = "SELECT * FROM `car_booking` ORDER BY `booking_id` ";
+$query = "SELECT * FROM `car_booking` LEFT JOIN `user` ON car_booking.user_id = user.user_id WHERE  car_booking.boking_status='1' ORDER BY `booking_id` ";
 
 //$query = "SELECT * FROM car_booking ORDER BY booking_id";
 
@@ -29,7 +29,7 @@ foreach($result as $row)
  $data[] = array(
   'id'   => $row["booking_id"],
   //'title'   => $row["car_name"].' Car Number--'. $row["car_number"] ,
-  'title' => $row["location"].'-'.$row["user_name"],
+  'title' => $row["location"].'--'. $row["user_name"].'--'. $row["user_department"],
   'start'   => $row["start_date"],
   'end'   => $row["end_date"],
   

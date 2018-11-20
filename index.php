@@ -7,16 +7,16 @@ error_reporting(0);
 
 if(isset($_POST['submit']))
 {
-    $username=$_POST['username'];
+    $logIn_id=$_POST['logIn_id'];
     $password=$_POST['password'];
 
-$ret=mysqli_query($con,"SELECT `user_name`, `user_pass` FROM `user` WHERE `user_name`='$username' AND `user_pass` = '$password' ");
+$ret=mysqli_query($con,"SELECT `logIn_id`, `user_pass` FROM `user` WHERE `logIn_id`='$logIn_id' AND `user_pass` = '$password' ");
    
 $num=mysqli_fetch_array($ret);
 if($num>0)
 {   
 
-    $ret= mysqli_query($con,"SELECT * FROM `user` WHERE `user_name` ='$username'");
+    $ret= mysqli_query($con,"SELECT * FROM `user` WHERE `logIn_id` ='$logIn_id'");
     while($row=mysqli_fetch_array($ret))
                 {   
 
@@ -26,7 +26,7 @@ if($num>0)
                     if ($st==1) 
                     {  
                         $_SESSION['user_id']=$user_id;
-                        $_SESSION['username']=$_POST['username'];
+                        $_SESSION['username']=$_POST['logIn_id'];
                         $_SESSION['id']=$num['id'];
                         $ip= UserInfo::get_ip();
                         $os= UserInfo::get_os();
@@ -48,7 +48,7 @@ if($num>0)
                         elseif ($st==0)
                     {   
 
-                        $_SESSION['username']=$_POST['username'];
+                        $_SESSION['username']=$_POST['logIn_id'];
                         $_SESSION['id']=$num['id'];
                         $ip= UserInfo::get_ip();
                         $os= UserInfo::get_os();
@@ -72,7 +72,7 @@ if($num>0)
 else
     {
         $_SESSION['errmsg']="Invalid username or password";       
-        $_SESSION['username']=$_POST['username'];
+        $_SESSION['username']=$_POST['logIn_id'];
       
          $ip= UserInfo::get_ip();
          $os= UserInfo::get_os();
@@ -132,8 +132,8 @@ else
                                 <!--== Pick Up Date ==-->
 
                                 <div class="pick-up-date book-item">
-                                    <h4>User Name:</h4>
-                                    <input type="text" name="username" placeholder="--Username--" required="">
+                                    <h4>Login ID:</h4>
+                                    <input type="text" name="logIn_id" placeholder="--User LogIn ID--" required="">
 
                                     <div class="return-car">
                                         <h4>Password:</h4>

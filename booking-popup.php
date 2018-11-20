@@ -71,7 +71,7 @@ if (isset($_POST['submit'])) {
         
         else{
 
-            $sql=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `car_id`='$car_id' AND '$start_book' BETWEEN `start_date` AND `end_date` ");
+            $sql=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `car_id`='$car_id' AND `boking_status`='1' AND '$start_book' BETWEEN `start_date` AND `end_date` ");
 
 
                 $result=mysqli_num_rows($sql);

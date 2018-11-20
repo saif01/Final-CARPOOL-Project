@@ -54,7 +54,9 @@ $value = $query->fetch_assoc();
                         <div class="display-table-cell">
                             <div class="about-content " >
                             	<ul class="package-list">
-                            	<li> <h3>Name : <?php echo $user_name; ?></h3> </li>
+                            	<li> <h3>ID : <?php echo $user_name; ?></h3> </li>
+                                <li> Full Name : <?php echo $value['user_name']; ?> </li>
+                                <li> Department : <?php echo $value['user_department']; ?> </li>
                             	<li> Contract Number : <?php echo $value['user_contract']; ?> </li>
                             	<li> Office ID : <?php echo $value['user_officeId']; ?> </li>
                             	<li> Status : <?php 

@@ -22,13 +22,54 @@ $driver_license=$_POST['driver_license'];
 $driver_st=1;
 
 $driver_id=$_GET['driver_id'];
-//$compfile=$_FILES["compfile"]["name"]; 
-//$driver_img=$_FILES["driver_img"]["name"];
+$fileName=$_FILES['driver_img']['tmp_name'];
 
+        if ($fileName !=="") 
+        {
+             $user_id=$_GET['user_id'];
+             $sql=mysqli_query($con,"SELECT `driver_img` FROM `car_driver` WHERE `driver_id`='$driver_id' ");
+               while($row2=mysqli_fetch_array($sql))
+                   {
+                       $file="p_img/driverimg/".$row2['driver_img'];
+                        unlink($file);
+                    }
+              
+            
+            $file_name=uniqid().date("Y-m-d-H-i-s").str_replace(" ", "_", $_FILES['driver_img']['name']);
+                $storeFile="p_img/driverimg/".$file_name;
+                $fileName=$_FILES['driver_img']['tmp_name'];
 
-//move_uploaded_file($_FILES["driver_img"]["tmp_name"],"p_img/driverimg/".$_FILES["driver_img"]["name"]);
+                move_uploaded_file($fileName,$storeFile);
 
- $query=mysqli_query($con,"UPDATE `car_driver` SET `driver_name`='$driver_name',`driver_phone`='$driver_phone',`driver_license`='$driver_license',`driver_nid`='$driver_nid',`driver_status`='$driver_st' WHERE `driver_id` ='$driver_id'");
+                           
+                $query2=mysqli_query($con,"UPDATE `car_driver` SET `driver_name`='$driver_name',`driver_phone`='$driver_phone', `driver_img`='$file_name',`driver_license`='$driver_license',`driver_nid`='$driver_nid',`driver_status`='$driver_st' WHERE `driver_id` ='$driver_id'");
+
+                ?>
+            <script>
+                alert('Update successfull.  !');
+                window.open('driver-all', '_self'); //for locating other page.
+                //window.location.reload(); //For reload Same page
+            </script>
+            <?php
+        
+       
+
+        } 
+            else{
+
+                
+               $query=mysqli_query($con,"UPDATE `car_driver` SET `driver_name`='$driver_name',`driver_phone`='$driver_phone',`driver_license`='$driver_license',`driver_nid`='$driver_nid',`driver_status`='$driver_st' WHERE `driver_id` ='$driver_id'");
+
+            ?>
+            <script>
+                alert('Update successfull.  !');
+                window.open('driver-all', '_self'); //for locating other page.
+                //window.location.reload(); //For reload Same page
+            </script>
+            <?php
+            }
+
+ 
 
 ?>
     <script>
@@ -120,7 +161,7 @@ $row=$query->fetch_assoc();
                                                         </div>
                                                     </div>
                                                 </div>
-												 <div class="col-md-6">
+                                                 <div class="col-md-6">
                                                     <div class="form-group row">
                                                         <label class="col-sm-3 col-form-label">Driver License</label>
                                                         <div class="col-sm-9">
@@ -129,7 +170,7 @@ $row=$query->fetch_assoc();
                                                     </div>
                                                 </div>
 
-											</div>
+                                            </div>
 
                                             <div class="row">
                                                 <div class="col-md-6">
@@ -149,7 +190,13 @@ $row=$query->fetch_assoc();
                                                     </div>
                                                 </div>
                                             </div>
-											
+                                            <div class="col-md-6 float-right">
+                                                    
+                                             <img src="p_img/driverimg/<?php echo($row['driver_img']);?>" class="img-responsive" alt="Image" height="100" width="100" style="margin-bottom: 10px;" > 
+                                                
+                                             <input type="file" name="driver_img">
+                                                                                                                                                     
+                                                </div>
                                             
                                                
 
@@ -157,7 +204,9 @@ $row=$query->fetch_assoc();
                                             <div class="row">
                                                 <div class="col-12 text-center">
                                                     <button type="submit" name="submit" class="btn btn-outline-success btn-block btn-rounded">Info Update </button>
-                                                    <button class="btn btn-light btn-block btn-rounded ">Cancel</button>
+                                                    <button class="btn btn-light btn-block btn-rounded ">Reset</button>
+
+                                                   <!-- <a href="driver-all" > <button class="btn btn-light btn-block btn-rounded " style="background-color:#a08e8e; margin-top: 8px;">Cancel</button></a> -->
                                                 </div>
                                             </div>
 

@@ -19,7 +19,7 @@ $user_id= $_SESSION['user_id'];
 //start For Load data for show on calender.......................
 $data = array();
 
-$query = "SELECT * FROM `car_booking` WHERE `car_id` = '$car_id' ORDER BY `booking_id` ";
+$query = "SELECT * FROM `car_booking` LEFT JOIN `user` ON car_booking.user_id = user.user_id WHERE car_booking.car_id='$car_id' AND car_booking.boking_status='1' ORDER BY `booking_id` ";
 
 //$query = "SELECT * FROM car_booking ORDER BY booking_id";
 
@@ -34,7 +34,7 @@ foreach($result as $row)
  $data[] = array(
   'id'   => $row["booking_id"],
   //'title'   => $row["car_name"].' Car Number--'. $row["car_number"] ,
-  'title' => $row["location"].'-'.$row["user_name"],
+  'title' => $row["location"].'--'. $row["user_name"].'--'. $row["user_department"],
   'start'   => $row["start_date"],
   'end'   => $row["end_date"],
   
@@ -91,7 +91,7 @@ if (isset($_POST['submit'])) {
 
         else{
 
-            $sql=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `car_id`='$car_id' AND '$start_book' BETWEEN `start_date` AND `end_date` ");
+            $sql=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `car_id`='$car_id' AND `boking_status`='1' AND '$start_book' BETWEEN `start_date` AND `end_date` ");
 
             //$sql=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `car_id` ='$car_id' AND (date(`start_date`) BETWEEN date('$start_book') AND date('$end_book') OR date(`end_date`) BETWEEN date('$start_book') AND date('$end_book') )");
  

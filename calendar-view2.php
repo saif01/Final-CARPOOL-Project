@@ -38,9 +38,9 @@ $car_img=$row2['car_img1'];
 // For Load data for show on calender.......................
 $data = array();
 
+//SELECT * FROM `car_booking` LEFT JOIN `user` ON car_booking.user_id = user.user_id WHERE car_booking.car_id='14' AND car_booking.boking_status='1'
 
-
-$query = "SELECT * FROM `car_booking` WHERE `car_id` = '$car_id' and `boking_status`=1 ORDER BY `booking_id` ";
+$query = "SELECT * FROM `car_booking` LEFT JOIN `user` ON car_booking.user_id = user.user_id WHERE car_booking.car_id='$car_id' AND car_booking.boking_status='1' ORDER BY `booking_id` ";
 
 //$query = "SELECT * FROM car_booking ORDER BY booking_id";
 
@@ -52,10 +52,16 @@ $result = $statement->fetchAll();
 
 foreach($result as $row)
 {
+
+// $userId=$row["user_id"];
+// $sqll=mysqli_query($con,"SELECT `user_department` FROM `user` WHERE `user_id`='$userId'");
+// $row3=$query->fetch_assoc();
+
+
  $data[] = array(
   'id'   => $row["booking_id"],
   //'title'   => $row["car_name"].' Car Number--'. $row["car_number"] ,
-  'title' => $row["location"].'--'. $row["user_name"],
+  'title' => $row["location"].'--'. $row["user_name"].'--'. $row["user_department"],
   'start'   => $row["start_date"],
   'end'   => $row["end_date"],
   
@@ -148,6 +154,8 @@ foreach($result as $row)
       //editable: true,
       eventLimit: true, // allow "more" link when too many events
       events: <?php echo json_encode($data); ?>
+
+
         
     });
 

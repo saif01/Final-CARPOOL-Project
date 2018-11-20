@@ -22,12 +22,20 @@ $driver_st=1;
 
 
 //$compfile=$_FILES["compfile"]["name"]; 
-$driver_img=$_FILES["driver_img"]["name"];
+// $driver_img=$_FILES["driver_img"]["name"];
 
 
-move_uploaded_file($_FILES["driver_img"]["tmp_name"],"../admin/p_img/driverimg/".$_FILES["driver_img"]["name"]);
+// move_uploaded_file($_FILES["driver_img"]["tmp_name"],"../admin/p_img/driverimg/".$_FILES["driver_img"]["name"]);
 
- $query=mysqli_query($con,"INSERT INTO `car_driver`(`car_id`, `driver_name`, `driver_phone`, `driver_img`, `driver_license`, `driver_nid`, `driver_status`) VALUES ('$for_car','$driver_name','$driver_phone','$driver_img','$driver_license','$driver_nid','$driver_st')");
+$file_name=uniqid().date("Y-m-d-H-i-s").str_replace(" ", "_", $_FILES['driver_img']['name']);
+    $storeFile="../admin/p_img/driverimg/".$file_name;
+    $fileName=$_FILES['driver_img']['tmp_name'];
+
+    move_uploaded_file($fileName,$storeFile);
+
+
+
+ $query=mysqli_query($con,"INSERT INTO `car_driver`(`car_id`, `driver_name`, `driver_phone`, `driver_img`, `driver_license`, `driver_nid`, `driver_status`) VALUES ('$for_car','$driver_name','$driver_phone','$file_name','$driver_license','$driver_nid','$driver_st')");
 
 
 ?>
@@ -179,7 +187,9 @@ echo "<option value='". $row2['car_id'] ."'>" .$row2['car_name'] ." -- ". $row2[
                                             <div class="row">
                                                 <div class="col-12 text-center">
                                                     <button type="submit" name="submit" class="btn btn-outline-success btn-block btn-rounded">Driver Registration</button>
-                                                    <button class="btn btn-light btn-block btn-rounded ">Cancel</button>
+                                                    <button class="btn btn-light btn-block btn-rounded ">Reset</button>
+
+                                                     <a href="driver-all" > <button class="btn btn-light btn-block btn-rounded " style="background-color:#a08e8e; margin-top: 8px;">Cancel</button></a>
                                                 </div>
                                             </div>
 

@@ -34,23 +34,14 @@
                                 <li class="active"><a href="dashbord">Home</a>
                                     
                                 </li>
-
-
-<!--
-                               <li><a href="dashbord"> <img src="admin/p_img/userImg/download.png" class="r_user"/> </a>
-                                    
-                                </li>
--->
-                              
-                               
-                        
+                
                                    <li>                             
                                   <a href="#">
                                    
                                     <?php
                         include('db/config.php');            
                         $user_name=$_SESSION['username'];
-                        $query2=mysqli_query($con,"SELECT `user_img` FROM `user` WHERE `user_name`='$user_name'");
+                        $query2=mysqli_query($con,"SELECT `user_img` FROM `user` WHERE `logIn_id`='$user_name'");
                         $row2=$query2->fetch_assoc();
                          ?>
                                      

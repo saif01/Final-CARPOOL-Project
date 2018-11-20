@@ -74,7 +74,7 @@ include('../db/config.php');
 ?>
                                                     <tr>
 
-                                                        <td> <img src="../admin/../admin/p_img/adminimg/<?php echo($row['admin_img']);?>" class="img-responsive" alt="Image" height="42" width="42" /> </td>
+                                                        <td> <img src="../admin/p_img/adminimg/<?php echo($row['admin_img']);?>" class="img-responsive" alt="Image" height="42" width="42" /> </td>
                                                         <td class="center">
                                                             <?php echo htmlentities($row['admin_name']) ; ?>
                                                         </td>
@@ -110,7 +110,13 @@ include('../db/config.php');
                                             <a href="admin-status.php?s_admin_id=<?php echo htmlentities($row['admin_id']);?>" onclick="return confirm('Are you sure you want to Active this ** Admin **?');" title="Show"> <i class="mdi mdi-eye-off text-danger icon-lg"></i></a>
                                             <?php } ?>
 
-                                    
+                <a href="admin-edit?admin_id=<?php echo htmlentities($row['admin_id']);?>" title="Edit"
+                    >
+                    <i class="mdi mdi-pencil-box-outline text-warning icon-lg"></i>  
+                  </a>
+
+
+
                      <a href="admin-delete.php?admin_id=<?php echo $row['admin_id']?>" onClick="return confirm('Are you sure you want to delete.???')" title="Delete"> <i class="mdi mdi-close-box-outline text-danger icon-lg"></i></a>
                                                                 
                                                         </td>
@@ -152,8 +158,7 @@ include('../db/config.php');
         <!-- Custom js for this page-->
         <!-- End custom js for this page-->
         <!-- <script src="https://code.jquery.com/jquery-3.3.1.js"></script> -->
-        <script src="
-https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
         <script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
         <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.bootstrap4.min.js"></script>

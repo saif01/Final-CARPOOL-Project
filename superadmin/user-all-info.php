@@ -66,12 +66,11 @@ include('../db/config.php');
                                             <table id="example" class="table table-striped table-bordered" style="width:100%">
                                                 <thead>
                                                     <tr>
-                                                        <th>Image</th>
+                                                         <th>Image</th>
                                                         <th>Name</th>
+                                                        <th>Department</th>
                                                         <th>Phone</th>
-                                                        <th>Office ID</th>
-
-                                                        <th>Actions</th>
+                                                       <th>Actions</th>
                                                         
                                                     </tr>
                                                 </thead>
@@ -91,12 +90,13 @@ include('../db/config.php');
                                             <a href="javascript:void(0);" onClick="popUpWindow('userprofile.php?user_id=<?php echo htmlentities($row['user_id']);?>');" title="View User Info.">
                                                 <?php echo htmlentities($row['user_name']) ; ?></a>
                                                         </td>
+                                                        <td class="center">
+                                                            <?php echo htmlentities($row['user_department']); ?>
+                                                        </td>
                                                         <td>
                                                             <?php echo htmlentities($row['user_contract']); ?>
                                                         </td>
-                                                        <td class="center">
-                                                            <?php echo htmlentities($row['user_officeId']); ?>
-                                                        </td>
+                                                        
 
                                                         <td class="center">
                                                             <?php

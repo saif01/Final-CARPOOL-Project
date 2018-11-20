@@ -10,21 +10,27 @@ include('../db/config.php');
 
 if (isset($_POST['submit'])) {
 
-$user_name=$_POST['user_name'];
+$logIn_id=$_POST['logIn_id'];
 $user_pass=$_POST['user_pass'];
+$user_name=$_POST['user_name'];
+$user_department=$_POST['user_department'];
 $user_contract=$_POST['user_contract'];
 $user_officeId=$_POST['user_officeId'];
-
-//$compfile=$_FILES["compfile"]["name"]; 
-$user_img=$_FILES["user_img"]["name"];
-
 $user_status = 1;
 
-move_uploaded_file($_FILES["user_img"]["tmp_name"],"p_img/userImg/".$_FILES["user_img"]["name"]);
+
+//$user_img=$_FILES["user_img"]["name"];
+//move_uploaded_file($_FILES["user_img"]["tmp_name"],"p_img/userImg/".$_FILES["user_img"]["name"]);
+
+$file_name=uniqid().date("Y-m-d-H-i-s").str_replace(" ", "_", $_FILES['user_img']['name']);
+    $storeFile="p_img/userImg/".$file_name;
+    $fileName=$_FILES['user_img']['tmp_name'];
+
+    move_uploaded_file($fileName,$storeFile);
 
 
-$query=mysqli_query($con," INSERT INTO `user`(`user_name`, `user_pass`, `user_contract`, `user_img`, `user_officeId`, `user_status`) VALUES ('$user_name','$user_pass','$user_contract','$user_img','$user_officeId','$user_status')");
 
+$query=mysqli_query($con," INSERT INTO `user`(`logIn_id`, `user_pass`, `user_name`, `user_department`, `user_contract`, `user_img`, `user_officeId`, `user_status`) VALUES ('$logIn_id','$user_pass','$user_name','$user_department','$user_contract','$file_name','$user_officeId','$user_status')");
 
 ?>
     <script>
@@ -99,10 +105,10 @@ $query=mysqli_query($con," INSERT INTO `user`(`user_name`, `user_pass`, `user_co
                                                 <div class="col-md-6">
                                                     <div class="form-group row">
 
-                                                        <label class="col-sm-3 col-form-label">User Name/ ID  </label>
+                                                        <label class="col-sm-3 col-form-label">User ID  </label>
                                                         <div class="col-sm-9">
                                                             
-                                                            <input type="text" id="check_value" onBlur="userAvailability()" name="user_name" class="form-control" placeholder="Enter User Name" required>
+                                                            <input type="text" id="check_value" onBlur="userAvailability()" name="logIn_id" class="form-control" placeholder="Enter User Name" required>
                                                 <span id="user-availability-status1" style="font-size:12px;"></span>
 
                                                         </div>
@@ -119,12 +125,34 @@ $query=mysqli_query($con," INSERT INTO `user`(`user_name`, `user_pass`, `user_co
 
                                             </div>
 
-                                            <div class="row">
+                                             <div class="row">
+                                                
+                                                <div class="col-md-6">
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-3 col-form-label">User Name </label>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="user_name" class="form-control" placeholder="Enter User Full Name" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group row">
                                                         <label class="col-sm-3 col-form-label">User Contract</label>
                                                         <div class="col-sm-9">
                                                              <input type="text" name="user_contract" class="form-control" placeholder="Enter User Phone Number" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-3 col-form-label">Department</label>
+                                                        <div class="col-sm-9">
+                                                             <input type="text" name="user_department" class="form-control" placeholder="Enter User Department Name" required>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -157,6 +185,7 @@ $query=mysqli_query($con," INSERT INTO `user`(`user_name`, `user_pass`, `user_co
                                                 <div class="col-12 text-center">
                                                     <button type="submit" name="submit" class="btn btn-outline-success btn-block btn-rounded">User Registration </button>
                                                     <button class="btn btn-light btn-block btn-rounded ">Cancel</button>
+                                                    <a href="user-all-info" > <button class="btn btn-light btn-block btn-rounded " style="background-color:#a08e8e; margin-top: 8px;">Cancel</button></a>
                                                 </div>
                                             </div>
 
@@ -167,10 +196,7 @@ $query=mysqli_query($con," INSERT INTO `user`(`user_name`, `user_pass`, `user_co
                                         
 
 
-                                            
-                                               
-                        
-
+                                                                                                
                             <!--row end-->
                         </div>
                         <!-- content-wrapper-->

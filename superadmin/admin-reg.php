@@ -15,16 +15,21 @@ $admin_pass=$_POST['admin_pass'];
 $admin_contract=$_POST['admin_contract'];
 $admin_officeId=$_POST['admin_officeId'];
 $super_admin=$_POST['super_admin'];
-
-//$compfile=$_FILES["compfile"]["name"]; 
-$admin_img=$_FILES["admin_img"]["name"];
-
 $admin_status = 1;
 
-move_uploaded_file($_FILES["admin_img"]["tmp_name"],"../admin/p_img/adminimg/".$_FILES["admin_img"]["name"]);
+//$admin_img=$_FILES["admin_img"]["name"];
+// move_uploaded_file($_FILES["admin_img"]["tmp_name"],"../admin/p_img/adminimg/".$_FILES["admin_img"]["name"]);
 
 
-$query=mysqli_query($con,"INSERT INTO `admin`(`admin_name`, `admin_password`, `admin_img`, `admin_phone`, `admin_officeID`, `admin_status`, `super_admin`) VALUES ('$admin_name','$admin_pass','$admin_img','$admin_contract','$admin_officeId','$admin_status','$super_admin')");
+          $file_name=uniqid().date("Y-m-d-H-i-s").str_replace(" ", "_", $_FILES['admin_img']['name']);
+            $storeFile="../admin/p_img/adminimg/".$file_name;
+            $fileName=$_FILES['admin_img']['tmp_name'];
+
+            move_uploaded_file($fileName,$storeFile);
+
+            $query=mysqli_query($con,"INSERT INTO `admin`(`admin_name`, `admin_password`, `admin_img`, `admin_phone`, `admin_officeID`, `admin_status`, `super_admin`) VALUES ('$admin_name','$admin_pass','$file_name','$admin_contract','$admin_officeId','$admin_status','$super_admin')");
+
+       
 
 
 ?>
@@ -145,7 +150,7 @@ $query=mysqli_query($con,"INSERT INTO `admin`(`admin_name`, `admin_password`, `a
                                                     <div class="form-group row">
                                                         <label class="col-sm-3 col-form-label">Admin Image</label>
                                                         <div class="col-sm-9">
-                                                             <input name="admin_img" type="file" class="form-control"  required>
+                                                             <input name="admin_img" type="file" class="form-control"  >
                                                         </div>
                                                     </div>
                                                 </div>
@@ -172,7 +177,8 @@ $query=mysqli_query($con,"INSERT INTO `admin`(`admin_name`, `admin_password`, `a
                                             <div class="row">
                                                 <div class="col-12 text-center">
                                                     <button type="submit" name="submit" class="btn btn-outline-success btn-block btn-rounded">Admin Registration</button>
-                                                    <button class="btn btn-light btn-block btn-rounded ">Cancel</button>
+                                                    <button class="btn btn-light btn-block btn-rounded ">Reset</button>
+                                                    <a href="user-all-info" > <button class="btn btn-light btn-block btn-rounded " style="background-color:#a08e8e; margin-top: 8px;">Cancel</button></a>
                                                 </div>
                                             </div>
 
