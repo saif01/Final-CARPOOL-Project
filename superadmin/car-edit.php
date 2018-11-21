@@ -415,10 +415,10 @@ $row=$query->fetch_assoc();
                                             </div>
 
                                     <p class="card-description">
-                                                Car Image
+                                                Car Image 
                                             </p>
 
-
+ 
 
                                             <div class="row">
 
@@ -457,32 +457,41 @@ $row=$query->fetch_assoc();
 
                                                 <div class="col-md-4">
                                                     <div class="col-md-10">
-                                                        <p class="float-left" >Old</p>
+                                                        <div class="row">        
+                                                    <h4 style="margin-left: 17%;">Old </h4>
+                                                    <h4  style="margin-left: 38%;">New </h4>
+                                                        </div>
                                                     <img src="../admin/p_img/carImg/<?php echo htmlentities($row['car_img1']); ?>" alt="Old Image" class="rounded float-left" width="100" height="100" />
                                                     
                                                    <img id="preview1" alt="Image Not Selected" class="rounded float-right" width="100" height="100" />
-                                                    <p class="float-right">New</p>
+                                                   
                                                     </div>
                                                    
                                                   
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="col-md-10">
-                                                        <p class="float-left" >Old</p>
+                                                        <div class="row">        
+                                                    <h4 style="margin-left: 17%;">Old </h4>
+                                                    <h4  style="margin-left: 38%;">New </h4>
+                                                        </div>
                                                     <img src="../admin/p_img/carImg/<?php echo htmlentities($row['car_img2']); ?>" alt="Old Image" class="rounded float-left" width="100" height="100" />
                                                     
                                                     <img id="preview2" alt="Image Not Selected" class="rounded float-right" width="100" height="100" />
-                                                    <p class="float-right">New</p>
+                                                   
                                                     </div>
                                                     
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="col-md-10">
-                                                        <p class="float-left" >Old</p>
+                                                        <div class="row">        
+                                                    <h4 style="margin-left: 17%;">Old </h4>
+                                                    <h4  style="margin-left: 38%;">New </h4>
+                                                        </div>
                                                     <img src="../admin/p_img/carImg/<?php echo htmlentities($row['car_img3']); ?>" alt="Old Image" class="rounded float-left" width="100" height="100" />
                                                     
                                                     <img id="preview3" alt="Image Not Selected" class="rounded float-right" width="100" height="100" />
-                                                    <p class="float-right">New</p>
+                                                   
                                                     </div>
                                                 </div>
 
@@ -493,7 +502,7 @@ $row=$query->fetch_assoc();
                                            
 
 
-                                            <div class="row">
+                                            <div class="row" style="margin-top: 10px;">
                                                 <div class="col-12 text-center">
                                                     <button type="submit" name="submit" class="btn btn-outline-success btn-block btn-rounded">Car Info Update</button>
                                                     <button class="btn btn-light btn-block btn-rounded">Reset</button>
