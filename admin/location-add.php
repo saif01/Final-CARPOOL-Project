@@ -100,7 +100,7 @@ $query=mysqli_query($con,"INSERT INTO `location`(`location`) VALUES ('$location'
                                                 </div>
                                                  <div class="col-md-6">
                                                     <div class="form-group row">
-                                                        <button type="submit" name="submit" class="btn btn-outline-success btn-block btn-rounded">User Registration </button> 
+                                                        <button type="submit" name="submit" class="btn btn-outline-success btn-block btn-rounded">Add Location </button> 
                                                     </div>
                                                 </div>
 

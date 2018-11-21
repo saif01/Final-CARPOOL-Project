@@ -11,7 +11,7 @@ $query2=mysqli_query($con,"SELECT * FROM `admin` WHERE `admin_id`='$id' ");
 while($row=mysqli_fetch_array($query2))
     {
 
-    	$file="../admin/p_img/adminimg/".$row['user_img'];
+    	$file="../admin/p_img/adminimg/".$row['admin_img'];
     	unlink($file);
 
    	}

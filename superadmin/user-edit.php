@@ -207,38 +207,49 @@ $row=$query->fetch_assoc();
                                             </div>
 
 
+                            <div class="row">
+                                     <div class="col-md-6 ">
+                                        <table class="table">
+                                            <thead>
 
-                                    
-                                            <div class="col-md-6 float-right">
-                                                    
-                                             <img src="../admin/p_img/userImg/<?php echo($row['user_img']);?>" class="img-responsive" alt="Image" height="100" width="100" style="margin-bottom: 10px;" > 
+                                                <tr>
+                                                    <th >Old Img </th>
+                                                      <th >New Img </th>
+                                                      <th >Select Img </th>
                                                 
-                                             <input type="file" name="user_img">
-                                                                                                                                                     
-                                                </div>
-                                               
+                                                </tr>
+                                                
+                                            </thead>
+                                            
+                                            <tbody>
 
-                                               
-                                            <div class="row">
-                                                <div class="col-12 text-center">
+                                                <td><img src="../admin/p_img/userImg/<?php echo($row['user_img']);?>" class="img-responsive" alt="Image" height="100" width="100" >   </td>
+
+                                                <td> <img id="preview" alt="Not Selected" width="100" height="100" /> </td>
+
+                                                <td>  <input type="file" style="float: right;" name="user_img" onchange="document.getElementById('preview').src = window.URL.createObjectURL(this.files[0])">  </td>
+                                                
+                                                
+
+                                            </tbody>
+
+                                        </table>                                               
+                                                                                                                                                                                                                
+                                     </div>
+                                            <div class="col-md-6 text-center">
                                                     <button type="submit" name="submit" class="btn btn-outline-success btn-block btn-rounded">User Info Update </button>
                                                     <button class="btn btn-light btn-block btn-rounded ">Reset</button>
 
-                                                   <!-- <a href="user-all-info" > <button class="btn btn-light btn-block btn-rounded " style="background-color:#a08e8e; margin-top: 8px;">Cancel</button></a> -->
+                                                   <a href="##" onClick="history.go(-1); return false;"> <button class="btn btn-light btn-block btn-rounded " style="background-color:#a08e8e; margin-top: 8px;">Cancel</button></a>
                                                 </div>
-                                            </div>
 
+                                </div>
+ 
                                         </form>
                                     </div>
                                 </div>
                         
                                         
-
-
-                                            
-                                               
-                        
-
                             <!--row end-->
                         </div>
                         <!-- content-wrapper-->

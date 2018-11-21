@@ -271,43 +271,7 @@ $query=mysqli_query($con,"INSERT INTO `tbl_car`(`car_name`, `car_namePlate`, `te
                                                 </div>
                                             </div>
 
-                                            <p class="card-description">
-                                                Car Image
-                                            </p>
-                                            <div class="row">
-
-                                                <div class="col-md-4">
-                                                    <div class="form-group row">
-                                                        <label class="col-sm-3 col-form-label">First Image :</label>
-                                                        <div class="col-sm-9">
-                                                            <input name="imgA" type="file" class="form-control" />
-                                                            <p style="color:red;">Resolution 1280*800 pixels</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group row">
-                                                        <label class="col-sm-3 col-form-label">Second Image :</label>
-                                                        <div class="col-sm-9">
-                                                            <input name="imgB" type="file" class="form-control" />
-                                                            <p style="color:red;">Resolution 1280*800 pixels</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group row">
-                                                        <label class="col-sm-3 col-form-label">Third Image :</label>
-
-                                                        <div class="col-sm-9">
-                                                            <input name="imgC" type="file" class="form-control" />
-                                                            <p style="color:red;">Resolution 1280*800 pixels</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-                                           <div class="row">
+                                                <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group row">
                                                         <label class="col-sm-3 col-form-label">Car Status :</label>
@@ -326,19 +290,74 @@ $query=mysqli_query($con,"INSERT INTO `tbl_car`(`car_name`, `car_namePlate`, `te
                                                         <label class="col-sm-3 col-form-label">Car Remarks :</label>
                                                         <div class="col-sm-9">
 
-                                                            <input type="text" name="remarks" class="form-control" />
+                                                           <textarea type="text" name="remarks" class="form-control" rows="3" placeholder="Enter Some information About This Car" required></textarea> 
 
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <p style="color: green;" class="card-description">
+                                                Car Images
+                                            </p>
+                                           <div class="row">
+
+                                                <div class="col-md-4">
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-3 col-form-label">First Image :</label>
+                                                        <div class="col-sm-9">
+                                                            <input name="imgA" type="file" class="form-control" onchange="document.getElementById('preview1').src = window.URL.createObjectURL(this.files[0])" />
+                                                            <p style="color:red;">Resolution 1280*800 pixels</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-3 col-form-label">Second Image :</label>
+                                                        <div class="col-sm-9">
+                                                            <input name="imgB" type="file" class="form-control" onchange="document.getElementById('preview2').src = window.URL.createObjectURL(this.files[0])" />
+                                                            <p style="color:red;">Resolution 1280*800 pixels</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-3 col-form-label">Third Image :</label>
+
+                                                        <div class="col-sm-9">
+                                                            <input name="imgC" type="file" class="form-control" onchange="document.getElementById('preview3').src = window.URL.createObjectURL(this.files[0])"/>
+                                                            <p style="color:red;">Resolution 1280*800 pixels</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                             <div class="row">
+
+                                                <div class="col-md-4">
+                                                   
+                                                  
+                                                   <img id="preview1" alt="Image Not Selected" class="rounded mx-auto d-block" width="100" height="100" />
+                                                  
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <img id="preview2" alt="Image Not Selected" class="rounded mx-auto d-block" width="100" height="100" />
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <img id="preview3" alt="Image Not Selected" class="rounded mx-auto d-block" width="100" height="100" />
+                                                </div>
+
+                                            </div>
+
+
+                                       
                                             <hr>
 
                                             <div class="row">
                                                 <div class="col-12 text-center">
                                                     <button type="submit" name="submit" class="btn btn-outline-success btn-block btn-rounded">Car Registration</button>
                                                     <button class="btn btn-light btn-block btn-rounded">Reset</button>
-                                                    <a href="car-all" > <button class="btn btn-light btn-block btn-rounded " style="background-color:#a08e8e; margin-top: 8px;">Cancel</button></a>
+                                                   <a href="##" onClick="history.go(-1); return false;"> <button class="btn btn-light btn-block btn-rounded " style="background-color:#a08e8e; margin-top: 8px;">Cancel</button></a>
                                                 </div>
                                             </div>
 

@@ -136,7 +136,7 @@ $fileName=$_FILES['driver_img']['tmp_name'];
                                 <div class="card">
                                     <div class="card-body">
                                         <!-- <h4 class="card-title">Car Add Form</h4> -->
-                                        <button class="card-title btn btn-outline btn-block ">Driver Add Form</button>
+                                        <button class="card-title btn btn-outline btn-block ">Driver Update Form</button>
                                         <form class="form-sample" action="" method="post" enctype="multipart/form-data">
 
 <?php 
@@ -175,7 +175,7 @@ $row=$query->fetch_assoc();
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group row">
-                                                        <label class="col-sm-3 col-form-label">Driver Contract</label>
+                                                        <label class="col-sm-3 col-form-label">Driver Contact</label>
                                                         <div class="col-sm-9">
                                                             <input type="text" name="driver_phone" class="form-control" placeholder="Enter Driver Phone Number" value="<?php echo htmlentities($row['driver_phone']); ?>" required />
                                                         </div>
@@ -190,25 +190,45 @@ $row=$query->fetch_assoc();
                                                     </div>
                                                 </div>
                                             </div>
-											<div class="col-md-6 float-right">
-                                                    
-                                             <img src="../admin/p_img/driverimg/<?php echo($row['driver_img']);?>" class="img-responsive" alt="Image" height="100" width="100" style="margin-bottom: 10px;" > 
-                                                
-                                             <input type="file" name="driver_img">
-                                                                                                                                                     
-                                                </div>
-                                            
-                                               
 
-                                               
                                             <div class="row">
-                                                <div class="col-12 text-center">
-                                                    <button type="submit" name="submit" class="btn btn-outline-success btn-block btn-rounded">Info Update </button>
+                                     <div class="col-md-6 ">
+                                        <table class="table">
+                                            <thead>
+
+                                                <tr>
+                                                    <th >Old Img </th>
+                                                      <th >New Img </th>
+                                                      <th >Select Img </th>
+                                                
+                                                </tr>
+                                                
+                                            </thead>
+                                            
+                                            <tbody>
+
+                                                <td><img src="../admin/p_img/driverimg/<?php echo($row['driver_img']);?>" class="img-responsive" alt="Image" height="100" width="100" >   </td>
+
+                                                <td> <img id="preview" alt="Not Selected" width="100" height="100" /> </td>
+
+                                                <td>  <input type="file" style="float: right;" name="driver_img" onchange="document.getElementById('preview').src = window.URL.createObjectURL(this.files[0])">  </td>
+                                                
+                                                
+
+                                            </tbody>
+
+                                        </table>                                               
+                                                                                                                                                                                                                
+                                     </div>
+                                            <div class="col-md-6 text-center">
+                                                    <button type="submit" name="submit" class="btn btn-outline-success btn-block btn-rounded">Driver Info Update </button>
                                                     <button class="btn btn-light btn-block btn-rounded ">Reset</button>
 
-                                                  <!--  <a href="driver-all" > <button class="btn btn-light btn-block btn-rounded " style="background-color:#a08e8e; margin-top: 8px;">Cancel</button></a> -->
+                                                   <a href="##" onClick="history.go(-1); return false;"> <button class="btn btn-light btn-block btn-rounded " style="background-color:#a08e8e; margin-top: 8px;">Cancel</button></a>
                                                 </div>
-                                            </div>
+
+                                </div>
+
 
                                         </form>
                                     </div>

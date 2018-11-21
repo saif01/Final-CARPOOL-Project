@@ -146,14 +146,7 @@ $admin_status = 1;
                                             
 
                                             <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group row">
-                                                        <label class="col-sm-3 col-form-label">Admin Image</label>
-                                                        <div class="col-sm-9">
-                                                             <input name="admin_img" type="file" class="form-control"  >
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                
                                                 <div class="col-md-6">
                                                     <div class="form-group row">
                                                         <label class="col-sm-3 col-form-label">Admin Define </label>
@@ -167,9 +160,29 @@ $admin_status = 1;
                                                             
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div>                                            
+
                                             </div>
 
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-3 col-form-label">Admin Image</label>
+                                                        <div class="col-sm-9">
+                                    <input name="admin_img" type="file" class="form-control file-upload-info" placeholder="Upload Image" onchange="document.getElementById('preview').src = window.URL.createObjectURL(this.files[0])" required>
+                                        <p style="color:red;">Resolution 300*300 pixels</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-3 col-form-label"></label>
+                                                        <div class="col-sm-9">
+                                                            <img id="preview" alt="Image Not Selected" width="100" height="100" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                            
                                                
 
@@ -178,7 +191,8 @@ $admin_status = 1;
                                                 <div class="col-12 text-center">
                                                     <button type="submit" name="submit" class="btn btn-outline-success btn-block btn-rounded">Admin Registration</button>
                                                     <button class="btn btn-light btn-block btn-rounded ">Reset</button>
-                                                    <a href="user-all-info" > <button class="btn btn-light btn-block btn-rounded " style="background-color:#a08e8e; margin-top: 8px;">Cancel</button></a>
+                                                    
+                                                   <a href="##" onClick="history.go(-1); return false;"> <button class="btn btn-light btn-block btn-rounded " style="background-color:#a08e8e; margin-top: 8px;">Cancel</button></a>
                                                 </div>
                                             </div>
 

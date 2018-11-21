@@ -168,19 +168,27 @@ $query=mysqli_query($con," INSERT INTO `user`(`logIn_id`, `user_pass`, `user_nam
                                                     </div>
                                                 </div>
                                             </div>
-                                            
-
-                                            <div class="row">
-                                                <div class="col-12">
+                                             <div class="row">
+                                                <div class="col-md-6">
                                                     <div class="form-group row">
-                                                    <label class="col-sm-3 col-form-label">User Image </label>
-
-                                                   
-                                                           <input name="user_img" type="file" class="form-control file-upload-info" placeholder="Upload Image" required>
-                                                           <p style="color:red;">Resolution 300*300 pixels</p>
+                                                        <label class="col-sm-3 col-form-label">User Image</label>
+                                                        <div class="col-sm-9">
+                                    <input name="user_img" type="file" class="form-control file-upload-info" placeholder="Upload Image" onchange="document.getElementById('preview').src = window.URL.createObjectURL(this.files[0])" required>
+                                        <p style="color:red;">Resolution 300*300 pixels</p>
                                                         </div>
+                                                    </div>
                                                 </div>
-                                            </div> 
+                                                <div class="col-md-6">
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-3 col-form-label"></label>
+                                                        <div class="col-sm-9">
+                                                            <img id="preview" alt="Image Not Selected" width="100" height="100" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                           
                                                
 
                                                
@@ -190,7 +198,9 @@ $query=mysqli_query($con," INSERT INTO `user`(`logIn_id`, `user_pass`, `user_nam
 
                                                     <button class="btn btn-light btn-block btn-rounded ">Reset</button>
 
-                                                   <a href="user-all-info" > <button class="btn btn-light btn-block btn-rounded " style="background-color:#a08e8e; margin-top: 8px;">Cancel</button></a>
+                                                   <a href="##" onClick="history.go(-1); return false;"> <button class="btn btn-light btn-block btn-rounded " style="background-color:#a08e8e; margin-top: 8px;">Cancel</button></a>
+                                                   
+                                                   
                                                 </div>
                                             </div>
 
