@@ -74,15 +74,18 @@ if (isset($_POST['submit'])) {
       $seconds    = abs($ts3 - $ts4); # difference will always be positive
       $afterdays = round($seconds/(60*60*24));
 
-        if ($days>=7) {
+       //  if ($days>=7) {
             
-       $_SESSION['error']="7";
-        }
+       // $_SESSION['error']="7";
+       //  }
 
-        elseif( $afterdays >= '30')
-                {
-                  $_SESSION['error']="30d";
-                }
+        // if( $afterdays >= '30')
+        //         {
+        //           $_SESSION['error']="30d";
+        //         }
+      if ($start_book>$end_book) {
+        $_SESSION['error']="NotValid";
+      }
 
         elseif(date($start_date) < date('Y-m-d'))
                 {
@@ -316,6 +319,16 @@ if (isset($_POST['submit'])) {
                       <?php 
                       echo htmlentities($_SESSION['error']="");
                        } 
+
+                       if($_SESSION['error']=="NotValid")
+                        { ?>
+                      <div class="alert">
+                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                        <strong>Sorry!</strong> Start Time Cannot More Than End Time!!.
+                      </div>
+                      <?php 
+                      echo htmlentities($_SESSION['error']="");
+                       } 
               
                        ?>
 
@@ -479,7 +492,7 @@ if (isset($_POST['submit'])) {
                 <div class="row">
                     <div class="col-lg-12 text-center">
                         <p>
-Copyright &copy;<script>document.write(new Date().getFullYear()); </script> C.P.Bangladesh CarPool <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="#" target="_blank"> </a> CPB-IT.
+Copyright &copy;<script>document.write(new Date().getFullYear()); </script> C.P.Bangladesh CarPool <i class="fa fa-heart-o" aria-hidden="true"></i> Powered by <a href="#" target="_blank"> </a> CPB-IT.
 </p>
                     </div>
                 </div>
@@ -539,7 +552,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear()); </script> C.P.
 
 
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
         function Validate(objForm) {
             if(document.getElementById("first").value == document.getElementById("second").value)
             {
@@ -554,7 +567,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear()); </script> C.P.
             return true;
         }
 
-</script>
+</script> -->
 
 
 </body>

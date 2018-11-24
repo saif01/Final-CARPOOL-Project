@@ -47,19 +47,26 @@ if (isset($_POST['submit'])) {
       $seconds    = abs($ts3 - $ts4); # difference will always be positive
       $afterdays = round($seconds/(60*60*24));
 
-        if ($days>=7) {
+        // if ($days>=7) {
             
-        ?> <script>
-            alert('You can not Book More than Saven days   !!!!');
-            </script> <?php
-        }
+        // ?> <script>
+        //     alert('You can not Book More than Saven days   !!!!');
+        //     </script> <?php
+        // }
 
-         elseif( $afterdays >= '30')
-                {
-                  ?> <script>
-            alert('You can not Book after 30 Dates from Now!!');
+         // if( $afterdays >= '30')
+         //        {
+         //          ?> <script>
+         //    alert('You can not Book after 30 Dates from Now!!');
+         //    </script> <?php
+         //        }
+
+         if ($start_book>$end_book) {
+        ?> <script>
+             alert('Start Time Cannot More Than End Time!!.');
             </script> <?php
-                }
+      }
+
 
         elseif(date($start_date) < date('Y-m-d'))
                 {
@@ -323,7 +330,7 @@ error:function (){}
 
 <?php include('include/footer.php'); ?>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
         function Validate(objForm) {
             if(document.getElementById("first").value == document.getElementById("second").value)
             {
@@ -338,7 +345,7 @@ error:function (){}
             return true;
         }
 
-</script>
+</script> -->
 
 
 

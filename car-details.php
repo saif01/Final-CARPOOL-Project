@@ -50,7 +50,7 @@ while($row=mysqli_fetch_array($query))
                 <!-- Car List Content Start -->
                 <div class="col-lg-8">
                     <div class="car-details-content">
-                        <h2><b>Car Name : </b> <?php echo $row['car_name']; ?> <span class="price">Car Model: <b><?php echo $row['car_model']; ?></b></span> </h2>
+                        <h2><b>Car Name : </b> <?php echo $row['car_name']; ?> <span class="price">Car Model: <b><?php echo $row['car_namePlate']; ?></b></span> </h2>
                         <div class="car-preview-crousel">
 
                             <div class="single-car-preview">

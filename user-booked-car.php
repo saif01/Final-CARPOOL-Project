@@ -60,10 +60,10 @@ else{
                             <?php
             $user_id=$_SESSION['user_id'];
                     //$query=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `user_id` = '$user_id' ORDER BY `booking_id` DESC LIMIT 4");
-                    $query=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `user_id`='$user_id' AND `start_date` >='$currentDate' ORDER BY`booking_id` DESC ");
+                    $query=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `user_id`='$user_id' AND `comit_st`='' AND `start_date` >='$currentDate' ORDER BY`booking_id` DESC ");
                     while($row=mysqli_fetch_array($query))
                     {  
-
+ 
 $startDate=$row['start_date'];
 $endDate=$row['end_date'];
 
@@ -167,7 +167,7 @@ if ($row['booking_cost'] !=='' && $row['driver_rating'] !=='' && $row['start_mil
 }
     
 
-if($comit_st==''){
+if($comit_st=='' && $row['boking_status']=='1'){
 
     $car_id=$row['car_id'];
      $query2=mysqli_query($con,"SELECT `driver_id` FROM `car_driver` WHERE `car_id`='$car_id' ");

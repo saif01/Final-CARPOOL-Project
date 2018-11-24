@@ -78,6 +78,7 @@ include('../db/config.php');
                                                         <th>User</th>
                                                         <th>Driver</th>
                                                         <th>Days</th>
+                                                        <th>Status</th>
                                                         <th>Cost</th>
                                                         <th>Milage</th>
                                                         <th>Rating</th>
@@ -144,6 +145,17 @@ include('../db/config.php');
 
                                                         <td class="center">
                                                             <?php echo htmlentities($row['day_count']); ?>
+                                                        </td>
+                                                        <td class="center">
+
+                                                            <?php $st=$row['boking_status']; 
+                                                            if($st=='1')
+                                                                {echo "Booked";}
+                                                              else{
+                                                                echo "Canceled";
+                                                              }
+                                                            ?>
+
                                                         </td>
                                                         <td class="center">
                                                             <?php echo htmlentities($row['booking_cost']); ?>

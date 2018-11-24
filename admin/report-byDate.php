@@ -152,6 +152,7 @@ if(isset($_POST['submit']))
                                                         <th>User</th>
                                                         <th>Driver</th>
                                                         <th>Days</th>
+                                                        <th>Status</th>
                                                         <th>Cost</th>
                                                         <th>Milage</th>
                                                         <th>Rating</th>
@@ -216,6 +217,17 @@ if(isset($_POST['submit']))
 
                                                         <td class="center">
                                                             <?php echo htmlentities($row['day_count']); ?>
+                                                        </td>
+                                                        <td class="center">
+
+                                                            <?php $st=$row['boking_status']; 
+                                                            if($st=='1')
+                                                                {echo "Booked";}
+                                                              else{
+                                                                echo "Canceled";
+                                                              }
+                                                            ?>
+
                                                         </td>
                                                         <td class="center">
                                                             <?php echo htmlentities($row['booking_cost']); ?>

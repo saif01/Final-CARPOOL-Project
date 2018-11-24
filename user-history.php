@@ -82,6 +82,7 @@ include('include/manu.php'); ?>
                   <th>Booking Ends</th>
                   <th>Location</th>
                   <th>Days</th>
+                  <th>Status</th>
                   <th>Cost</th>
                   <th>Milage</th>
                   <th>Driver</th>
@@ -111,6 +112,16 @@ include('include/manu.php'); ?>
 
                 <td class="center"><?php echo htmlentities($row['location']); ?></td>
                 <td class="center"><?php echo htmlentities($row['day_count']); ?></td>
+                 <td class="center">
+                  <?php
+                $st= $row['boking_status']; 
+                  if($st=='1')
+                    {echo "Booked";}
+                  else{
+                    echo "Canceled";
+                  }?>
+                   
+                 </td>
                 <td class="center"><?php echo htmlentities($row['booking_cost']); ?></td>
                 <td> <?php echo htmlentities($row['start_mileage']. '- '.$row['end_mileage'] ) ; ?>  </td>
 
@@ -187,7 +198,7 @@ $(document).ready(function() {
                 <div class="row">
                     <div class="col-lg-12 text-center">
                         <p>
-Copyright &copy;<script>document.write(new Date().getFullYear()); </script> C.P.Bangladesh <i class="fa fa-heart-o" aria-hidden="true"></i> Powered by <a href="#" target="_blank"> </a> CPB-IT.
+Copyright &copy;<script>document.write(new Date().getFullYear()); </script> C.P.Bangladesh CarPool <i class="fa fa-heart-o" aria-hidden="true"></i> Powered by <a href="#" target="_blank"> </a> CPB-IT.
 </p>
                     </div>
                 </div>

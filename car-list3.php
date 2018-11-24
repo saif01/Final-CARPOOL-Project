@@ -71,7 +71,7 @@ else{
                              
                              $car_id=$row['car_id'];
 
-                             $query3=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `car_id`='$car_id' AND '$currentTime' BETWEEN `start_date` AND `end_date`");
+                             $query3=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `car_id`='$car_id' AND `boking_status`='1' AND '$currentTime' BETWEEN `start_date` AND `end_date`");
 
                              
                              $row3=mysqli_num_rows($query3);

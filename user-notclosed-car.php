@@ -50,7 +50,7 @@ else{
 
                             <?php
             $user_id=$_SESSION['user_id'];
-                           $query=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `user_id`='$user_id' AND `comit_st`='' ORDER BY`booking_id` DESC ");
+                           $query=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `user_id`='$user_id' AND `comit_st`='' AND `boking_status`='1' ORDER BY`booking_id` DESC ");
                     while($row=mysqli_fetch_array($query))
                     {  
 

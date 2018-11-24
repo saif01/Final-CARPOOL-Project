@@ -12,7 +12,7 @@
 
                     <!--== Single HeaderTop Start ==-->
                     <div class="col-lg-3 text-center">
-                        <i class="fa fa-mobile"></i> +88 017 000 11 22
+                        <i class="fa fa-mobile"></i> +88 01708 80 90 62 (Billal)
                     </div> 
                     <!--== Single HeaderTop End ==-->
 
