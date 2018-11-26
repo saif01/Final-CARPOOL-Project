@@ -63,7 +63,7 @@ include('../db/config.php');
                                         <!--  <h4 class="card-title">All User Information </h4> -->
                                         <button class="card-title btn btn-outline btn-block ">All User Information</button>
                                         <div class="table-responsive">
-                                            <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                            <table id="example" class="table table-striped table-bordered table-dark" style="width:100%">
                                                 <thead>
                                                     <tr>
                                                          <th>Image</th>
@@ -173,12 +173,12 @@ include('../db/config.php');
         <script type="text/javascript">
             $(document).ready(function() {
                 var table = $('#example').DataTable({
-                    // lengthChange: false,
-                    // buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
-                });
+                     lengthChange: false,
+                    buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
+                 });
 
-                // table.buttons().container()
-                //     .appendTo( '#example_wrapper .col-md-6:eq(0)' );
+                 table.buttons().container()
+                    .appendTo( '#example_wrapper .col-md-6:eq(0)' );
             });
         </script>
 

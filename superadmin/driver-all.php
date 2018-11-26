@@ -65,7 +65,7 @@ include('../db/config.php');
                                         <!--  <h4 class="card-title">All Driver Information </h4> -->
                                         <button class="card-title btn btn-outline btn-block ">All Driver Information</button>
                                         <div class="table-responsive">
-                                            <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                            <table id="example" class="table table-striped table-dark table-bordered" style="width:100%">
                                                 <thead>
                                                     <tr>
                                                         <tr>

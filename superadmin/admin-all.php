@@ -52,7 +52,7 @@ include('../db/config.php');
                                         <!-- <h4 class="card-title">All User Information </h4> -->
                                         <button class="card-title btn btn-outline btn-block ">All Admin Information</button>
                                         <div class="table-responsive">
-                                            <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                            <table id="example" class="table table-striped table-bordered table-dark" style="width:100%">
                                                 <thead>
                                                     <tr>
 

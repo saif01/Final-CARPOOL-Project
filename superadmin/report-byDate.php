@@ -141,7 +141,7 @@ if(isset($_POST['submit']))
 ?>
 
 
-                                            <table id="example" class="table table-striped table-bordered table-responsive-md col-lg-12">
+                                            <table id="example" class="table table-striped table-bordered table-responsive-md table-dark col-lg-12">
                                                 <thead>
                                                     <tr>
                                                         <th>ID</th>

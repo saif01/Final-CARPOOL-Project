@@ -362,7 +362,7 @@ if (isset($_POST['submit'])) {
                             <option value="">Select Location</option> 
                                     
 									<?php
-										$query2=mysqli_query($con,"SELECT `location` FROM `location`");
+										$query2=mysqli_query($con,"SELECT `location` FROM `location` ORDER BY `location`");
 
 												while ($row2 = mysqli_fetch_array($query2))
 												{
