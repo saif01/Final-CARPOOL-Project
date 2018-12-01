@@ -20,13 +20,7 @@ $user_id= $_SESSION['user_id'];
 <head>
   <title>Search And Pagination</title>
 
-  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-<!-- <link rel="stylesheet" type="text/css" href="css/bootstrap_s.css"> -->
-
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
-
-<!-- <link rel="stylesheet" type="text/css" href="css/datatable_s.css"> -->
+  
 
 <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -58,12 +52,17 @@ $user_id= $_SESSION['user_id'];
 
 
 
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.bootstrap.min.css">
+
 
 </head>
 <body>
 
-<?php include('include/manu.php'); ?>
-
+<?php 
+include('include/social_link_top.php');
+include('include/manu.php'); ?>
 
 
 <div class="container">
@@ -83,6 +82,7 @@ $user_id= $_SESSION['user_id'];
                   <th>Booking Ends</th>
                   <th>Location</th>
                   <th>Days</th>
+                  <th>Status</th>
                   <th>Cost</th>
                   <th>Milage</th>
                   <th>Driver</th>
@@ -112,6 +112,16 @@ $user_id= $_SESSION['user_id'];
 
                 <td class="center"><?php echo htmlentities($row['location']); ?></td>
                 <td class="center"><?php echo htmlentities($row['day_count']); ?></td>
+                 <td class="center">
+                  <?php
+                $st= $row['boking_status']; 
+                  if($st=='1')
+                    {echo "Booked";}
+                  else{
+                    echo "Canceled";
+                  }?>
+                   
+                 </td>
                 <td class="center"><?php echo htmlentities($row['booking_cost']); ?></td>
                 <td> <?php echo htmlentities($row['start_mileage']. '- '.$row['end_mileage'] ) ; ?>  </td>
 
@@ -146,25 +156,31 @@ $user_id= $_SESSION['user_id'];
 
 
 
-
-
-
-
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
-
-<!-- <script type="text/javascript" src="js/library_s.js"></script> -->
-
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-<!-- <script type="text/javascript" src="js/datatable_s.js"></script> -->
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
 
- <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
  
- <!-- <script type="text/javascript" src="js/bootstrap_s.js"></script> -->
+
+
 
 <script type="text/javascript">
   
-  $(document).ready(function() {
-    $('#example').DataTable();
+$(document).ready(function() {
+    var table = $('#example').DataTable( {
+        // lengthChange: false,
+        // buttons: [ 'copy', 'excel', 'pdf' ]
+    } );
+ 
+    // table.buttons().container()
+    //    .appendTo( '#example_wrapper .col-sm-6:eq(0)' );
 } );
 </script>
 
@@ -182,7 +198,7 @@ $user_id= $_SESSION['user_id'];
                 <div class="row">
                     <div class="col-lg-12 text-center">
                         <p>
-Copyright &copy;<script>document.write(new Date().getFullYear()); </script> C.P.Bangladesh <i class="fa fa-heart-o" aria-hidden="true"></i> Powered by <a href="#" target="_blank"> </a> CPB-IT.
+Copyright &copy;<script>document.write(new Date().getFullYear()); </script> C.P.Bangladesh CarPool <i class="fa fa-heart-o" aria-hidden="true"></i> Powered by <a href="#" target="_blank"> </a> CPB-IT.
 </p>
                     </div>
                 </div>

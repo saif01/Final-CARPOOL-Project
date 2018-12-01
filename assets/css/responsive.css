@@ -441,5 +441,12 @@
 	.single-our-facility {
 		margin-bottom: 50px;
 	}
+    
+    .single-article .article-thumb-s img {
+		margin-right: 0;
+        width: 150px;
+        height: 190px;
+        
+	}
 
 }

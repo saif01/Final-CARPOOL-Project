@@ -116,7 +116,27 @@ foreach($result as $row)
 
 
 
-<?php include('include/manu.php');?>
+<?php  
+include('include/social_link_top.php');
+include('include/manu.php'); ?>
+<!--== Page Title Area Start ==-->
+    <section id="page-title-area" class="section-padding overlay">
+        <div class="container">
+            <div class="row">
+                <!-- Page Title Start -->
+                <div class="col-lg-12">
+                    <div class="section-title  text-center">
+
+                       <h2> Large Calendar View Of Car Booking</h2>
+                        <span class="title-line"><i class="fa fa-car"></i></span>
+                        
+                    </div>
+                </div>
+                <!-- Page Title End -->
+            </div>
+        </div>
+    </section>
+    <!--== Page Title Area End ==-->
   
 
  <body>
@@ -125,7 +145,7 @@ foreach($result as $row)
    <img src="">
     <a href="javascript:void(0);" onClick="popUpWindow('booking-popup.php?car_id=<?php echo$car_id;?>');" title="View Driver Info.">
 
-      Calender View Of <b> <?php echo $row["car_name"]; ?></b> Car Number <b> <?php echo $row["car_number"]; ?></b> <button class="btn btn-outline-danger" >Booking Now</button> </a></h3>
+      Calendar View Of <b> <?php echo $row["car_name"]; ?></b> Car Number <b> <?php echo $row["car_number"]; ?></b> <button class="btn btn-outline-danger" >Booking Now</button> </a></h3>
   <br />
             <div class="container">
 

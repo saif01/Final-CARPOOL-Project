@@ -117,11 +117,12 @@ if (isset($_POST['submit'])) {
                     $end_book= $_POST['end_date'] . ' ' . $_POST['return_time'];
 
                     $location=$_POST['location'];
+                    $purpose=$_POST['purpose'];
 
                     $status=1;
 
 
-                    $query=mysqli_query($con,"INSERT INTO `car_booking`(`car_id`, `user_id`, `user_name`, `car_name`, `car_number`, `car_img`, `start_date`, `end_date`, `location`, `day_count`, `boking_status`) VALUES ('$car_id','$user_id','$username','$car_name','$car_nunber','$car_img','$start_book','$end_book','$location','$days','$status')");
+                    $query=mysqli_query($con,"INSERT INTO `car_booking`(`car_id`, `user_id`, `user_name`, `car_name`, `car_number`, `car_img`, `start_date`, `end_date`, `location`, `purpose`, `day_count`, `boking_status`) VALUES ('$car_id','$user_id','$username','$car_name','$car_nunber','$car_img','$start_book','$end_book','$location','$purpose','$days','$status')");
 
                     
                     ?>
@@ -206,9 +207,28 @@ if (isset($_POST['submit'])) {
 }
 </style>
 
-<?php  include('include/manu.php'); ?>
+<?php  
+include('include/social_link_top.php');
+include('include/manu.php'); ?>
+<!--== Page Title Area Start ==-->
+    <section id="page-title-area" class="section-padding overlay">
+        <div class="container">
+            <div class="row">
+                <!-- Page Title Start -->
+                <div class="col-lg-12">
+                    <div class="section-title  text-center">
 
-
+                       <h2> Regular Car Booking</h2>
+                        <span class="title-line"><i class="fa fa-car"></i></span>
+                        
+                    </div>
+                </div>
+                <!-- Page Title End -->
+            </div>
+        </div>
+    </section>
+    <!--== Page Title Area End ==-->
+ 
 
 <script>
 
@@ -270,7 +290,7 @@ if (isset($_POST['submit'])) {
 <section id="lgoin-page-wrap" class="section-padding">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6 col-md-8 m-auto">
+                <div class="col-lg-6 col-md-12 m-auto">
                   <div class="login-page-content">
 					           <div class="login-form">
                       <h3>Car Booking Entry</h3> 
@@ -338,7 +358,7 @@ if (isset($_POST['submit'])) {
                   <div class="row">
                     <div class="col-md-6">
                       
-                      <label>Pic-Up DATE:
+                      <label>Pick-Up DATE:
                           <input type="date"  name="start_date"  placeholder="Pick Up Date" required />
                          
                        </label>
@@ -450,6 +470,17 @@ if (isset($_POST['submit'])) {
                            </div>
                   </div>
 
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      
+                      <label>Purpose:
+                          <input type="text"  name="purpose"  placeholder="Enter Purpose" required />
+                         
+                       </label>
+                    </div>
+                   
+                  </div>
                 
 
                 <div class="log-btn">
@@ -464,7 +495,7 @@ if (isset($_POST['submit'])) {
           </div>
 
 
-        <div class="col-lg-6 col-md-8 m-auto">
+        <div class="col-lg-6 col-md-12 m-auto">
                   <div class="login-page-content">
                           <div id="calendar"></div>                    
                   </div>                    

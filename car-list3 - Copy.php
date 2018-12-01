@@ -23,7 +23,7 @@ else{
             <div class="row">
 
                 <?php
-                           $query=mysqli_query($con,"SELECT * FROM `tbl_car`");
+                           $query=mysqli_query($con,"SELECT * FROM `tbl_car` WHERE `temp_car`='0'");
                     while($row=mysqli_fetch_array($query))
                     {     
 $car_status= $row['show_status'];

@@ -2,7 +2,8 @@
 session_start();
 error_reporting(0);
 date_default_timezone_set('Asia/Dhaka');// change according timezone
-// $currentTime = date( 'Y-m-d H:i:s', time () ); 
+$currentTime = date( 'Y-m-d H:i:s', time () );
+
 
 if(strlen($_SESSION['username'])==0)
   { 
@@ -23,8 +24,9 @@ else{
                 <!-- Page Title Start -->
                 <div class="col-lg-12">
                     <div class="section-title  text-center">
-                        <h2>Our Regular Car's..</h2>
+                        <h2>Our Regular Car's.. </h2>
                         <span class="title-line"><i class="fa fa-car"></i></span>
+                       <!--  <p>C.P. Bangladesh Car List.. </p> -->
                     </div>
                 </div>
                 <!-- Page Title End -->
@@ -36,16 +38,13 @@ else{
     <!--== Car List Area Start ==-->
     <div id="blog-page-content" class="section-padding">
         <div class="container">
-            <div class="row">
+           
 
-                <?php
-                    $query=mysqli_query($con,"SELECT * FROM `tbl_car` WHERE `temp_car`='0'");
+            	<?php
+                           $query=mysqli_query($con,"SELECT * FROM `tbl_car` WHERE `temp_car`='0' AND `show_status`='1'");
                     while($row=mysqli_fetch_array($query))
                     {     
-$car_status= $row['show_status'];
 
-if ($car_status==1) {
-    
     ?>
 
                 <!-- Single Articles Start -->
@@ -55,13 +54,13 @@ if ($car_status==1) {
                             <!-- Articles Thumbnail Start -->
                             <div class="col-lg-5">
                                 <div class="article-thumb">
-                                    <a href="car-details.php?car_id=<?php echo htmlentities($row['car_id']);?> ">  <img src="admin/p_img/carImg/<?php echo($row['car_img1']);?>" class="img-responsive" alt="Image" /></a>
+                                    <a href="car-details.php?car_id=<?php echo htmlentities($row['car_id']);?> ">  <img src="admin/p_img/carImg/<?php echo($row['car_img1']);?>" class="img-responsive" alt="Image" styl /></a>
                                 </div>
                             </div>
                             <!-- Articles Thumbnail End -->
 
                             <!-- Articles Content Start -->
-                            <div class="col-lg-5">
+                            <div class="col-lg-4">
                                 <div class="display-table">
                                     <div class="display-table-cell">
                                         <div class="article-body">
@@ -69,12 +68,12 @@ if ($car_status==1) {
                                             <div class="article-date">
 
                                     <?php
-                             $currTime = date('Y-m-d H:i:s');
+                             
                              $car_id=$row['car_id'];
 
-                             $query3=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `car_id`='$car_id' AND '$currTime' BETWEEN `start_date` AND `end_date`");
+                             $query3=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `car_id`='$car_id' AND `boking_status`='1' AND '$currentTime' BETWEEN `start_date` AND `end_date`");
 
-                             //$row3=$query3->fetch_assoc();
+                             
                              $row3=mysqli_num_rows($query3);
 
                             if ($row3>0) {
@@ -97,7 +96,7 @@ if ($car_status==1) {
                                                 </tr>
                                                 
                                                 <tr>
-                                                    <th>Car Number :</th>
+                                                    <th>Number :</th>
                                                     <td><?php echo $row['car_namePlate'];?></td>
                                                 </tr>
                                                 <tr>
@@ -106,9 +105,9 @@ if ($car_status==1) {
                                                 
                                                 </tr>
                                                 <tr>
-                                                    <th>
-                                                    <a href="calendar-view?car_id=<?php echo htmlentities($row['car_id']);?>" class="readmore-btn">Book  <i class="fa fa-long-arrow-right"></i></a>
-                                                    </th>
+                                                	<th>
+                                                	<a href="calendar-view?car_id=<?php echo htmlentities($row['car_id']);?>" class="readmore-btn">Book </a>
+                                                	</th>
                                                     <td>
                                                         <a href="calendar-view2?car_id=<?php echo htmlentities($row['car_id']);?>" class="readmore-btn">Calendar </a>
                                                     </td>
@@ -123,10 +122,10 @@ if ($car_status==1) {
                                 </div>
                             </div>
                             <!-- Articles Content End -->
-        <!--  Driver Section Start -->
-                   <div class="col-lg-2">
 
-                        <?php    
+                    <div class="col-lg-3 text-center">
+
+                    	<?php    
 $car_id=$row['car_id'];     
  $query2=mysqli_query($con,"SELECT * FROM `car_driver` WHERE `car_id`='$car_id' LIMIT 1  ");
 while($row2=mysqli_fetch_array($query2))
@@ -156,7 +155,7 @@ while($row2=mysqli_fetch_array($query2))
 
                                 <div class="article-thumb-s" >
                                                                       
-                                    <a href="driver-details.php?driver_id=<?php echo htmlentities($row2['driver_id']);?>" > <img src="admin/p_img/driverimg/<?php echo($row2['driver_img']);?>" class="img-responsive mx-auto d-block"  alt="Image" /> </a>
+                                    <a href="driver-details.php?driver_id=<?php echo htmlentities($row2['driver_id']);?>" > <img src="admin/p_img/driverimg/<?php echo($row2['driver_img']);?>" class="img-responsive"  alt="Image" /> </a>
 
                                 
                                     <p><?php echo htmlentities($row2['driver_name']) ; ?> </p> 
@@ -168,7 +167,7 @@ while($row2=mysqli_fetch_array($query2))
                           elseif ($st==0) { ?>
 
                                 <div class="article-thumb-s"> 
-                                    <a> <img src="admin/p_img/driverimg/dna/absence.jpg" class="img-responsive mx-auto d-block" alt="Image" /> </a>
+                                    <a> <img src="admin/p_img/driverimg/dna/absence.jpg" class="img-responsive" alt="Image" /> </a>
 
                                     <p ><?php echo htmlentities($row2['driver_name']) ; ?> </p> 
                                     <p style="background-color: red; color: white; "> Emergency Leave </p>       
@@ -181,12 +180,14 @@ while($row2=mysqli_fetch_array($query2))
 
                                 <div class="article-thumb-s" >
                                                                       
-                                    <a href="driver-details.php?driver_id=<?php echo htmlentities($row2['driver_id']);?>" > <img src="admin/p_img/driverimg/<?php echo($row2['driver_img']);?>" class="img-responsive mx-auto d-block"  alt="Image" /> </a>
+                                    <a href="driver-details.php?driver_id=<?php echo htmlentities($row2['driver_id']);?>" > <img src="admin/p_img/driverimg/<?php echo($row2['driver_img']);?>" class="img-responsive"  alt="Image" /> </a>
 
                                 
                                     <p><?php echo htmlentities($row2['driver_name']) ; ?> </p> 
-                        <p><i class="fa fa-mobile"></i> <a  href="tel:+88<?php echo htmlentities($row2['driver_phone']) ; ?>"> <?php echo htmlentities($row2['driver_phone']) ; ?> </a> 
-                                    </p>                                
+                                    <p><i class="fa fa-mobile"></i> <a  href="tel:+88<?php echo htmlentities($row2['driver_phone']) ; ?>"> <?php echo htmlentities($row2['driver_phone']) ; ?> </a> 
+                                    </p>
+
+                                    <!-- <a href="tel:1234567">Call 123-4567</a> -->                                   
                                   
                                 </div>
 
@@ -195,20 +196,16 @@ while($row2=mysqli_fetch_array($query2))
                 <?php } ?>
 
                             </div>
-            <!--  Driver Section End -->
+
 
 
                         </div>
                     </article>
                 </div>
                 <!-- Single Articles End -->
-<?php }
-
-else{ }
-
- }?>           
+<?php }?>           
             
-            </div>
+           
        
         </div>
     </div>

@@ -1218,10 +1218,10 @@ a.slicknav_btn {
     border-radius: 10px 20px;
     background: #ffd000;
     padding: 4px; 
-    width: 400px;
+    width: 250px;
     height: 190px;
-  margin-right: -100px;
- /*margin-left: 50px*/
+  margin-right: 0px;
+ 
 }
 
 .article-thumb-s p{

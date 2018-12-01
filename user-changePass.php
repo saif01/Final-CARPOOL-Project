@@ -19,7 +19,7 @@ $userName=$_SESSION['username'];
 $password= $_POST['password'];
 $newpassword= $_POST['newpassword'];
 
-$sql=mysqli_query($con,"SELECT * FROM `user` WHERE `user_name`='$userName'  AND `user_pass`='$password' ");
+$sql=mysqli_query($con,"SELECT * FROM `user` WHERE `logIn_id`='$userName'  AND `user_pass`='$password' ");
 $num=mysqli_fetch_array($sql);
 
 //print_r($num);
@@ -27,11 +27,12 @@ $num=mysqli_fetch_array($sql);
 
 if($num>0)
     {
-        $con=mysqli_query($con,"UPDATE `user` SET `user_pass`='$newpassword'  WHERE `user_name`='$userName' ");
+        $con=mysqli_query($con,"UPDATE `user` SET `user_pass`='$newpassword'  WHERE `logIn_id`='$userName' ");
         $successmsg="Password Changed Successfully !!";
     }
 else
     {
+
         $errormsg="Old Password not match !!";
     }
 

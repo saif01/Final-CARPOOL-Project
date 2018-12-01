@@ -1,38 +1,37 @@
 <?php
 session_start();
 error_reporting(0);
-date_default_timezone_set('Asia/Dhaka');// change according timezone
-$currentTime = date( 'Y-m-d h:i:s', time () );
-
 if(strlen($_SESSION['username'])==0)
   { 
 header('location:index');
 }
 else{  
+ include('db/config.php');
 
-include('db/config.php');
-
+$user_name= $_SESSION['username'];
 $user_id= $_SESSION['user_id'];
+
+
 ?>
 
 <!DOCTYPE html>
-<html>
+<html class="no-js" lang="en">
+
 <head>
-  <title>Search And Pagination</title>
-
-  
-
-<meta charset="utf-8">
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--  Developer Signature -->
+    <meta name="author" content="Md. Syful Islam">
+    <meta name="author_Email" content="syful.cse.bd@gmail.com">
     <!--=== Favicon ===-->
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 
-    <title>CPBCarPull</title>
+    <title>CPBCarPool</title>
     <link rel="icon" type="img/png" href="img/logo.png"/>
 
     <!--=== Bootstrap CSS ===-->
-   <!--  <link href="assets/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
     <!--=== Slicknav CSS ===-->
     <link href="assets/css/plugins/slicknav.min.css" rel="stylesheet">
     <!--=== Magnific Popup CSS ===-->
@@ -51,36 +50,74 @@ $user_id= $_SESSION['user_id'];
     <link href="assets/css/responsive.css" rel="stylesheet">
 
 
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.bootstrap4.min.css">
+    
 
-<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.bootstrap.min.css">
+
+
 
 
 </head>
-<body>
 
-<?php 
-include('include/social_link_top.php');
-include('include/manu.php'); ?>
+<body class="loader-active">
 
+    <!--== Preloader Area Start ==-->
+    <div class="preloader">
+        <div class="preloader-spinner">
+            <div class="loader-content">
+                <img src="assets/img/preloader.gif" alt="Syful-IT">
+            </div>
+        </div>
+    </div>
+    <!--== Preloader Area End ==-->
 
-<div class="container">
+<!--== Header Top End ==-->
 
-    
+ <?php include('include/social_link_top.php');
+ include('include/manu.php');
 
-    <h1 style="text-align: center; text-transform: capitalize;"><?php echo htmlentities($_SESSION['username']); ?>'s Booking History</h1>
+ 
+$driver_id=$_GET['driver_id'];
+$query=mysqli_query($con,"SELECT * FROM `user` WHERE `user_id`='$user_id' ");
+$value = $query->fetch_assoc();
 
+?>
 
-<table id="example" class="table table-striped table-bordered" style="width:100%">
-       
+<!--== Page Title Area Start ==-->
+    <section id="page-title-area" class="section-padding overlay">
+        <div class="container" >
+            <div class="row">
+                <!-- Page Title Start -->
+                <div class="col-lg-12">
+                    <div class="section-title  text-center">
 
-              <thead>
+                       <h2> 
+                        <?php echo htmlentities($_SESSION['username']) ?>'s Booking History</h2>
+                        <span class="title-line"><i class="fa fa-car"></i></span>
+                        
+                    </div>
+                </div>
+                <!-- Page Title End -->
+            </div>
+        </div>
+    </section>
+    <!--== Page Title Area End ==-->
+ <!--== About Page Content Start ==-->
+   
+        <div class="container" style="margin-top: 20px;">
+           
+              
+          <table id="example" class="table table-striped table-bordered table-dark" style="width:100%">
+
+              <thead style="background-color: #ffd000;">
                 <tr>
                    <th>Car</th>                  
                   <th>Booking Starts</th>
                   <th>Booking Ends</th>
                   <th>Location</th>
+                  <th>Purpose</th>
                   <th>Days</th>
                   <th>Status</th>
                   <th>Cost</th>
@@ -111,6 +148,7 @@ include('include/manu.php'); ?>
 
 
                 <td class="center"><?php echo htmlentities($row['location']); ?></td>
+                <td class="center"><?php echo htmlentities($row['purpose']); ?></td>
                 <td class="center"><?php echo htmlentities($row['day_count']); ?></td>
                  <td class="center">
                   <?php
@@ -138,57 +176,53 @@ include('include/manu.php'); ?>
                 </td>
 
 
-
-
-
-
               </tr>
 
-        <?php } ?>  
-              
+                <?php } ?>
+            
               </tbody>
+
+               
         
     </table>
 
+        
+            </div>
+    
+    <!--== About Page Content End ==-->
+
+
+   <!--=======================Javascript============================-->
+    <!--=== Jquery Min Js ===-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.bootstrap4.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js"></script>
+
+
  
-</div>
-
-
-
-
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.bootstrap.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
-
- 
-
-
-
 <script type="text/javascript">
   
 $(document).ready(function() {
     var table = $('#example').DataTable( {
-        // lengthChange: false,
-        // buttons: [ 'copy', 'excel', 'pdf' ]
+        lengthChange: false,
+        buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
     } );
  
-    // table.buttons().container()
-    //    .appendTo( '#example_wrapper .col-sm-6:eq(0)' );
+    table.buttons().container()
+        .appendTo( '#example_wrapper .col-md-6:eq(0)' );
 } );
 </script>
 
 
-
-
-
- <!--== Footer Area Start ==-->
+   <!--== Footer Area Start ==-->
     <section id="footer-area">
        
 
@@ -208,39 +242,20 @@ Copyright &copy;<script>document.write(new Date().getFullYear()); </script> C.P.
     </section>
     <!--== Footer Area End ==-->
 
-<!--=== Jquery Min Js ===-->
-   <!--  <script src="assets/js/jquery-3.2.1.min.js"></script> -->
+    <!--== Scroll Top Area Start ==-->
+    <div class="scroll-top">
+        <img src="assets/img/scroll-top.png" alt="Saif-IT">
+    </div>
+    <!--== Scroll Top Area End ==-->
+
+
     <!--=== Jquery Migrate Min Js ===-->
     <script src="assets/js/jquery-migrate.min.js"></script>
-    <!--=== Popper Min Js ===-->
-    <script src="assets/js/popper.min.js"></script>
-    <!--=== Bootstrap Min Js ===-->
-    <script src="assets/js/bootstrap.min.js"></script>
-    <!--=== Gijgo Min Js ===-->
-    <script src="assets/js/plugins/gijgo.js"></script>
-    <!--=== Vegas Min Js ===-->
-
-    <script src="assets/js/plugins/vegas.min.js"></script>
-    <!--=== Isotope Min Js ===-->
-    <script src="assets/js/plugins/isotope.min.js"></script>
-    <!--=== Owl Caousel Min Js ===-->
-    <script src="assets/js/plugins/owl.carousel.min.js"></script>
-    <!--=== Waypoint Min Js ===-->
-    <script src="assets/js/plugins/waypoints.min.js"></script>
-
-
-    <!--=== CounTotop Min Js ===-->
-    <script src="assets/js/plugins/counterup.min.js"></script>
-    <!--=== YtPlayer Min Js ===-->
-    <script src="assets/js/plugins/mb.YTPlayer.js"></script>
-    <!--=== Magnific Popup Min Js ===-->
-    <script src="assets/js/plugins/magnific-popup.min.js"></script>
-    <!--=== Slicknav Min Js ===-->
-    <script src="assets/js/plugins/slicknav.min.js"></script>
-<!--=== Mian Js ===-->
+    
+    <!--=== Mian Js ===-->
     <script src="assets/js/main.js"></script>
 
 </body>
-</html>
 
-<?php } ?>
+</html>
+ <?php } ?>

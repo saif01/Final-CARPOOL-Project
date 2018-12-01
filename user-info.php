@@ -49,7 +49,7 @@ $value = $query->fetch_assoc();
 
             <div class="row">
                 <!-- About Content Start -->
-                <div class="col-lg-8">
+                <div class="col-lg-8 col-md-12">
                     <div class="display-table">
                         <div class="display-table-cell">
                             <div class="about-content " >
@@ -79,10 +79,10 @@ $value = $query->fetch_assoc();
                 <!-- About Content End -->
 
                 <!-- About Video Start -->
-                <div class="col-lg-4">
-                    <div class="about-image">
+                <div class="col-lg-4 col-md-12">
+                    <div class="about-image text-center">
                         
-                      <img src="admin/p_img/userImg/<?php echo($value['user_img']);?>" class="img-responsive" alt="Image" />
+                      <img src="admin/p_img/userImg/<?php echo($value['user_img']);?>" class="img-responsive img-thumbnail rounded" alt="Image" />
                     </div>
                 </div>
                 <!-- About Video End -->

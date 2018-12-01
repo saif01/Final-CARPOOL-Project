@@ -107,11 +107,12 @@ if (isset($_POST['submit'])) {
                     $end_book= $_POST['end_date'] . ' ' . $_POST['return_time'];
 
                     $location=$_POST['location'];
+                    $purpose=$_POST['purpose'];
 
                     $status=1;
 
 
-                    $query=mysqli_query($con,"INSERT INTO `car_booking`(`car_id`, `user_id`, `user_name`, `car_name`, `car_number`, `car_img`, `start_date`, `end_date`, `location`, `day_count`, `boking_status`) VALUES ('$car_id','$user_id','$user_name','$car_name','$car_nunber','$car_img','$start_book','$end_book','$location','$days','$status')");
+                    $query=mysqli_query($con,"INSERT INTO `car_booking`(`car_id`, `user_id`, `user_name`, `car_name`, `car_number`, `car_img`, `start_date`, `end_date`, `location`, `purpose`, `day_count`, `boking_status`) VALUES ('$car_id','$user_id','$user_name','$car_name','$car_nunber','$car_img','$start_book','$end_book','$location','$purpose','$days','$status')");
 
                     echo "<script>alert('Your Booking Completed successfully'),
 							window.onunload = refreshParent;
@@ -300,7 +301,17 @@ error:function (){}
 							</div>
 						</div>
 
-								
+							
+                  <div class="row">
+                    <div class="col-md-12">
+                      
+                      <label>Purpose:
+                          <input type="text"  name="purpose"  placeholder="Enter Purpose" required />
+                         
+                       </label>
+                    </div>
+                   
+                  </div>	
 
 								<div class="log-btn">
 									

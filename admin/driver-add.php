@@ -64,8 +64,10 @@ $file_name=uniqid().date("Y-m-d-H-i-s").str_replace(" ", "_", $_FILES['driver_im
         <link rel="stylesheet" href="css/style.css">
         <!-- endinject -->
         <link rel="shortcut icon" href="images/favicon.png" />
+ 
+        
 
-        <script>
+    <script>
             function userAvailability() {
                 $("#loaderIcon").show();
                 jQuery.ajax({
@@ -80,6 +82,10 @@ $file_name=uniqid().date("Y-m-d-H-i-s").str_replace(" ", "_", $_FILES['driver_im
                 });
             }
         </script>
+
+
+
+
 
     </head>
 
@@ -123,7 +129,7 @@ $file_name=uniqid().date("Y-m-d-H-i-s").str_replace(" ", "_", $_FILES['driver_im
                                                 <div class="col-md-6">
                                                     <div class="form-group row">
                                                         <label class="col-sm-3 col-form-label">For Car</label>
-                                                        <div class="col-sm-9">
+                                                      <div class="col-sm-9">
                                                             <select name="for_car" class="form-control" required>
   <option value="">Select Car For Driver </option>
 <?php
@@ -139,6 +145,8 @@ echo "<option value='". $row2['car_id'] ."'>" .$row2['car_name'] ." -- ". $row2[
                                                         </div>
                                                     </div>
                                                 </div>
+
+
                                             </div>
 
 
@@ -147,7 +155,12 @@ echo "<option value='". $row2['car_id'] ."'>" .$row2['car_name'] ." -- ". $row2[
                                                     <div class="form-group row">
                                                         <label class="col-sm-3 col-form-label">Driver Contract</label>
                                                         <div class="col-sm-9">
-                                                            <input type="text" name="driver_phone" class="form-control" placeholder="Enter Driver Phone Number" required />
+                                                            <input type="text" name="driver_phone" class="form-control" placeholder="Enter Driver Phone Number"   required />
+
+                                                             
+
+
+
                                                         </div>
                                                     </div>
                                                 </div>

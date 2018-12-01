@@ -50,7 +50,7 @@ else{
 
                             <?php
             $user_id=$_SESSION['user_id'];
-                           $query=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `user_id`='$user_id' AND `comit_st`='' AND `boking_status`='1' ORDER BY`booking_id` DESC ");
+                           $query=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `user_id`='$user_id' AND `comit_st`='' AND `boking_status`='1' ORDER BY `boking_status` ASC");
                     while($row=mysqli_fetch_array($query))
                     {  
 
@@ -82,17 +82,15 @@ $edate2=$date2->format('d-m-Y h:i:s A');
                                         <!-- Single FAQ Start -->
                                         <div class="card">
                                             <div class="card-header" id="headingOne">
-                                                <h5 class="mb-0"><button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                <h5 class="mb-0">
                                                 <span><?php echo htmlentities($sdate); ?> ---- to ---- <?php echo htmlentities($edate); ?></span>  
 
                                              <b style="margin-left: 20%"><?php echo $days; ?> Days </b>
 
-                                                <i class="fa fa-angle-down"></i>
-                                                <i class="fa fa-angle-up"></i>
-                                            </button></h5>
+                                                </h5>
                                             </div>
 
-                                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                            <div >
                                                 <div class="card-body">
 
                                                     <!-- Single Car Start -->

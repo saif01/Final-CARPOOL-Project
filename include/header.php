@@ -5,6 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--  Developer Signature -->
+    <meta name="author" content="Md. Syful Islam">
+    <meta name="author_Email" content="syful.cse.bd@gmail.com">
     <!--=== Favicon ===-->
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 

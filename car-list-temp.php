@@ -124,7 +124,7 @@ if ($car_status==1) {
                             </div>
                             <!-- Articles Content End -->
         <!--  Driver Section Start -->
-                   <div class="col-lg-3 ">
+                   <div class="col-lg-3 text-center">
 
                         <?php    
 $car_id=$row['car_id'];     
@@ -156,7 +156,7 @@ while($row2=mysqli_fetch_array($query2))
 
                                 <div class="article-thumb-s" >
                                                                       
-                                    <a href="driver-details.php?driver_id=<?php echo htmlentities($row2['driver_id']);?>" > <img src="admin/p_img/driverimg/<?php echo($row2['driver_img']);?>" class="img-responsive"  alt="Image" /> </a>
+                                    <a href="driver-details.php?driver_id=<?php echo htmlentities($row2['driver_id']);?>" > <img src="admin/p_img/driverimg/<?php echo($row2['driver_img']);?>" class="img-responsive mx-auto d-block"  alt="Image" /> </a>
 
                                 
                                     <p><?php echo htmlentities($row2['driver_name']) ; ?> </p> 
@@ -168,7 +168,7 @@ while($row2=mysqli_fetch_array($query2))
                           elseif ($st==0) { ?>
 
                                 <div class="article-thumb-s"> 
-                                    <a> <img src="admin/p_img/driverimg/dna/absence.jpg" class="img-responsive" alt="Image" /> </a>
+                                    <a> <img src="admin/p_img/driverimg/dna/absence.jpg" class="img-responsive mx-auto d-block" alt="Image" /> </a>
 
                                     <p ><?php echo htmlentities($row2['driver_name']) ; ?> </p> 
                                     <p style="background-color: red; color: white; "> Emergency Leave </p>       
@@ -181,11 +181,14 @@ while($row2=mysqli_fetch_array($query2))
 
                                 <div class="article-thumb-s" >
                                                                       
-                                    <a href="driver-details.php?driver_id=<?php echo htmlentities($row2['driver_id']);?>" > <img src="admin/p_img/driverimg/<?php echo($row2['driver_img']);?>" class="img-responsive"  alt="Image" /> </a>
+                                    <a href="driver-details.php?driver_id=<?php echo htmlentities($row2['driver_id']);?>" > <img src="admin/p_img/driverimg/<?php echo($row2['driver_img']);?>" class="img-responsive mx-auto d-block"  alt="Image" /> </a>
 
                                 
                                     <p><?php echo htmlentities($row2['driver_name']) ; ?> </p> 
-                                    <p><i class="fa fa-mobile"></i> <?php echo htmlentities($row2['driver_phone']) ; ?> </p>                                   
+                                    
+                                     <p><i class="fa fa-mobile"></i> <a  href="tel:+88<?php echo htmlentities($row2['driver_phone']) ; ?>"> <?php echo htmlentities($row2['driver_phone']) ; ?> </a> 
+                                    </p>
+                                   
                                   
                                 </div>
 

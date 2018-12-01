@@ -75,6 +75,7 @@ include('../db/config.php');
                                                         <th>Booking Start</th>
                                                         <th>Booking Ends</th>
                                                         <th>Location</th>
+                                                        <th>Purpose</th>
                                                         <th>User</th>
                                                         <th>Driver</th>
                                                         <th>Days</th>
@@ -118,6 +119,9 @@ include('../db/config.php');
 
                                                         <td class="center">
                                                             <?php echo htmlentities($row['location']); ?>
+                                                        </td>
+                                                        <td class="center">
+                                                            <?php echo htmlentities($row['purpose']); ?>
                                                         </td>
 
                                                         <td class="center">

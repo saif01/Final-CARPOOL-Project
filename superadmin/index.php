@@ -15,10 +15,10 @@ include('../db/config.php');
 // $r2 = mysqli_query($con, $q2);
 
 
-$query2="SELECT `car_number`, COUNT(*) as number FROM `car_booking` GROUP BY `car_number`";
+$query2="SELECT `car_number`, COUNT(*) as number FROM `car_booking` WHERE `boking_status`=1 GROUP BY `car_number`";
 $result2 = mysqli_query($con, $query2);
         
-$query3="SELECT `user_name`, COUNT(*) as number FROM `car_booking` GROUP BY `user_name`";
+$query3="SELECT `user_name`, COUNT(*) as number FROM `car_booking` WHERE `boking_status`=1 GROUP BY `user_name` ";
 $result3 = mysqli_query($con, $query3);
 
 $sql=mysqli_query($con,"SELECT * FROM `user`");
@@ -239,7 +239,7 @@ $booking=mysqli_num_rows($sql4);
                 ]);
                 var options = {
 
-                    title: 'Percentage of Car Booking Pai Chart', 'width':'auto', 'height':'auto',
+                    title: 'Percentage of Car Booking ', 'width':'auto', 'height':'auto',
                     is3D: true,
                     //pieHole: 0.5  
                 };
@@ -265,7 +265,7 @@ $booking=mysqli_num_rows($sql4);
                           ?>  
                 ]);
                 var options = {
-                    title: 'Percentage of User Requests', 'width':'auto', 'height':'auto',
+                    title: 'Percentage of User Booking', 'width':'auto', 'height':'auto',
                     //is3D:true,  
                     pieHole: 0.4
                 };
