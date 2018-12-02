@@ -5,11 +5,29 @@ if(strlen($_SESSION['username'])==0)
   { 
 header('location:index');
 }
-else{  
- include('db/config.php');
+else{
+date_default_timezone_set('Asia/Dhaka');// change according timezone
+$currentTime = date( 'Y-m-d H:i:s', time () );
 
-$user_name= $_SESSION['username'];
-$user_id= $_SESSION['user_id'];
+
+$user_id=$_SESSION['username'];
+$start_book=$_SESSION['start_book'];
+$end_book=$_SESSION['end_book'];
+$location=$_SESSION['location'];
+
+include('db/config.php');
+
+if (isset($_POST['cancel'])) {
+	$sql=mysqli_query($con,"UPDATE `car_booking` SET `boking_status`='0' WHERE `user_name`='$user_id' ORDER BY `booking_id` DESC LIMIT 1");
+
+				?>
+			  <script>
+              alert('Your Booking Cancel successfull..  !');
+               window.open('car-list3.php','_self');
+               </script>
+               <?php 
+
+}
 
 
 ?>
@@ -77,12 +95,6 @@ $user_id= $_SESSION['user_id'];
 
  <?php include('include/social_link_top.php');
  include('include/manu.php');
-
- 
-$driver_id=$_GET['driver_id'];
-$query=mysqli_query($con,"SELECT * FROM `user` WHERE `user_id`='$user_id' ");
-$value = $query->fetch_assoc();
-
 ?>
 
 <!--== Page Title Area Start ==-->
@@ -93,8 +105,7 @@ $value = $query->fetch_assoc();
                 <div class="col-lg-12">
                     <div class="section-title  text-center">
 
-                       <h2> 
-                        <?php echo htmlentities($_SESSION['username']) ?>'s Booking History</h2>
+                       <h2> Same Booking Record Found</h2>
                         <span class="title-line"><i class="fa fa-car"></i></span>
                         
                     </div>
@@ -107,73 +118,116 @@ $value = $query->fetch_assoc();
  <!--== About Page Content Start ==-->
    
         <div class="container" style="margin-top: 20px;">
-           
-              
-          <table id="example" class="table table-striped table-bordered table-dark" style="width:100%">
+
+        	 <div>
+            <table class="table table-hover">
 
               <thead style="background-color: #ffd000;">
-                <tr>
-                   <th>Car</th>                  
+                  <th>Car</th>                  
                   <th>Booking Starts</th>
                   <th>Booking Ends</th>
                   <th>Location</th>
                   <th>Purpose</th>
                   <th>Days</th>
-                  <th>Status</th>
-                  <th>Cost</th>
-                  <th>Milage</th>
-                  <th>Driver</th>
+                  <th>Action</th>
+                
+              </thead>
+ <?php 
+    
+$query2=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `user_name`='$user_id' ORDER BY `booking_id` DESC LIMIT 1 ");
+    while($row2=mysqli_fetch_array($query2))
+    {
+
+?>
+              <tbody>
+              	<tr>
+              	<td> <?php echo htmlentities($row2['car_name']. '- '.$row2['car_number'] ) ; ?></td>
+
+  				<td class="center"><?php echo date("F j, Y, g:i a", strtotime($row2['start_date'])); ?></td>
+
+                <td class="center"><?php echo date("F j, Y, g:i a", strtotime($row2['end_date'])); ?></td>
+
+                 <td class="center"><?php echo htmlentities($row2['location']); ?></td>
+
+                 <td class="center"><?php echo htmlentities($row2['purpose']); ?></td>
+
+                 <td class="center"><?php echo htmlentities($row2['day_count']); ?></td>
+                 <td>
+                 	<form method="post" >	
+                 		<button type="submit" name="cancel" class="btn btn-danger" >Booking Cancel</button>
+                 	</form>
+                 	
+
+                 </td>
+                
+
+             </tr>
+
+                <?php } ?>
+            
+              </tbody>
+
+            </table>
+
+
+
+          </div>
+           
+              
+          <table id="example" class="table table-striped table-bordered table-dark table-hover">
+
+              <thead style="background-color: #ffd000;">
+                <tr>
+                   
+                   <th>User</th>
+                   <th>Number</th>
+                   <th>Car</th>                 
+                  <th>Booking Starts</th>
+                  <th>Booking Ends</th>
+                  <th>Location</th>
+                  <th>Purpose</th>
+                  <th>Days</th>
+                  
                   
                   
                 </tr>
               </thead>   
               <tbody>
                 <?php 
-    $query=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `user_id`='$user_id' ORDER BY`booking_id` DESC");
+    
+//$query=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `boking_status`='1' AND `start_date`='$start_book' AND `end_date`='$end_book' AND `location`='$location' ");
+$query=mysqli_query($con,"SELECT * FROM `car_booking` LEFT JOIN `user` ON car_booking.user_id= user.user_id WHERE car_booking.boking_status='1' AND car_booking.start_date='$start_book' AND car_booking.end_date='$end_book' AND car_booking.location='$location' AND car_booking.user_name !='$user_id' ");
+
+
+// $_SESSION['start_book']='';
+// $_SESSION['end_book']='';
+// $_SESSION['location']='';
 
     while($row=mysqli_fetch_array($query))
     {
 
 ?>
-  <tr>
+  			<tr>
 
-                
+  				
+  				<td><?php echo htmlentities($row['user_name']); ?> </td>
+  				<td><a  href="tel:+88<?php echo htmlentities($row['user_contract']) ; ?>">
+  					<?php echo htmlentities($row['user_contract']); ?> 
+  					</a>
+  				</td>
+  				<td> <?php echo htmlentities($row['car_name']. '- '.$row['car_number'] ) ; ?></td>
 
-                <td class="center" ><?php echo htmlentities($row['car_name']. '- '.$row['car_number'] ) ; ?></td>
-                
-
-                <td class="center"><?php echo date("F j, Y, g:i a", strtotime($row['start_date'])); ?></td>
+  				<td class="center"><?php echo date("F j, Y, g:i a", strtotime($row['start_date'])); ?></td>
 
                 <td class="center"><?php echo date("F j, Y, g:i a", strtotime($row['end_date'])); ?></td>
 
+                 <td class="center"><?php echo htmlentities($row['location']); ?></td>
 
-                <td class="center"><?php echo htmlentities($row['location']); ?></td>
-                <td class="center"><?php echo htmlentities($row['purpose']); ?></td>
-                <td class="center"><?php echo htmlentities($row['day_count']); ?></td>
-                 <td class="center">
-                  <?php
-                $st= $row['boking_status']; 
-                  if($st=='1')
-                    {echo "Booked";}
-                  else{
-                    echo "Canceled";
-                  }?>
-                   
-                 </td>
-                <td class="center"><?php echo htmlentities($row['booking_cost']); ?></td>
-                <td> <?php echo htmlentities($row['start_mileage']. '- '.$row['end_mileage'] ) ; ?>  </td>
+                 <td class="center"><?php echo htmlentities($row['purpose']); ?></td>
+
+                 <td class="center"><?php echo htmlentities($row['day_count']); ?></td>
 
 
-                <td class="center">
-                  <?php
-                  $driver_id=$row['driver_id'];
-                  $sql=mysqli_query($con,"SELECT * FROM `car_driver` WHERE `driver_id`='$driver_id' ");
-                  $row2=$sql->fetch_assoc();
-  
-
-                 echo htmlentities($row2['driver_name']); ?> 
-
-                </td>
 
 
               </tr>
@@ -248,8 +302,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear()); </script> C.P.
     </div>
     <!--== Scroll Top Area End ==-->
 
-    <!--=== Jquery Min Js ===-->
-  
     <!--=== Gijgo Min Js ===-->
     <script src="assets/js/plugins/gijgo.js"></script>   
     <!--=== Owl Caousel Min Js ===-->
@@ -266,7 +318,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear()); </script> C.P.
     <script src="assets/js/jquery-migrate.min.js"></script>    
     <!--=== Mian Js ===-->
     <script src="assets/js/main.js"></script>
-
 
 </body>
 

@@ -261,9 +261,9 @@ error:function (){}
                                             <option value="15:30:00">3.30 PM </option>
                                             <option value="16:00:00">4.00 PM </option>
                                             <option value="16:30:00">4.30 PM </option>
-                                            <option value="18:00:00">5.00 PM </option>
-                                            <option value="18:30:00">5.30 PM </option>
-                                            <option value="19:00:00">6.00 PM </option>
+                                            <option value="17:00:00">5.00 PM </option>
+                                            <option value="17:30:00">5.30 PM </option>
+                                            <option value="18:00:00">6.00 PM </option>
                                                                                   
                                          </select>
                                             </label>
@@ -288,9 +288,9 @@ error:function (){}
                                             <option value="15:30:00">3.30 PM </option>
                                             <option value="16:00:00">4.00 PM </option>
                                             <option value="16:30:00">4.30 PM </option>
-                                            <option value="18:00:00">5.00 PM </option>
-                                            <option value="18:30:00">5.30 PM </option>
-                                            <option value="19:00:00">6.00 PM </option>
+                                            <option value="17:00:00">5.00 PM </option>
+                                            <option value="17:30:00">5.30 PM </option>
+                                            <option value="18:00:00">6.00 PM </option>
                                                                                   
                                          </select>
                                             </label>

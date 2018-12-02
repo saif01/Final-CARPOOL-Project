@@ -61,7 +61,7 @@ foreach($result as $row)
  $data[] = array(
   'id'   => $row["booking_id"],
   //'title'   => $row["car_name"].' Car Number--'. $row["car_number"] ,
-  'title' => $row["location"].'--'. $row["user_name"].'--'. $row["user_department"],
+  'title' => $row["location"].' || '. $row["user_name"].' || '. $row["user_department"],
   'start'   => $row["start_date"],
   'end'   => $row["end_date"],
   
@@ -194,7 +194,7 @@ include('include/manu.php'); ?>
                 if (popUpWin) {
                     if (!popUpWin.closed) popUpWin.close();
                 }
-                popUpWin = open(URLStr, 'popUpWin', 'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,copyhistory=yes,width=' + 450 + ',height=' + 500 + ',left=' + left + ', top=' + top + ',screenX=' + left + ',screenY=' + top + '');
+                popUpWin = open(URLStr, 'popUpWin', 'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,copyhistory=yes,width=' + 550 + ',height=' + 600 + ',left=' + left + ', top=' + top + ',screenX=' + left + ',screenY=' + top + '');
             }
         </script>
 

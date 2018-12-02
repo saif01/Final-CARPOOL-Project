@@ -61,7 +61,7 @@ if ($car_status==1) {
                             <!-- Articles Thumbnail End -->
 
                             <!-- Articles Content Start -->
-                            <div class="col-lg-4">
+                            <div class="col-lg-5">
                                 <div class="display-table">
                                     <div class="display-table-cell">
                                         <div class="article-body">
@@ -85,11 +85,11 @@ if ($car_status==1) {
                                 echo "Free";
                             }
                                  ?>   
-         
+          
                                             </div>
 
-                                            <div class="">
-                                            <table class="table ">
+                                            <div class="text-center">
+                                            <table class="table">
 
                                                 <tr>
                                                     <th>Name :</th>
@@ -105,16 +105,11 @@ if ($car_status==1) {
                                                     <td><?php echo $row['car_capacity'];?></td>
                                                 
                                                 </tr>
-                                                <tr>
-                                                    <th>
-                                                    <a href="calendar-view-temp?car_id=<?php echo htmlentities($row['car_id']);?>" class="readmore-btn">Book  <i class="fa fa-long-arrow-right"></i></a>
-                                                    </th>
-                                                    <!-- <td>
-                                                        <a href="calendar-view2-temp?car_id=<?php echo htmlentities($row['car_id']);?>" class="readmore-btn">Calendar <i class="fa fa-long-arrow-right"></i></a>
-                                                    </td> -->
-                                                </tr>
+                                                
                                                
                                             </table>
+
+                                            <a href="calendar-view-temp?car_id=<?php echo htmlentities($row['car_id']);?>" class="readmore-btn ">Book  <i class="fa fa-long-arrow-right"></i></a>
                                         </div>
 
                                             
@@ -124,7 +119,7 @@ if ($car_status==1) {
                             </div>
                             <!-- Articles Content End -->
         <!--  Driver Section Start -->
-                   <div class="col-lg-3 text-center">
+                   <div class="col-lg-2 ">
 
                         <?php    
 $car_id=$row['car_id'];     

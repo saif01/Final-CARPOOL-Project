@@ -72,14 +72,14 @@ if ($car_status==1) {
                              $currTime = date('Y-m-d H:i:s');
                              $car_id=$row['car_id'];
 
-                             $query3=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `car_id`='$car_id' AND '$currTime' BETWEEN `start_date` AND `end_date`");
+                             $query3=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `car_id`='$car_id' AND `boking_status`='1' AND '$currTime' BETWEEN `start_date` AND `end_date`");
 
                              //$row3=$query3->fetch_assoc();
                              $row3=mysqli_num_rows($query3);
 
                             if ($row3>0) {
                                 //echo "Book";
-                                ?> <p style="color: red;"> Book</p> <?php
+                                ?> <p style="color: red;"> Booked</p> <?php
                             }
                             else{
                                 echo "Free";
@@ -88,7 +88,7 @@ if ($car_status==1) {
          
                                             </div>
 
-                                            <div class="">
+                                            <div class="text-center">
                                             <table class="table ">
 
                                                 <tr>
@@ -105,16 +105,13 @@ if ($car_status==1) {
                                                     <td><?php echo $row['car_capacity'];?></td>
                                                 
                                                 </tr>
-                                                <tr>
-                                                    <th>
-                                                    <a href="calendar-view?car_id=<?php echo htmlentities($row['car_id']);?>" class="readmore-btn">Book  <i class="fa fa-long-arrow-right"></i></a>
-                                                    </th>
-                                                    <td>
-                                                        <a href="calendar-view2?car_id=<?php echo htmlentities($row['car_id']);?>" class="readmore-btn">Calendar </a>
-                                                    </td>
-                                                </tr>
+                                               
                                                
                                             </table>
+
+                                             <a href="calendar-view?car_id=<?php echo htmlentities($row['car_id']);?>" class="readmore-btn">Book  <i class="fa fa-long-arrow-right"></i></a>
+
+                                            <!--  <a href="calendar-view2?car_id=<?php echo htmlentities($row['car_id']);?>" class="readmore-btn">Calendar </a> -->
                                         </div>
 
                                             

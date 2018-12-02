@@ -12,6 +12,20 @@ $user_name= $_SESSION['username'];
 $user_id= $_SESSION['user_id'];
 
 
+
+$Sdate=$_POST['startDate'] . ' ' . $_POST['start_time'];
+$Edate=$_POST['endDate'] . ' ' . $_POST['return_time'];
+$start_date= date("Y-m-d H:i:s", strtotime($Sdate));
+$end_date= date("Y-m-d H:i:s", strtotime($Edate));
+
+$location=$_POST['location'];
+
+
+ // echo $start_date ."<br>";
+ // echo $location ."<br>";
+ // echo $end_date."<br>"."<br>";
+
+
 ?>
 
 <!DOCTYPE html>
@@ -79,9 +93,9 @@ $user_id= $_SESSION['user_id'];
  include('include/manu.php');
 
  
-$driver_id=$_GET['driver_id'];
-$query=mysqli_query($con,"SELECT * FROM `user` WHERE `user_id`='$user_id' ");
-$value = $query->fetch_assoc();
+// $driver_id=$_GET['driver_id'];
+// $query=mysqli_query($con,"SELECT * FROM `user` WHERE `user_id`='$user_id' ");
+// $value = $query->fetch_assoc();
 
 ?>
 
@@ -94,7 +108,7 @@ $value = $query->fetch_assoc();
                     <div class="section-title  text-center">
 
                        <h2> 
-                        <?php echo htmlentities($_SESSION['username']) ?>'s Booking History</h2>
+                        <?php echo htmlentities($start_date) ?> || <?php echo htmlentities($end_date) ?> Booking History</h2>
                         <span class="title-line"><i class="fa fa-car"></i></span>
                         
                     </div>
@@ -113,23 +127,22 @@ $value = $query->fetch_assoc();
 
               <thead style="background-color: #ffd000;">
                 <tr>
-                   <th>Car</th>                  
+
+                   <th>User</th>
+                   <th>Number</th>
+                   <th>Car</th>                 
                   <th>Booking Starts</th>
                   <th>Booking Ends</th>
                   <th>Location</th>
                   <th>Purpose</th>
                   <th>Days</th>
-                  <th>Status</th>
-                  <th>Cost</th>
-                  <th>Milage</th>
-                  <th>Driver</th>
                   
                   
                 </tr>
               </thead>   
               <tbody>
                 <?php 
-    $query=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `user_id`='$user_id' ORDER BY`booking_id` DESC");
+    $query=mysqli_query($con,"SELECT * FROM `car_booking` LEFT JOIN `user` ON car_booking.user_id= user.user_id WHERE car_booking.boking_status='1' AND car_booking.start_date='$start_date' AND car_booking.end_date='$end_date' AND car_booking.location='$location' ");
 
     while($row=mysqli_fetch_array($query))
     {
@@ -139,41 +152,23 @@ $value = $query->fetch_assoc();
 
                 
 
-                <td class="center" ><?php echo htmlentities($row['car_name']. '- '.$row['car_number'] ) ; ?></td>
-                
+                <td><?php echo htmlentities($row['user_name']); ?> </td>
+                <td><a  href="tel:+88<?php echo htmlentities($row['user_contract']) ; ?>">
+                    <?php echo htmlentities($row['user_contract']); ?> 
+                    </a>
+                </td>
+                <td> <?php echo htmlentities($row['car_name']. '- '.$row['car_number'] ) ; ?></td>
 
                 <td class="center"><?php echo date("F j, Y, g:i a", strtotime($row['start_date'])); ?></td>
 
                 <td class="center"><?php echo date("F j, Y, g:i a", strtotime($row['end_date'])); ?></td>
 
+                 <td class="center"><?php echo htmlentities($row['location']); ?></td>
 
-                <td class="center"><?php echo htmlentities($row['location']); ?></td>
-                <td class="center"><?php echo htmlentities($row['purpose']); ?></td>
-                <td class="center"><?php echo htmlentities($row['day_count']); ?></td>
-                 <td class="center">
-                  <?php
-                $st= $row['boking_status']; 
-                  if($st=='1')
-                    {echo "Booked";}
-                  else{
-                    echo "Canceled";
-                  }?>
-                   
-                 </td>
-                <td class="center"><?php echo htmlentities($row['booking_cost']); ?></td>
-                <td> <?php echo htmlentities($row['start_mileage']. '- '.$row['end_mileage'] ) ; ?>  </td>
+                 <td class="center"><?php echo htmlentities($row['purpose']); ?></td>
 
+                 <td class="center"><?php echo htmlentities($row['day_count']); ?></td>
 
-                <td class="center">
-                  <?php
-                  $driver_id=$row['driver_id'];
-                  $sql=mysqli_query($con,"SELECT * FROM `car_driver` WHERE `driver_id`='$driver_id' ");
-                  $row2=$sql->fetch_assoc();
-  
-
-                 echo htmlentities($row2['driver_name']); ?> 
-
-                </td>
 
 
               </tr>

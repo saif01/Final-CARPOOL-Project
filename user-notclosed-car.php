@@ -50,7 +50,7 @@ else{
 
                             <?php
             $user_id=$_SESSION['user_id'];
-                           $query=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `user_id`='$user_id' AND `comit_st`='' AND `boking_status`='1' ORDER BY `boking_status` ASC");
+                           $query=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `user_id`='$user_id' AND `comit_st`='' AND `boking_status`='1' ORDER BY `start_date` ASC");
                     while($row=mysqli_fetch_array($query))
                     {  
 
@@ -106,7 +106,7 @@ $edate2=$date2->format('d-m-Y h:i:s A');
 
                                                             <!-- Single Car Info -->
                                         <div class="col-lg-8">
-                                        <div class="display-table">
+                                        <div class="display-table text-center">
                                             <div class="display-table-cell">
                                                 <div class="car-list-info">
                                                     <h2>
@@ -114,14 +114,19 @@ $edate2=$date2->format('d-m-Y h:i:s A');
                                             <?php echo htmlentities($row['car_name']); ?>  --  <?php echo htmlentities($row['car_number']); ?>
                                                         </a>
                                                     </h2>
-                                                <ul class="car-info-list">
-                                            <li> Location :<b> <?php echo htmlentities($row['location']); ?></b></li>
-                                                </ul>
-                                                <ul class="car-info-list">
+                                            <ul class="car-info-list">
+                                                <li> Location :<b> <?php echo htmlentities($row['location']); ?></b></li>
+                                            </ul>
+                                            <ul class="car-info-list">
+                                                <li>Purpose :<b> <?php echo htmlentities($row['purpose']); ?></b>
+                                                  
+                                                </li>
+                                            </ul>
+                                            <ul class="car-info-list">
                                                 <li><b><?php echo htmlentities($sdate2); ?></b> --To-- <b> <?php echo htmlentities($edate2); ?></b>
                                                   
                                                 </li>
-                                                </ul>
+                                            </ul>
                     <?php
 
                         $car_id=$row['car_id'];

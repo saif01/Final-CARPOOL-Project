@@ -38,7 +38,7 @@ foreach($result as $row)
  $data[] = array(
   'id'   => $row["booking_id"],
   //'title'   => $row["car_name"].' Car Number--'. $row["car_number"] ,
-  'title' => $row["location"].'--'. $row["user_name"].'--'. $row["user_department"],
+  'title' => $row["location"].' || '. $row["user_name"].' || '. $row["user_department"],
   'start'   => $row["start_date"],
   'end'   => $row["end_date"],
   

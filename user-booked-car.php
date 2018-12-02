@@ -60,7 +60,7 @@ else{
                             <?php
             $user_id=$_SESSION['user_id'];
                     //$query=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `user_id` = '$user_id' ORDER BY `booking_id` DESC LIMIT 4");
-                    $query=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `user_id`='$user_id' AND `comit_st`='' AND `start_date` >='$currentDate' ORDER BY `boking_status` ASC ");
+                    $query=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `user_id`='$user_id' AND `comit_st`='' AND `start_date` >='$currentDate' ORDER BY `start_date` ASC ");
                     while($row=mysqli_fetch_array($query))
                     {  
  
@@ -110,7 +110,7 @@ $edate2=$date2->format('d-m-Y h:i:s A');
                                                             <!-- Single Car Thumbnail -->
                                                             <div class="col-lg-4">
                                                                 <div class="car-list-thumb-s">
-                                                                    <a href="car-details?car_id=<?php echo htmlentities($row['car_id']);?> ">  <img src="admin/p_img/carImg/<?php echo($row['car_img']);?>" class="" alt="Image" /></a>
+                                                                    <a href="car-details?car_id=<?php echo htmlentities($row['car_id']);?> ">  <img src="admin/p_img/carImg/<?php echo($row['car_img']);?>" class="rounded mx-auto d-block" alt="Image" /></a>
                                                                 </div>
                                                             </div>
                                                             <!-- Single Car Thumbnail -->
@@ -119,21 +119,29 @@ $edate2=$date2->format('d-m-Y h:i:s A');
                                         <div class="col-lg-8">
                                         <div class="display-table">
                                             <div class="display-table-cell">
-                                                <div class="car-list-info">
+                                                <div class="car-list-info text-center">
                                                     <h2>
-                                                <a href="#">
+                                                
                                             <?php echo htmlentities($row['car_name']); ?> --: <?php echo htmlentities($row['car_number']); ?> 
 
-                                                        </a>
+                                                        
                                                     </h2>
-                                                <ul class="car-info-list">
-                                            <li> Location :<b> <?php echo htmlentities($row['location']); ?></b></li>
-                                                </ul>
-                                                <ul class="car-info-list">
+                                                   
+
+
+                                            <ul class="car-info-list">
+                                                <li> Location :<b> <?php echo htmlentities($row['location']); ?></b></li>
+                                            </ul>
+                                            <ul class="car-info-list">
+                                                <li>Purpose :<b> <?php echo htmlentities($row['purpose']); ?></b>
+                                                  
+                                                </li>
+                                            </ul>
+                                            <ul class="car-info-list">
                                                 <li><b><?php echo htmlentities($sdate2); ?></b> --To-- <b> <?php echo htmlentities($edate2); ?></b>
                                                   
                                                 </li>
-                                                </ul>
+                                            </ul>
 
                 <?php 
             $booking_status=$row['boking_status'];
@@ -145,28 +153,24 @@ $edate2=$date2->format('d-m-Y h:i:s A');
                 }
                 elseif($booking_status==0){
 //echo "Canceled";
-?> <button type="button" class="btn btn-info">Booking Canceled</button> <?php
+?> <button type="button" class="btn btn-danger">Booking Canceled</button> <?php
 
                    }
                 else{
 ?> <button type="button" class="btn btn-danger">Date Expaired</button> <?php
                 }
 
-// $cost=$row['booking_cost'];
-// $driver_rating=$row['driver_rating'];
-// $start_mileage=$row['start_mileage'];
-// $end_mileage=$row['end_mileage'];
-// $comit_st=$row['comit_st'];
-
-
 if ($row['booking_cost'] !=='' && $row['driver_rating'] !=='' && $row['start_mileage'] !=='' && $end_mileage=$row['end_mileage'] !=='' && $row['comit_st'] =='' ) {
     
 ?> <button type="button" class="btn btn-info"> Commended </button> 
 <?php
 }
-    
 
-if($comit_st=='' && $row['boking_status']=='1'){
+$startDateTime= $row['start_date'];   
+$Onlydate= DateTime::createFromFormat("Y-m-d H:i:s",$startDateTime )->format("Y-m-d");
+
+if($comit_st=='' && $row['boking_status']=='1' && $Onlydate == $currentDate)
+{
 
     $car_id=$row['car_id'];
      $query2=mysqli_query($con,"SELECT `driver_id` FROM `car_driver` WHERE `car_id`='$car_id' ");

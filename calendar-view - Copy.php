@@ -6,6 +6,7 @@ if(strlen($_SESSION['username'])==0)
 header('location:index');
 }
 else{
+date_default_timezone_set('Asia/Dhaka');// change according timezone
 $currentTime = date( 'Y-m-d H:i:s', time () );
 
  include('db/config.php');
@@ -34,7 +35,7 @@ foreach($result as $row)
  $data[] = array(
   'id'   => $row["booking_id"],
   //'title'   => $row["car_name"].' Car Number--'. $row["car_number"] ,
-  'title' => $row["location"].'--'. $row["user_name"].'--'. $row["user_department"],
+  'title' => $row["location"].' || '. $row["user_name"].' || '. $row["user_department"],
   'start'   => $row["start_date"],
   'end'   => $row["end_date"],
   
@@ -74,55 +75,83 @@ if (isset($_POST['submit'])) {
       $seconds    = abs($ts3 - $ts4); # difference will always be positive
       $afterdays = round($seconds/(60*60*24));
 
-       //  if ($days>=7) {
-            
-       // $_SESSION['error']="7";
-       //  }
+        
 
-        // if( $afterdays >= '30')
-        //         {
-        //           $_SESSION['error']="30d";
-        //         }
-      if ($start_book>$end_book) {
-        $_SESSION['error']="NotValid";
-      }
 
-        elseif(date($start_date) < date('Y-m-d'))
-                {
-                  $_SESSION['error']="pre";
-                }
 
-        else{
+//************Start Full Day Booking Checking Logic*********************//
 
-            $sql=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `car_id`='$car_id' AND `boking_status`='1' AND '$start_book' BETWEEN `start_date` AND `end_date` ");
-
-            //$sql=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `car_id` ='$car_id' AND (date(`start_date`) BETWEEN date('$start_book') AND date('$end_book') OR date(`end_date`) BETWEEN date('$start_book') AND date('$end_book') )");
- 
-
-                $result=mysqli_num_rows($sql);
-
-                if ($result > 0) 
-                {
-                    
-                    $_SESSION['error']="booked";
-                   
-                }
-
-                
-                else
+      if($_POST['start_time']=='01:00:00' &&  $_POST['return_time']=='23:59:00')
                 {
 
-                   
-                    $start_book= $_POST['start_date'] . ' ' . $_POST['start_time'];
+                  $sql7=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `car_id`='$car_id' AND `boking_status`='1' AND date('$start_date') BETWEEN date(`start_date`) AND date(`end_date`)");
+                  $res7=mysqli_num_rows($sql7);
+
+                  if ($res7>0) 
+                  {
+                    $_SESSION['error']="fullDay";
+                  }
+                  //  elseif ($days>=7) 
+                  //       {     
+                  //       $_SESSION['error']="7";
+                  //       }
+
+                  // elseif( $afterdays >= '30')
+                  //       {
+                  //           $_SESSION['error']="30d";
+
+                  //        }
+//************For checking Date ANd Time Correct or not*********//
+                  elseif ($start_book>$end_book) 
+                      {
+                        $_SESSION['error']="NotValid";
+                      }
+//************For checking Date previous or not*********//
+                  elseif(date($start_date) < date('Y-m-d'))
+                  {
+                    $_SESSION['error']="previousDate";
+                  }
+
+                  else
+                  {
+       //************Start For checking same record have or not*********//
+                  $start_book= $_POST['start_date'] . ' ' . $_POST['start_time'];
                     $end_book= $_POST['end_date'] . ' ' . $_POST['return_time'];
 
                     $location=$_POST['location'];
+                    $purpose=$_POST['purpose'];
 
                     $status=1;
 
+                    $query7=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `boking_status`='1' AND `start_date`='$start_book' AND `end_date`='$end_book' AND `location`='$location' ");
 
-                    $query=mysqli_query($con,"INSERT INTO `car_booking`(`car_id`, `user_id`, `user_name`, `car_name`, `car_number`, `car_img`, `start_date`, `end_date`, `location`, `day_count`, `boking_status`) VALUES ('$car_id','$user_id','$username','$car_name','$car_nunber','$car_img','$start_book','$end_book','$location','$days','$status')");
+                     $sameResult=mysqli_num_rows($query7);
 
+                   if ($sameResult > 0) 
+
+                   {
+                      $start_book= $_POST['start_date'] . ' ' . $_POST['start_time'];
+                      $end_book= $_POST['end_date'] . ' ' . $_POST['return_time'];
+
+                      $location=$_POST['location'];
+                      $purpose=$_POST['purpose'];
+
+                        $query=mysqli_query($con,"INSERT INTO `car_booking`(`car_id`, `user_id`, `user_name`, `car_name`, `car_number`, `car_img`, `start_date`, `end_date`, `location`, `purpose`, `day_count`, `boking_status`) VALUES ('$car_id','$user_id','$username','$car_name','$car_nunber','$car_img','$start_book','$end_book','$location','$purpose','$days','$status')");
+
+                         $_SESSION['error']="same_result";
+         //************Store Value in SESSION for show same record*********//                
+                  $_SESSION['start_book']=$_POST['start_date'] . ' ' . $_POST['start_time'];
+                  $_SESSION['end_book']=$_POST['end_date'] . ' ' . $_POST['return_time'];
+                  $_SESSION['location']=$_POST['location'];
+
+
+                    }
+          //************End Full Day Booking Checking Logic*********************//
+                  else
+                      {
+
+                  //******** If No Record Found This Section store Data In DataBase*****//  
+                    $query=mysqli_query($con,"INSERT INTO `car_booking`(`car_id`, `user_id`, `user_name`, `car_name`, `car_number`, `car_img`, `start_date`, `end_date`, `location`, `purpose`, `day_count`, `boking_status`) VALUES ('$car_id','$user_id','$username','$car_name','$car_nunber','$car_img','$start_book','$end_book','$location','$purpose','$days','$status')");
                     
                     ?>
                     <script>
@@ -130,8 +159,97 @@ if (isset($_POST['submit'])) {
                         window.open('car-list3.php','_self');
                         </script>
                     <?php 
-
                      $_SESSION['error']="";
+                       }
+
+                }
+
+  
+       }
+
+//************Start Not Full Day Booking Checking Logic*********************//
+
+        
+        else{
+
+            $sql=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `car_id`='$car_id' AND `boking_status`='1' AND '$start_book' BETWEEN `start_date` AND `end_date` ");
+                $result=mysqli_num_rows($sql);
+                if ($result > 0) 
+                { 
+                    $_SESSION['error']="booked";
+                }
+
+                  //  elseif ($days>=7) 
+                  //       {     
+                  //       $_SESSION['error']="7";
+                  //       }
+
+                  // elseif( $afterdays >= '30')
+                  //       {
+                  //           $_SESSION['error']="30d";
+
+                //************For checking Date ANd Time Correct or not*********//
+                  elseif ($start_book>$end_book) 
+                      {
+                        $_SESSION['error']="NotValid";
+                      }
+                //************For checking Date previous or not*********//
+                  elseif(date($start_date) < date('Y-m-d'))
+                  {
+                    $_SESSION['error']="previousDate";
+                  }  
+                else
+                {
+
+      //************Start For checking same record have or not*********//
+                  $start_book= $_POST['start_date'] . ' ' . $_POST['start_time'];
+                    $end_book= $_POST['end_date'] . ' ' . $_POST['return_time'];
+
+                    $location=$_POST['location'];
+                    $purpose=$_POST['purpose'];
+
+                    $status=1;
+
+                    $query7=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `boking_status`='1' AND `start_date`='$start_book' AND `end_date`='$end_book' AND `location`='$location' ");
+
+                     $sameResult=mysqli_num_rows($query7);
+
+                   if ($sameResult > 0) 
+
+                   {
+                      $start_book= $_POST['start_date'] . ' ' . $_POST['start_time'];
+                      $end_book= $_POST['end_date'] . ' ' . $_POST['return_time'];
+
+                      $location=$_POST['location'];
+                      $purpose=$_POST['purpose'];
+
+                        $query=mysqli_query($con,"INSERT INTO `car_booking`(`car_id`, `user_id`, `user_name`, `car_name`, `car_number`, `car_img`, `start_date`, `end_date`, `location`, `purpose`, `day_count`, `boking_status`) VALUES ('$car_id','$user_id','$username','$car_name','$car_nunber','$car_img','$start_book','$end_book','$location','$purpose','$days','$status')");
+
+                         $_SESSION['error']="same_result";
+         //************Store Value in SESSION for show same record*********//                
+                  $_SESSION['start_book']=$_POST['start_date'] . ' ' . $_POST['start_time'];
+                  $_SESSION['end_book']=$_POST['end_date'] . ' ' . $_POST['return_time'];
+                  $_SESSION['location']=$_POST['location'];
+
+
+
+                   }
+
+                   else
+                   {  
+      //******** If No Record Found This Section store Data In DataBase*****//  
+                    $query=mysqli_query($con,"INSERT INTO `car_booking`(`car_id`, `user_id`, `user_name`, `car_name`, `car_number`, `car_img`, `start_date`, `end_date`, `location`, `purpose`, `day_count`, `boking_status`) VALUES ('$car_id','$user_id','$username','$car_name','$car_nunber','$car_img','$start_book','$end_book','$location','$purpose','$days','$status')");
+                    
+                    ?>
+                    <script>
+                        alert('Update successfull..  !');
+                        window.open('car-list3.php','_self');
+                        </script>
+                    <?php 
+                     $_SESSION['error']="";
+                   }
+                   
+                    
                 }
 
         }
@@ -258,9 +376,7 @@ include('include/manu.php'); ?>
 </script>
 
 
-
-
-<script>
+              <script>
                     function show() {
                         var selectBox = document.getElementById('time_show');
                         var userInput = selectBox.options[selectBox.selectedIndex].value;
@@ -300,6 +416,7 @@ include('include/manu.php'); ?>
                         echo htmlentities($_SESSION['error']="");
 
                       }
+      ///******* If Booked another user for book*******//    
                       if($_SESSION['error']=="booked")
                         {?>
                       <div class="alert">
@@ -309,6 +426,8 @@ include('include/manu.php'); ?>
                       <?php
                       echo htmlentities($_SESSION['error']="");
                        }
+    ///******* If select More than 7 dates for book*******//
+
                        if($_SESSION['error']=="7")
                         { ?>
                       <div class="alert">
@@ -319,7 +438,9 @@ include('include/manu.php'); ?>
                       echo htmlentities($_SESSION['error']="");
                        } 
 
-                       if($_SESSION['error']=="pre")
+
+      ///******* If select back date for book*******//
+                       if($_SESSION['error']=="previousDate")
                         { ?>
                       <div class="alert">
                         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
@@ -328,7 +449,7 @@ include('include/manu.php'); ?>
                       <?php 
                       echo htmlentities($_SESSION['error']="");
                        } 
-
+        //**** More than 30 days show message*****//
                        if($_SESSION['error']=="30d")
                         { ?>
                       <div class="alert">
@@ -338,12 +459,33 @@ include('include/manu.php'); ?>
                       <?php 
                       echo htmlentities($_SESSION['error']="");
                        } 
-
+      //***** If manual input not valied*****//
                        if($_SESSION['error']=="NotValid")
                         { ?>
                       <div class="alert">
                         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
                         <strong>Sorry!</strong> Start Time Cannot More Than End Time!!.
+                      </div>
+                      <?php 
+                      echo htmlentities($_SESSION['error']="");
+                       } 
+      //******** if found few hours booking Result Show This Message when user want to book full day *************//
+                       if($_SESSION['error']=="fullDay")
+                        { ?>
+                      <div class="alert">
+                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                        <strong>Sorry!</strong> This Date Another User was Booked Few Hours !!.
+                      </div>
+                      <?php 
+                      echo htmlentities($_SESSION['error']="");
+                       } 
+//******** After Same Result Found Show This Message *************//
+                       if($_SESSION['error']=="same_result")
+                        { ?>
+                      <div class="alert">
+                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                        <strong>Booking Complete!</strong> Found Same Record You have to show.
+                        <a href="same_record" class="btn btn-info">Click Me</a>
                       </div>
                       <?php 
                       echo htmlentities($_SESSION['error']="");
@@ -357,7 +499,7 @@ include('include/manu.php'); ?>
                   <div class="row">
                     <div class="col-md-6">
                       
-                      <label>Pic-Up DATE:
+                      <label>Pick-Up DATE:
                           <input type="date"  name="start_date"  placeholder="Pick Up Date" required />
                          
                        </label>
@@ -428,9 +570,9 @@ include('include/manu.php'); ?>
                                             <option value="15:30:00">3.30 PM </option>
                                             <option value="16:00:00">4.00 PM </option>
                                             <option value="16:30:00">4.30 PM </option>
-                                            <option value="18:00:00">5.00 PM </option>
-                                            <option value="18:30:00">5.30 PM </option>
-                                            <option value="19:00:00">6.00 PM </option>
+                                            <option value="17:00:00">5.00 PM </option>
+                                            <option value="17:30:00">5.30 PM </option>
+                                            <option value="18:00:00">6.00 PM </option>
                                                                                   
                                          </select>
                                             </label>
@@ -456,9 +598,9 @@ include('include/manu.php'); ?>
                                             <option value="15:30:00">3.30 PM </option>
                                             <option value="16:00:00">4.00 PM </option>
                                             <option value="16:30:00">4.30 PM </option>
-                                            <option value="18:00:00">5.00 PM </option>
-                                            <option value="18:30:00">5.30 PM </option>
-                                            <option value="19:00:00">6.00 PM </option>
+                                            <option value="17:00:00">5.00 PM </option>
+                                            <option value="17:30:00">5.30 PM </option>
+                                            <option value="18:00:00">6.00 PM </option>
                                                                                   
                                          </select>
                                             </label>
@@ -469,6 +611,17 @@ include('include/manu.php'); ?>
                            </div>
                   </div>
 
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      
+                      <label>Purpose:
+                          <input type="text"  name="purpose"  placeholder="Enter Purpose" required />
+                         
+                       </label>
+                    </div>
+                   
+                  </div>
                 
 
                 <div class="log-btn">
