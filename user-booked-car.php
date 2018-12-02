@@ -157,7 +157,7 @@ $edate2=$date2->format('d-m-Y h:i:s A');
 
                    }
                 else{
-?> <button type="button" class="btn btn-danger">Date Expaired</button> <?php
+?> <button type="button" class="btn btn-danger">Date Expired</button> <?php
                 }
 
 if ($row['booking_cost'] !=='' && $row['driver_rating'] !=='' && $row['start_mileage'] !=='' && $end_mileage=$row['end_mileage'] !=='' && $row['comit_st'] =='' ) {
