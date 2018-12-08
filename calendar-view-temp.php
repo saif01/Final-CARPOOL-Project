@@ -9,15 +9,27 @@ header('location:index');
 }
 else{
 
-
-
- include('db/config.php');
+include('db/config.php');
 include('db/calDB.php');
+include('line/lineMsg.php');
 
 $car_id= $_GET['car_id'];
 
 $username= $_SESSION['username'];
 $user_id= $_SESSION['user_id'];
+
+//*********Only User Real Name finding *********//
+$Query0=mysqli_query($con,"SELECT `user_name`, `user_department` FROM `user` WHERE `logIn_id`='$username'");
+$S_name=$Query0->fetch_assoc();
+$U_realName=$S_name['user_name'];
+$u_dept=$S_name['user_department'];
+
+
+ //******  Driver And Car table Joining Result Nane And Image Show ****/      
+$driverTable=mysqli_query($con,"SELECT * FROM `car_driver` LEFT JOIN tbl_car ON car_driver.car_id= tbl_car.car_id WHERE car_driver.car_id='$car_id'");
+$d_Result=$driverTable->fetch_assoc();
+$car_number=$d_Result['car_namePlate'];
+$dariver_name= $d_Result['driver_name'];
 
 
 //start For Load data for show on calender.......................
@@ -113,18 +125,42 @@ if (isset($_POST['submit'])) {
 
                     $status=1;
 
+                      $samRecd=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `boking_status`='1' AND `start_date`='$start_book' AND `end_date`='$end_book' AND `location`='$location' AND `user_name`!='$username'");
+                       $sameResult=mysqli_num_rows($samRecd);
 
-                    $query=mysqli_query($con,"INSERT INTO `car_booking`(`car_id`, `user_id`, `user_name`, `car_name`, `car_number`, `car_img`, `start_date`, `end_date`, `location`, `purpose`, `day_count`, `boking_status`) VALUES ('$car_id','$user_id','$username','$car_name','$car_nunber','$car_img','$start_book','$end_book','$location','$purpose','$days','$status')");
+                      if ($sameResult > 0) {
 
+                        $query=mysqli_query($con,"INSERT INTO `car_booking`(`car_id`, `user_id`, `user_name`, `car_name`, `car_number`, `car_img`, `start_date`, `end_date`, `location`, `purpose`, `day_count`, `boking_status`) VALUES ('$car_id','$user_id','$username','$car_name','$car_nunber','$car_img','$start_book','$end_book','$location','$purpose','$days','$status')");
+
+  //*************For Sending Line Group Message*******************//
+                    $message="$start_book, To $end_book,%0A Booked By: $U_realName,%0A Department: $u_dept,%0A Location: $location,%0A Purpose: $purpose,%0A Driver: $dariver_name,%0A Car: $car_number.";
+                        lineMsg($message);
+
+                         $_SESSION['error']="same_result";
+         //************Store Value in SESSION for show same record*********//                
+                  $_SESSION['start_book']=$start_book;
+                  $_SESSION['end_book']= $end_book;
+                  $_SESSION['location']=$location;
+
+                        
+                      }
+                      else
+                      {
+                        $query=mysqli_query($con,"INSERT INTO `car_booking`(`car_id`, `user_id`, `user_name`, `car_name`, `car_number`, `car_img`, `start_date`, `end_date`, `location`, `purpose`, `day_count`, `boking_status`) VALUES ('$car_id','$user_id','$username','$car_name','$car_nunber','$car_img','$start_book','$end_book','$location','$purpose','$days','$status')");
+                        
+//*************For Sending Line Group Message*******************//
+                       $message="$start_book, To $end_book,%0A Booked By: $U_realName,%0A Department: $u_dept,%0A Location: $location,%0A Purpose: $purpose,%0A Driver: $dariver_name,%0A Car: $car_number.";
+                        lineMsg($message);
                     
-                    ?>
-                    <script>
-                        alert('Update successfull..  !');
-                        window.open('car-list-temp.php','_self');
-                        </script>
-                    <?php 
-
-                     $_SESSION['error']="";
+                          ?>
+                          <script>
+                              alert('Update successfull..  !');
+                              window.open('car-list-temp.php','_self');
+                              </script>
+                          <?php 
+                           $_SESSION['error']="";
+                      }
+                    
                 }
 
         }
@@ -197,8 +233,27 @@ if (isset($_POST['submit'])) {
 .closebtn:hover {
     color: black;
 }
-</style>
+.driverImg{
+    border-radius: 10px 20px;
+    background: #ffd000;
+    padding: 2px; 
+    width: 100px;
+    height: 110px;
+  margin-right: 0px;
+  float: right;
+}
 
+.carImg{
+    border-radius: 10px 20px;
+    background: #ffd000;
+    padding: 2px; 
+    width: 200px;
+    height: 110px;
+    margin-right: 0px;
+    float: left;
+}
+</style>
+ 
 <?php  
 include('include/social_link_top.php');
 include('include/manu.php'); ?>
@@ -210,7 +265,17 @@ include('include/manu.php'); ?>
                 <div class="col-lg-12">
                     <div class="section-title  text-center">
 
-                       <h2> Temporary Car Booking</h2>
+                      <!--  Driver And Car table Joining Result Nane And Image Show -->
+                    <?php
+                    $driverTable=mysqli_query($con,"SELECT * FROM `car_driver` LEFT JOIN tbl_car ON car_driver.car_id= tbl_car.car_id WHERE car_driver.car_id='$car_id'");
+                    $d_Result=$driverTable->fetch_assoc();
+                    ?>
+
+                    <img src="admin/p_img/carImg/<?php echo($d_Result['car_img1']);?>" class="img-responsive carImg"  alt="Car Image" />
+
+                    <img src="admin/p_img/driverimg/<?php echo($d_Result['driver_img']);?>" class="img-responsive driverImg"  alt="Driver Image" />
+
+                       <h2><?php echo $d_Result['car_namePlate'];?> || <?php echo $d_Result['driver_name'];?></h2>
                         <span class="title-line"><i class="fa fa-car"></i></span>
                         
                     </div>
@@ -286,7 +351,21 @@ include('include/manu.php'); ?>
                       </div>
                       <?php 
                       echo htmlentities($_SESSION['error']="");
+                       }
+
+//******** After Same Result Found Show This Message *************//
+                       if($_SESSION['error']=="same_result")
+                        { ?>
+                      <div class="alert">
+                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                        <strong>Booking Complete!</strong> Found Same Record You have to show.
+                        <a href="same_record" class="btn btn-info">Click Me</a>
+                      </div>
+                      <?php 
+                      echo htmlentities($_SESSION['error']="");
                        } 
+
+                        
 
                        
               

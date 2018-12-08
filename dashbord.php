@@ -56,8 +56,6 @@ include('db/config.php');
         </div>
     </div>
 
-
-
    <?php 
 
       include('include/social_link_top.php');
@@ -73,97 +71,25 @@ include('db/config.php');
                             <div class="display-table-cell">
                                <a href="car-list3" > <h1>BOOK A CAR TODAY!</h1> </a>
 
-                                 <div class="book-ur-car text-center ">
+                                 <div class="book-ur-car">
 
 
                                     <form action="search-result.php" method="POST" >
-
-                                         <div id="manual_input_show" style="display:none;">
-                                    
-                                        <div >
-                                            
-                                    <select id="first" name="start_time" > 
-                                            <option value="01:00:00"> Select Manual Start Time </option>
-                                            <option value="09:00:00">9.00 AM </option>
-                                            <option value="10:00:00">10.00 AM </option>
-                                            <option value="11:00:00">11.00 AM </option>
-                                            <option value="12:00:00">12.00 PM (Noon)</option>
-                                            <option value="13:00:00">01.00 PM </option>
-                                            <option value="14:00:00">02.00 PM </option>
-                                            <option value="15:00:00">03.00 PM </option>
-                                            <option value="16:00:00">04.00 PM </option>
-                                            <option value="17:00:00">05.00 PM </option>
-                                            <option value="18:00:00">06.00 PM </option>
-                                            <option value="19:00:00">07.00 PM </option>
-                                            <option value="20:00:00">08.00 PM </option>
-                                            <option value="21:00:00">09.00 PM </option>
-                                            <option value="22:30:00">10.00 PM </option>
-                                            <option value="23:00:00">11.00 PM </option>
-
-                                            <option value="23:59:00">12.00 AM (Night) </option>
-                                            <option value="01:00:00">01.00 AM </option>
-                                            <option value="02:00:00">02.00 AM </option>
-                                            <option value="03:00:00">03.00 AM </option>
-                                            <option value="04:00:00">04.00 AM </option>
-                                            <option value="05:00:00">05.00 AM </option>
-                                            <option value="06:00:00">06.00 AM </option>
-                                            <option value="07:00:00">07.00 AM </option>
-                                            <option value="08:00:00">08.00 AM </option>
-                                                                                  
-                                         </select>
-                                           
-                                        </div>
-                                        <div >
-                                           
-                                        <select id="second" name="return_time" > 
-                                            <option value="23:59:00">Select Manual End Time</option>    
-                                            <option value="09:00:00">9.00 AM </option>
-                                            <option value="10:00:00">10.00 AM </option>
-                                            <option value="11:00:00">11.00 AM </option>
-                                            <option value="12:00:00">12.00 PM (Noon)</option>
-                                            <option value="13:00:00">01.00 PM </option>
-                                            <option value="14:00:00">02.00 PM </option>
-                                            <option value="15:00:00">03.00 PM </option>
-                                            <option value="16:00:00">04.00 PM </option>
-                                            <option value="17:00:00">05.00 PM </option>
-                                            <option value="18:00:00">06.00 PM </option>
-                                            <option value="19:00:00">07.00 PM </option>
-                                            <option value="20:00:00">08.00 PM </option>
-                                            <option value="21:00:00">09.00 PM </option>
-                                            <option value="22:30:00">10.00 PM </option>
-                                            <option value="23:00:00">11.00 PM </option>
-
-                                            <option value="23:59:00">12.00 AM (Night) </option>
-                                            <option value="01:00:00">01.00 AM </option>
-                                            <option value="02:00:00">02.00 AM </option>
-                                            <option value="03:00:00">03.00 AM </option>
-                                            <option value="04:00:00">04.00 AM </option>
-                                            <option value="05:00:00">05.00 AM </option>
-                                            <option value="06:00:00">06.00 AM </option>
-                                            <option value="07:00:00">07.00 AM </option>
-                                            <option value="08:00:00">08.00 AM </option>
-                                            
-                                                                                  
-                                         </select>
-                                           
-                                        </div>
                                         
-                                    </div>
-                               
-
                                         <div class="pick-date bookinput-item">
-                                            <input id="startDate2" name="startDate" placeholder="Pick Date" />
+                                            <input id="startDate2" name="startDate" placeholder="Pick Date"/>
                                         </div>
 
                                         <div class="retern-date bookinput-item">
-                                            <input id="endDate2" name="endDate" placeholder="Return Date" />
+                                            <input id="endDate2" name="endDate" placeholder="Return Date"/>
                                         </div>
 
-                                        <div class="pick-location bookinput-item">
-                                    <select name="location" class="custom-select">
-                                              <option value="">Select Location</option> 
-                                    
-                                    <?php
+                                       
+
+                                       <div class="pick-location bookinput-item">
+                                            <select name="location" class="custom-select" style="text-align-last:center;">
+                                              <option selected>Pick Location</option>
+                                             <?php
                                         $query2=mysqli_query($con,"SELECT `location` FROM `location` ORDER BY `location`");
 
                                                 while ($row2 = mysqli_fetch_array($query2))
@@ -171,17 +97,7 @@ include('db/config.php');
                                     echo "<option value='". $row2['location'] ."'>" .$row2['location'] . "</option>" ;
                                     }
                                     ?>
-                                              
                                             </select>
-                                        </div>
-
-                                        <div class="pick-location bookinput-item">
-                                    
-                                              <select name="for_car" class="custom-select" id="time_show" onChange="return show();" >
-                                                <option value="">Full day </option>   
-                                                <option value="manual_input">Manual Input </option>
-                                        </select>
-
                                         </div>
                                         
 
@@ -189,14 +105,8 @@ include('db/config.php');
                                             <button type="submit" name="submit" >Search Record</button>
                                         </div>
 
-
-
-
-
                                     </form>
                                 </div>
-
-
 
                             </div>
                         </div>
@@ -206,28 +116,6 @@ include('db/config.php');
         </div>
     </section>
     <!--== SlideshowBg Area End ==-->
-
-   <script type="text/javascript">
-       function show() {
-                        var selectBox = document.getElementById('time_show');
-                        var userInput = selectBox.options[selectBox.selectedIndex].value;
-                        if (userInput == 'manual_input') 
-                        {
-                            document.getElementById('manual_input_show').style.display = 'block';
-                            
-                        }  
-                        else {
-                            document.getElementById('manual_input_show').style.display = 'none';
-                        }
-
-                        return false;
-
-                    }
-   </script>
-
-
-
-   
 
 
   <?php include('include/footer.php'); ?>

@@ -105,7 +105,19 @@ if (isset($_POST['cancel'])) {
                 <div class="col-lg-12">
                     <div class="section-title  text-center">
 
-                       <h2> Same Booking Record Found</h2>
+                        <h2> 
+                        <?php
+                        $start_date= date("Y-m-d", strtotime($start_book));
+                        $end_date= date("Y-m-d", strtotime($end_book));
+                        if ($start_date==$end_date ) {
+
+                            echo date("M j, Y", strtotime($start_date));
+                        }
+                        else{ 
+                         echo date("M j, Y", strtotime($start_date)).  " -- " . date("M j, Y", strtotime($end_date));
+                        }?>
+                      . Same Booking History</h2>
+
                         <span class="title-line"><i class="fa fa-car"></i></span>
                         
                     </div>
@@ -180,7 +192,7 @@ $query2=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `user_name`='$user_
                 <tr>
                    
                    <th>User</th>
-                   <th>Number</th>
+                   <th>Contact</th>
                    <th>Car</th>                 
                   <th>Booking Starts</th>
                   <th>Booking Ends</th>

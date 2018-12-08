@@ -72,6 +72,7 @@ $edate2=$date2->format('d-m-Y h:i:s A');
         $ts2    =   strtotime($endDate);
         $seconds    = abs($ts2 - $ts1); # difference will always be positive
         $days = round($seconds/(60*60*24));
+        $hours=round($seconds/(60*60));
   // Start Time Subtraction and convert to days.
  
 
@@ -85,7 +86,12 @@ $edate2=$date2->format('d-m-Y h:i:s A');
                                                 <h5 class="mb-0">
                                                 <span><?php echo htmlentities($sdate); ?> ---- to ---- <?php echo htmlentities($edate); ?></span>  
 
-                                             <b style="margin-left: 20%"><?php echo $days; ?> Days </b>
+                                            <b style="margin-left: 20%"><?php
+                                             if ($days=='0') {
+                                                 echo $hours." Hours";
+                                              }else{
+                                                echo $days." Days";
+                                              }?> </b>
 
                                                 </h5>
                                             </div>

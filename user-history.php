@@ -54,11 +54,6 @@ $user_id= $_SESSION['user_id'];
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.bootstrap4.min.css">
     
-
-
-
-
-
 </head>
 
 <body class="loader-active">
@@ -190,7 +185,6 @@ $value = $query->fetch_assoc();
             </div>
     
     <!--== About Page Content End ==-->
-
 
    <!--=======================Javascript============================-->
     <!--=== Jquery Min Js ===-->

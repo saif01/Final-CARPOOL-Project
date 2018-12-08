@@ -1,9 +1,7 @@
 <?php include('db/config.php');
 require('assets/coustom/UserInfo.php');
-
 session_start();
 error_reporting(0);
-
 
 if(isset($_POST['submit']))
 {
@@ -37,12 +35,9 @@ if($num>0)
                         $status=1;
 
                         $log=mysqli_query($con,"INSERT INTO `loginlog`(`user_name`, `user_id`, `user_ip`, `user_os`, `user_browser`, `user_device`, `user_status`) VALUES ('".$_SESSION['username']."','$user_id','$ip','$os','$browser','$device','$st')");
-                         
-                                       
+                                                                
                          header("Location: dashbord");
                         exit();
-
-                    
                         }
 
                         elseif ($st==0)
@@ -66,9 +61,9 @@ if($num>0)
 
                     }
 
-                    }
-
                 }
+
+            }
 else
     {
         $_SESSION['errmsg']="Invalid username or password";       

@@ -12,11 +12,15 @@ $user_name= $_SESSION['username'];
 $user_id= $_SESSION['user_id'];
 
 
+// $Sdate=$_POST['startDate'] . ' ' . $_POST['start_time'];
+// $Edate=$_POST['endDate'] . ' ' . $_POST['return_time'];
+// $start_date= date("Y-m-d H:i:s", strtotime($Sdate));
+// $end_date= date("Y-m-d H:i:s", strtotime($Edate));
 
-$Sdate=$_POST['startDate'] . ' ' . $_POST['start_time'];
-$Edate=$_POST['endDate'] . ' ' . $_POST['return_time'];
-$start_date= date("Y-m-d H:i:s", strtotime($Sdate));
-$end_date= date("Y-m-d H:i:s", strtotime($Edate));
+$Sdate=$_POST['startDate'];
+$Edate=$_POST['endDate'];
+$start_date= date("Y-m-d", strtotime($Sdate));
+$end_date= date("Y-m-d", strtotime($Edate));
 
 $location=$_POST['location'];
 
@@ -108,7 +112,15 @@ $location=$_POST['location'];
                     <div class="section-title  text-center">
 
                        <h2> 
-                        <?php echo htmlentities($start_date) ?> || <?php echo htmlentities($end_date) ?> Booking History</h2>
+                        <?php
+                        if ($start_date==$end_date ) {
+
+                            echo date("M j, Y", strtotime($start_date));
+                        }
+                        else{ 
+                         echo date("M j, Y", strtotime($start_date)).  " -- " . date("M j, Y", strtotime($end_date));
+                        }?>
+                      . Booking History</h2>
                         <span class="title-line"><i class="fa fa-car"></i></span>
                         
                     </div>
@@ -129,7 +141,7 @@ $location=$_POST['location'];
                 <tr>
 
                    <th>User</th>
-                   <th>Number</th>
+                   <th>Contact</th>
                    <th>Car</th>                 
                   <th>Booking Starts</th>
                   <th>Booking Ends</th>
@@ -142,19 +154,17 @@ $location=$_POST['location'];
               </thead>   
               <tbody>
                 <?php 
-    $query=mysqli_query($con,"SELECT * FROM `car_booking` LEFT JOIN `user` ON car_booking.user_id= user.user_id WHERE car_booking.boking_status='1' AND car_booking.start_date='$start_date' AND car_booking.end_date='$end_date' AND car_booking.location='$location' ");
+    $query=mysqli_query($con,"SELECT * FROM `car_booking` LEFT JOIN `user` ON car_booking.user_id= user.user_id WHERE car_booking.boking_status='1' AND car_booking.start_date LIKE '%$start_date%' AND car_booking.end_date LIKE '%$end_date%' AND car_booking.location='$location'");
 
     while($row=mysqli_fetch_array($query))
     {
 
 ?>
-  <tr>
-
-                
-
+  <tr>            
                 <td><?php echo htmlentities($row['user_name']); ?> </td>
-                <td><a  href="tel:+88<?php echo htmlentities($row['user_contract']) ; ?>">
-                    <?php echo htmlentities($row['user_contract']); ?> 
+                <td>
+                    <a  href="tel:+88<?php echo htmlentities($row['user_contract']) ; ?>">
+                        <?php echo htmlentities($row['user_contract']); ?> 
                     </a>
                 </td>
                 <td> <?php echo htmlentities($row['car_name']. '- '.$row['car_number'] ) ; ?></td>

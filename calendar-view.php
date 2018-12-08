@@ -9,12 +9,27 @@ else{
 date_default_timezone_set('Asia/Dhaka');// change according timezone
 $currentTime = date( 'Y-m-d H:i:s', time () );
 
- include('db/config.php');
+include('db/config.php');
 include('db/calDB.php');
+include('line/lineMsg.php');
+
 $car_id= $_GET['car_id'];
 
 $username= $_SESSION['username'];
 $user_id= $_SESSION['user_id'];
+
+//*********Only User Real Name finding *********//
+$Query0=mysqli_query($con,"SELECT `user_name`, `user_department` FROM `user` WHERE `logIn_id`='$username'");
+$S_name=$Query0->fetch_assoc();
+$U_realName=$S_name['user_name'];
+$u_dept=$S_name['user_department'];
+
+
+ //******  Driver And Car table Joining Result Nane And Image Show ****/      
+$driverTable=mysqli_query($con,"SELECT * FROM `car_driver` LEFT JOIN tbl_car ON car_driver.car_id= tbl_car.car_id WHERE car_driver.car_id='$car_id'");
+$d_Result=$driverTable->fetch_assoc();
+$car_number=$d_Result['car_namePlate'];
+$dariver_name= $d_Result['driver_name'];                
 
 
 //start For Load data for show on calender.......................
@@ -43,7 +58,7 @@ foreach($result as $row)
 }
 
  //end For Load data for show on calender.......................
-
+ 
 
 //  All data fetch from database by ID
 $query=mysqli_query($con,"SELECT * FROM `tbl_car` WHERE `car_id` = $car_id ");
@@ -114,7 +129,7 @@ if (isset($_POST['submit'])) {
 
                   else
                   {
-       //************Start For checking same record have or not*********//
+//************Start For checking same record have or not*********//
                   $start_book= $_POST['start_date'] . ' ' . $_POST['start_time'];
                     $end_book= $_POST['end_date'] . ' ' . $_POST['return_time'];
 
@@ -123,36 +138,39 @@ if (isset($_POST['submit'])) {
 
                     $status=1;
 
-                    $query7=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `boking_status`='1' AND `start_date`='$start_book' AND `end_date`='$end_book' AND `location`='$location' ");
+                    $query7=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `boking_status`='1' AND `start_date`='$start_book' AND `end_date`='$end_book' AND `location`='$location' AND `user_name` !='$username' ");
 
                      $sameResult=mysqli_num_rows($query7);
 
                    if ($sameResult > 0) 
 
-                   {
-                      $start_book= $_POST['start_date'] . ' ' . $_POST['start_time'];
-                      $end_book= $_POST['end_date'] . ' ' . $_POST['return_time'];
-
-                      $location=$_POST['location'];
-                      $purpose=$_POST['purpose'];
+                   {     
+                      
 
                         $query=mysqli_query($con,"INSERT INTO `car_booking`(`car_id`, `user_id`, `user_name`, `car_name`, `car_number`, `car_img`, `start_date`, `end_date`, `location`, `purpose`, `day_count`, `boking_status`) VALUES ('$car_id','$user_id','$username','$car_name','$car_nunber','$car_img','$start_book','$end_book','$location','$purpose','$days','$status')");
 
+//*************For Sending Line Group Message*******************//
+                        $message="$start_book, To $end_book,%0A Booked By: $U_realName,%0A Department: $u_dept,%0A Location: $location,%0A Purpose: $purpose,%0A Driver: $dariver_name,%0A Car: $car_number.";
+                        lineMsg($message);
+
                          $_SESSION['error']="same_result";
-         //************Store Value in SESSION for show same record*********//                
-                  $_SESSION['start_book']=$_POST['start_date'] . ' ' . $_POST['start_time'];
-                  $_SESSION['end_book']=$_POST['end_date'] . ' ' . $_POST['return_time'];
-                  $_SESSION['location']=$_POST['location'];
+//************Store Value in SESSION for show same record*********//                
+                          $_SESSION['start_book']=$start_book;
+                          $_SESSION['end_book']=$end_book;
+                          $_SESSION['location']=$location;
 
 
                     }
-          //************End Full Day Booking Checking Logic*********************//
+//************End Full Day Booking Checking Logic*********************//
                   else
                       {
 
-                  //******** If No Record Found This Section store Data In DataBase*****//  
+//******** If No Record Found This Section store Data In DataBase*****//  
                     $query=mysqli_query($con,"INSERT INTO `car_booking`(`car_id`, `user_id`, `user_name`, `car_name`, `car_number`, `car_img`, `start_date`, `end_date`, `location`, `purpose`, `day_count`, `boking_status`) VALUES ('$car_id','$user_id','$username','$car_name','$car_nunber','$car_img','$start_book','$end_book','$location','$purpose','$days','$status')");
-                    
+
+//*************For Sending Line Group Message*******************//                    
+                   $message="$start_book, To $end_book,%0A Booked By: $U_realName,%0A Department: $u_dept,%0A Location: $location,%0A Purpose: $purpose,%0A Driver: $dariver_name,%0A Car: $car_number.";
+                        lineMsg($message);
                     ?>
                     <script>
                         alert('Update successfull..  !');
@@ -164,7 +182,6 @@ if (isset($_POST['submit'])) {
 
                 }
 
-  
        }
 
 //************Start Not Full Day Booking Checking Logic*********************//
@@ -188,58 +205,56 @@ if (isset($_POST['submit'])) {
                   //       {
                   //           $_SESSION['error']="30d";
 
-                //************For checking Date ANd Time Correct or not*********//
+//************For checking Date ANd Time Correct or not*********//
                   elseif ($start_book>$end_book) 
                       {
                         $_SESSION['error']="NotValid";
                       }
-                //************For checking Date previous or not*********//
+//************For checking Date previous or not*********//
                   elseif(date($start_date) < date('Y-m-d'))
                   {
                     $_SESSION['error']="previousDate";
                   }  
                 else
                 {
-
-      //************Start For checking same record have or not*********//
+//************Start For checking same record have or not*********//
                   $start_book= $_POST['start_date'] . ' ' . $_POST['start_time'];
                     $end_book= $_POST['end_date'] . ' ' . $_POST['return_time'];
-
                     $location=$_POST['location'];
                     $purpose=$_POST['purpose'];
-
                     $status=1;
 
-                    $query7=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `boking_status`='1' AND `start_date`='$start_book' AND `end_date`='$end_book' AND `location`='$location' ");
+                    $query8=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `boking_status`='1' AND `start_date`='$start_book' AND `end_date`='$end_book' AND `location`='$location' AND `user_name` !='$username' ");
 
-                     $sameResult=mysqli_num_rows($query7);
+                     $sameResult=mysqli_num_rows($query8);
 
                    if ($sameResult > 0) 
 
                    {
-                      $start_book= $_POST['start_date'] . ' ' . $_POST['start_time'];
-                      $end_book= $_POST['end_date'] . ' ' . $_POST['return_time'];
-
-                      $location=$_POST['location'];
-                      $purpose=$_POST['purpose'];
+                      
 
                         $query=mysqli_query($con,"INSERT INTO `car_booking`(`car_id`, `user_id`, `user_name`, `car_name`, `car_number`, `car_img`, `start_date`, `end_date`, `location`, `purpose`, `day_count`, `boking_status`) VALUES ('$car_id','$user_id','$username','$car_name','$car_nunber','$car_img','$start_book','$end_book','$location','$purpose','$days','$status')");
 
+//*************For Sending Line Group Message*******************//
+                      $message="$start_book, To $end_book,%0A Booked By: $U_realName,%0A Department: $u_dept,%0A Location: $location,%0A Purpose: $purpose,%0A Driver: $dariver_name,%0A Car: $car_number.";
+                        lineMsg($message);
+
                          $_SESSION['error']="same_result";
-         //************Store Value in SESSION for show same record*********//                
-                  $_SESSION['start_book']=$_POST['start_date'] . ' ' . $_POST['start_time'];
-                  $_SESSION['end_book']=$_POST['end_date'] . ' ' . $_POST['return_time'];
-                  $_SESSION['location']=$_POST['location'];
-
-
+//************Store Value in SESSION for show same record*********//                
+                          $_SESSION['start_book']=$start_book;
+                          $_SESSION['end_book']=$end_book;
+                          $_SESSION['location']=$location;
 
                    }
 
                    else
                    {  
-      //******** If No Record Found This Section store Data In DataBase*****//  
+//******** If No Record Found This Section store Data In DataBase*****//  
                     $query=mysqli_query($con,"INSERT INTO `car_booking`(`car_id`, `user_id`, `user_name`, `car_name`, `car_number`, `car_img`, `start_date`, `end_date`, `location`, `purpose`, `day_count`, `boking_status`) VALUES ('$car_id','$user_id','$username','$car_name','$car_nunber','$car_img','$start_book','$end_book','$location','$purpose','$days','$status')");
                     
+//*************For Sending Line Group Message*******************//
+                      $message="$start_book, To $end_book,%0A Booked By: $U_realName,%0A Department: $u_dept,%0A Location: $location,%0A Purpose: $purpose,%0A Driver: $dariver_name,%0A Car: $car_number.";
+                        lineMsg($message);
                     ?>
                     <script>
                         alert('Update successfull..  !');
@@ -299,8 +314,6 @@ if (isset($_POST['submit'])) {
 <script src='admin/cal/fullcalendar.min.js'></script>
 <script src='admin/cal/locale-all.js'></script>
 
-
-
 <style>
 .alert {
     padding: 20px;
@@ -322,6 +335,25 @@ if (isset($_POST['submit'])) {
 .closebtn:hover {
     color: black;
 }
+.driverImg{
+    border-radius: 10px 20px;
+    background: #ffd000;
+    padding: 2px; 
+    width: 100px;
+    height: 110px;
+  margin-right: 0px;
+  float: right;
+}
+
+.carImg{
+    border-radius: 10px 20px;
+    background: #ffd000;
+    padding: 2px; 
+    width: 200px;
+    height: 110px;
+    margin-right: 0px;
+    float: left;
+}
 </style>
 
 <?php  
@@ -335,7 +367,11 @@ include('include/manu.php'); ?>
                 <div class="col-lg-12">
                     <div class="section-title  text-center">
 
-                       <h2> Regular Car Booking</h2>
+                    <img src="admin/p_img/carImg/<?php echo($d_Result['car_img1']);?>" class="img-responsive carImg"  alt="Car Image" />
+
+                    <img src="admin/p_img/driverimg/<?php echo($d_Result['driver_img']);?>" class="img-responsive driverImg"  alt="Driver Image" />
+
+                       <h2><?php echo $car_number;?> || <?php echo $dariver_name;?></h2>
                         <span class="title-line"><i class="fa fa-car"></i></span>
                         
                     </div>
@@ -416,7 +452,7 @@ include('include/manu.php'); ?>
           						  echo htmlentities($_SESSION['error']="");
 
           						}
-      ///******* If Booked another user for book*******//    
+///******* If Booked another user for book*******//    
                       if($_SESSION['error']=="booked")
                         {?>
           						<div class="alert">
@@ -426,7 +462,7 @@ include('include/manu.php'); ?>
           						<?php
           						echo htmlentities($_SESSION['error']="");
           						 }
-    ///******* If select More than 7 dates for book*******//
+///******* If select More than 7 dates for book*******//
 
                        if($_SESSION['error']=="7")
                         { ?>
@@ -439,7 +475,7 @@ include('include/manu.php'); ?>
           						 } 
 
 
-      ///******* If select back date for book*******//
+///******* If select back date for book*******//
                        if($_SESSION['error']=="previousDate")
                         { ?>
                       <div class="alert">
@@ -449,7 +485,8 @@ include('include/manu.php'); ?>
                       <?php 
                       echo htmlentities($_SESSION['error']="");
                        } 
-        //**** More than 30 days show message*****//
+
+//**** More than 30 days show message*****//
                        if($_SESSION['error']=="30d")
                         { ?>
                       <div class="alert">
@@ -459,7 +496,7 @@ include('include/manu.php'); ?>
                       <?php 
                       echo htmlentities($_SESSION['error']="");
                        } 
-      //***** If manual input not valied*****//
+//***** If manual input not valied*****//
                        if($_SESSION['error']=="NotValid")
                         { ?>
                       <div class="alert">
@@ -469,7 +506,7 @@ include('include/manu.php'); ?>
                       <?php 
                       echo htmlentities($_SESSION['error']="");
                        } 
-      //******** if found few hours booking Result Show This Message when user want to book full day *************//
+//******** if found few hours booking Result Show This Message when user want to book full day *************//
                        if($_SESSION['error']=="fullDay")
                         { ?>
                       <div class="alert">

@@ -1661,7 +1661,7 @@ body,
 
 /*== Book Car CSS ==*/
 
-.book-ur-car {
+/*.book-ur-car {
 	background-color: rgba(0, 0, 0, 0.6);
 	border-radius: 4px;
 	margin: 70px auto auto;
@@ -1675,6 +1675,84 @@ body,
 	display: block;
 	float: left;
 	margin-right: 1%;
+	width: 19.2%;
+	-webkit-transition: 0.4s;
+	transition: 0.4s;
+}
+
+.bookinput-item:last-child {
+	margin-right: 0;
+}
+
+.book-ur-car select,
+.book-ur-car input,
+.book-ur-car button {
+	background-color: transparent;
+	border: none;
+	border-radius: 0;
+	color: #fff;
+	font-size: 14px;
+	font-weight: 600;
+	padding: 10px;
+	text-align: center;
+	text-transform: uppercase;
+	width: 100%;
+}
+
+.book-ur-car select:focus,
+.book-ur-car input:focus,
+.book-ur-car button:focus {
+	border-color: #fff;
+	background-color: transparent;
+}
+
+.bookcar-btn button {
+	padding: 7px;
+	cursor: pointer;
+	-webkit-transition: 0.4s;
+	transition: 0.4s;
+}
+
+.bookcar-btn:hover {
+	background-color: #ffd000;
+	border-color: #ffd000;
+}
+
+
+.book-ur-car .input-group-append i.fa {
+	font-size: 15px !important;
+	line-height: 30px;
+	color: #ffd000;
+}
+
+.book-ur-car select option {
+	color: #000;
+	font-weight: 400;
+	background: #fff;
+	text-transform: capitalize;
+}
+
+.book-ur-car select.custom-select {
+	background-image: url("assets/img/caret-cion.png");
+	background-position: right 12px center;
+	background-size: 12px auto;
+}*/
+
+
+.book-ur-car {
+	background-color: rgba(0, 0, 0, 0.6);
+	border-radius: 4px;
+	margin: 70px auto auto;
+	overflow: hidden;
+	padding: 50px 20px;
+	width: 90%;
+}
+
+.bookinput-item {
+	border: 1px solid #fff;
+	display: block;
+	float: left;
+	margin-right: 7%;
 	width: 19.2%;
 	-webkit-transition: 0.4s;
 	transition: 0.4s;

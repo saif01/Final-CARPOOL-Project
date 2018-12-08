@@ -81,7 +81,7 @@ include('../db/config.php');
                                                         <th>Days</th>
                                                         <th>Status</th>
                                                         <th>Cost</th>
-                                                        <th>Milage</th>
+                                                        <th>Mileage</th>
                                                         <th>Rating</th>
 
 
