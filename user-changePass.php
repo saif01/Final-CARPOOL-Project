@@ -1,7 +1,7 @@
 <?php
 session_start();
 error_reporting(0);
-if(strlen($_SESSION['username'])==0)
+if(strlen($_SESSION['logIn_id'])==0)
   { 
 header('location:index');
 }
@@ -15,7 +15,7 @@ $currentTime = date( 'Y-m-d h:i:s', time () );
 if(isset($_POST['submit']))
 {
 
-$userName=$_SESSION['username'];
+$userName=$_SESSION['logIn_id'];
 $password= $_POST['password'];
 $newpassword= $_POST['newpassword'];
 

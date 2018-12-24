@@ -4,7 +4,7 @@ error_reporting(0);
 date_default_timezone_set('Asia/Dhaka');// change according timezone
     $currentDate = date( 'Y-m-d');
 
-if(strlen($_SESSION['username'])==0)
+if(strlen($_SESSION['logIn_id'])==0)
   { 
 header('location:index');
 }
@@ -28,14 +28,28 @@ if (isset($_POST['submit'])) {
     
      $query4=mysqli_query($con,"UPDATE `car_booking` SET `booking_cost`='$cost', `driver_rating`='$driver_rating',`driver_id`='$driver_id' ,`start_mileage`='$start_mileage' ,`end_mileage`='$end_mileage'  WHERE `booking_id` ='$booking_id' ");
 
-    					?>
-                        <script>
-                            alert('Update Successfull..!!');
-                            //location.reload();
-                            window.open('user-booked-car.php','_self');
-                            //window.location.reload(history.back());
-                            </script>
-                        <?php 
+    					
+
+ //****************** Start Sweet Alert ********************/// 
+                          ?>
+                          <script type="text/javascript">
+                        setTimeout(function () { 
+                                swal({
+                                  title: "Successfully!",
+                                  text: "Your Comment Update Successfull..!!",
+                                  type: "success",
+                                  confirmButtonText: "OK"
+                                },
+                                function(isConfirm){
+                                  if (isConfirm) {
+                                    window.location.href = "user-booked-car.php";
+                                  }
+                                }); }, 1000);
+                      </script>            
+                        <?php  
+ //****************** End Sweet Alert ********************///
+ 
+                        
         
 
 }
@@ -49,14 +63,26 @@ $cost=$_POST['cost'];
 
 $query5=mysqli_query($con,"UPDATE `car_booking` SET `booking_cost`='$cost', `driver_rating`='$driver_rating',`driver_id`='$driver_id' ,`start_mileage`='$start_mileage' ,`end_mileage`='$end_mileage' , `comit_st`='1'  WHERE `booking_id` ='$booking_id' ");
 
-?>
-                    <script>
-                        
-                        //location.reload();
-                        window.open('user-booked-car.php','_self');
-                        //window.location.reload(history.back());
-                        </script>
-                    <?php
+//****************** Start Sweet Alert ********************///
+                          ?>
+                          <script type="text/javascript">
+                        setTimeout(function () { 
+                                swal({
+                                  title: "Successfully!",
+                                  text: "Permanently Close This Comment!!",
+                                  type: "success",
+                                  confirmButtonText: "OK"
+                                },
+                                function(isConfirm){
+                                  if (isConfirm) {
+                                    window.location.href = "user-booked-car.php";
+                                  }
+                                }); }, 1000);
+                      </script>            
+                          <?php 
+//****************** End Sweet Alert ********************///
+
+
 
 }
 					
@@ -80,7 +106,7 @@ include('include/manu.php');
                     <div class="section-title  text-center">
 
                        <h2> 
-                        <?php echo htmlentities($_SESSION['username']) ?>'s Booked car Commend Section</h2>
+                        <?php echo htmlentities($_SESSION['logIn_id']) ?>'s Booked car Commend Section</h2>
                         <span class="title-line"><i class="fa fa-car"></i></span>
                         
                     </div>
@@ -92,15 +118,26 @@ include('include/manu.php');
     <!--== Page Title Area End ==-->
 
 
+  
+
     <!--== Car List Area Start ==-->
     <div id="blog-page-content" class="section-padding">
         <div class="container">
             <div class="row">
 <!--Start fetch_assoc() array -->
-            	   <?php
+                   <?php
                            $query=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `booking_id`='$booking_id' ");
 
                            $row=$query->fetch_assoc();
+
+                           $start_mileage=$row['start_mileage'];
+                            $end_mileage=$row['end_mileage'];
+                             $booking_cost=$row['booking_cost'];
+                              $driver_rating=$row['driver_rating'];
+
+
+
+
                            {                  
                      ?>
 
@@ -116,67 +153,43 @@ include('include/manu.php');
                             </div>
                             <!-- Articles Thumbnail End -->
 
-                            <!-- Articles Content Start -->
+                                                    <!-- Articles Content Start -->
                             <div class="col-lg-5">
                                 <div class="display-table">
                                     <div class="display-table-cell">
                                         <div class="article-body">
-                                           <!--  <div class="car_model">
-                                               <h3><a href="#"> Car Name </a>
-                                                <span class="model-s">Model: <b>2013</b></span></h3>  
-                                            </div> -->
-                                            
                                           
 
-                        
+                        <div class="text-center">
 
-                                            <div class="">
-                                            <table class="table ">
+                                            <ul class="car-info-list">
+                                                <li>Car Number : <b><?php echo $row['car_number']; ?></b></li>
+                                            </ul>
+                                            <ul class="car-info-list">
+                                                <li>Start Mileage :<b> <?php echo $start_mileage; ?> K.M.</b>
+                                                  
+                                                </li>
+                                            </ul>
+                                            <ul class="car-info-list">
+                                                <li>End Mileage :<b><?php echo $end_mileage; ?> K.M.</b>
+                                                  
+                                                </li>
+                                            </ul>
+                                             <ul class="car-info-list">
+                                                <li>Fuel Cost :<b><?php echo $booking_cost; ?> Taka</b>
+                                                  
+                                                </li>
+                                            </ul>
 
-                                                <tr>
-                                                    <th>Name & Number :</th>
-                                                    <td> <?php echo $row['car_name']; ?> -- <b><?php echo $row['car_number']; ?></b></td>
-                                                </tr>
-                                                
-                                                <form method="post" action="" >
+                                            <ul class="car-info-list">
+                                                <li>Driver Rating :<b><?php echo $driver_rating; ?></b>
+                                                  
+                                                </li>
+                                            </ul>
 
-                                                
-                                                <tr>
-                                                    <th>Start Mileage :</th>
-                                                    <td><?php echo htmlentities($row['start_mileage']); ?> K.M. </td>
-                                                </tr>
+                                             <button class="readmore-btn" type="button" data-toggle="modal" data-target="#exampleModal"> Update <i class="fa fa-long-arrow-right"></i></button>
 
-                                                <tr>
-                                                    <th>End Mileage :</th>
-                                                    <td><?php echo htmlentities($row['end_mileage']); ?> K.M. </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <th>Fuel Cost :</th>
-                                                    <td><?php echo htmlentities($row['booking_cost']); ?> Taka </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Driver Rating :</th>
-                                                    <td>
-                                                    <?php echo htmlentities($row['driver_rating']); ?> 
-
-                                                     </td>
-                                                
-                                                </tr>
-
-                                                <tr>
-                                                	<th>
-                                                	
-                                                	
-                                                    <button class="readmore-btn" type="button" data-toggle="modal" data-target="#exampleModal"> Update <i class="fa fa-long-arrow-right"></i></button>
-
-                                                   
-
-                                                    </th>
-                                                </tr>
-                                               </form>
-                                            </table>
-                                        </div>
+                                 </div>
 
                                             
                                         </div>
@@ -187,7 +200,7 @@ include('include/manu.php');
 
                     <div class="col-lg-2">
 
-                    	<?php    
+                        <?php    
 $car_id=$row['car_id'];     
  $query2=mysqli_query($con,"SELECT * FROM `car_driver` WHERE `car_id`='$car_id' LIMIT 1  ");
 $row2 = $query2->fetch_assoc();
@@ -236,40 +249,49 @@ $row2 = $query2->fetch_assoc();
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Put Commend Data </h5>
+        <h5 class="modal-title" id="exampleModalLabel">Put Comment Data </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-
-        
-        <form method="post" >
-
+        <form method="post" name="chngpwd" >
           <div class="field form-group">
-            <label for="recipient-name" class="col-form-label">Start Mileage :</label>
-            <input type="Number"  name="start_mileage" placeholder="Put Meter Reading" class="form-control" value="<?php echo htmlentities($row['start_mileage']); ?>">
+            <label  class="col-form-label">Start Mileage :</label>
+            <input type="number" id="target1" name="start_mileage" placeholder="Put Meter Reading" class="form-control" value="<?php echo $start_mileage; ?>">
             </div>
 
             <div class="field form-group">
-            <label for="recipient-name" class="col-form-label">End Mileage :</label>
-            <input type="Number"  name="end_mileage" placeholder="Put Meter Reading" class="form-control"  value="<?php echo htmlentities($row['end_mileage']); ?>">
+            <label class="col-form-label">End Mileage :</label>
+            <input type="number" id="target2" name="end_mileage" placeholder="Put Meter Reading" class="form-control" value="<?php echo $end_mileage; ?>">
+            </div>
+            
+            <div class="field form-group">
+            <label  class="col-form-label">Fuel Cost :</label>
+            <input type="number" id="target3" name="cost" placeholder="Amount of Taka" class="form-control" value="<?php echo $booking_cost; ?>">
+            </div>
+            <div class="field form-group">
+            <label class="col-form-label">Driver Rating :</label>
+            <input type="number" id="target4" min="0" max="10" name="driver_rating" placeholder="Put marking out of 10" class="form-control" value="<?php echo $driver_rating; ?>">
+            </div>
 
-            
-            </div>
-            
-            <div class="field form-group">
-            <label for="recipient-name" class="col-form-label">Fuel Cost :</label>
-            <input type="Number" name="cost" placeholder="Amount of Taka" class="form-control" value="<?php echo htmlentities($row['booking_cost']); ?>">
-            </div>
-            <div class="field form-group">
-            <label for="recipient-name" class="col-form-label">Driver Rating :</label>
-            <input type="Number"  min="0" max="10" name="driver_rating" placeholder="Put marking out of 10" class="form-control" value="<?php echo htmlentities($row['driver_rating']); ?>">
-            </div>
             <div class='actions'>
-            <button type="submit" name="submit" class="btn btn-primary" >Update</button>
+             <?php
+             if( $start_mileage !='' && 
+                 $end_mileage !='' &&
+                 $booking_cost !='' &&
+                 $driver_rating !='') {?>
+
+                  <button type="submit" name="closeComit" class="btn btn-danger" onClick="return confirm('Are you sure you want to Close This???')" style="float: right;" >Close Permanently</button>
+                
+             <?php } 
+                else{?>
             
-             <input type="submit" name="closeComit" class="btn btn-danger" onClick="return confirm('Are you sure you want to Close This???')" style="float: right;" value="Close Permanently" disabled="disabled" />
+            <button type="submit" name="submit" class="btn btn-primary">Update</button>
+            
+             <input type="submit" id="sbtbtn" name="closeComit" class="btn btn-danger" onClick="return confirm('Are you sure you want to Close This???')" style="float: right;" value="Close Permanently" disabled="disabled" />
+           <?php } ?>
+
             </div>
         </form>
        
@@ -284,6 +306,8 @@ $row2 = $query2->fetch_assoc();
 <?php } ?>
 <!--End fetch_assoc() array -->
 
+
+
            
             </div>        
         </div>
@@ -295,25 +319,30 @@ $row2 = $query2->fetch_assoc();
 <?php include('include/footer.php'); ?> 
  <!--== Footer and Common js File end ==-->
 
-
 <script type="text/javascript">
-   $(document).ready(function() {
-    $('.field input').keyup(function() {
-
-        var empty = false;
-        $('.field input').each(function() {
-            if ($(this).val().length == 0) {
-                empty = true;
-            }
-        });
-
-        if (empty) {
-            $('.actions input').attr('disabled', 'disabled');
-        } else {
-            $('.actions input').removeAttr('disabled');
-        }
+  
+     $(document).ready(function() {
+  
+$(function() {
+    $('#sbtbtn').attr('disabled', 'disabled');
+});
+ 
+$('input[type=number],input[type=checkbox]').keyup(function() {
+        
+    if ($('#target1').val() !='' &&
+    $('#target2').val() != '' &&
+    $('#target3').val() != '' &&
+    $('#target4').val() != '' ) 
+    {
+      
+        $('#sbtbtn').removeAttr('disabled');
+    } 
+    else 
+    {
+        $('#sbtbtn').attr('disabled', 'disabled');
+    }
+});
     });
-}); 
 </script>
 
 

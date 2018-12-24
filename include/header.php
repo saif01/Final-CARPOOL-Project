@@ -36,11 +36,15 @@
    <!--************* google material icons ****************-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
+  <!--*********start Sweet alert For Submiting data **********-->
+  <!-- <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script> -->
 
-    <!--[if lt IE 9]>
-        <script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-        <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
+<!--*********end Sweet alert For Submiting data **********-->
+
+
+   
 </head>
 
 <body class="loader-active">

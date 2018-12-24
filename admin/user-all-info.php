@@ -101,11 +101,11 @@ include('../db/config.php');
                                                             <?php
                                          if($row['user_status']==1)
                                          {?>
-                                <a href="user-status.php?h_user_id=<?php echo htmlentities($row['user_id']);?>" onclick="return confirm('Are you sure you want to Deactive this ** User **?');" title="Hide"> <i class="mdi mdi-eye text-success icon-lg"></i></a>
+                                <a href="user-status.php?h_user_id=<?php echo htmlentities($row['user_id']);?>" title="Hide" id="hide" > <i class="mdi mdi-eye text-success icon-lg"></i></a>
                                             
                                         <?php } else {?>
 
-                                    <a href="user-status.php?s_user_id=<?php echo htmlentities($row['user_id']);?>" onclick="return confirm('Are you sure you want to Active this ** User **?');" title="Show"> <i class="mdi mdi-eye-off text-danger icon-lg"></i></a> 
+                                    <a href="user-status.php?s_user_id=<?php echo htmlentities($row['user_id']);?>" title="Show" id="show" > <i class="mdi mdi-eye-off text-danger icon-lg"></i></a> 
                                             <?php } ?>
                                           
 
@@ -114,7 +114,7 @@ include('../db/config.php');
                     <i class="mdi mdi-pencil-box-outline text-warning icon-lg"></i>  
                   </a>
 									
-                        <a href="user-delete.php?user_id=<?php echo $row['user_id']?>" onClick="return confirm('Are you sure you want to delete???')" title="Delete"> <i class="mdi mdi-close-box-outline text-danger icon-lg"></i></a>
+                        <a href="user-delete.php?user_id=<?php echo $row['user_id']?>" title="Delete" id="delete" > <i class="mdi mdi-close-box-outline text-danger icon-lg"></i></a>
 
                                                             
                                                         </td>
@@ -155,31 +155,88 @@ include('../db/config.php');
         <script src="js/misc.js"></script>
         <!-- endinject -->
         <!-- Custom js for this page-->
-        <!-- End custom js for this page-->
-        <!-- <script src="https://code.jquery.com/jquery-3.3.1.js"></script> -->
-        <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.bootstrap4.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-        <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js"></script>
 
-
+ <!--********* Data Table js Link *********-->
+        <!-- <script type="text/javascript" src="assets/dataTable/libry.js"></script> -->
+        <script type="text/javascript" src="../assets/dataTable/tbl.js"></script>
+        <script type="text/javascript" src="../assets/dataTable/boots.js"></script>
+         
         <script type="text/javascript">
             $(document).ready(function() {
-                var table = $('#example').DataTable({
-                    // lengthChange: false,
-                    // buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
-                });
-
-                // table.buttons().container()
-                //     .appendTo( '#example_wrapper .col-md-6:eq(0)' );
-            });
+            $('#example').DataTable();
+        } );
         </script>
+
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<!--**************** Start Sweet Alert Script code *******************-->
+<script>  
+         $(document).on("click", "#delete", function(e){
+             e.preventDefault();
+             var link = $(this).attr("href");
+                swal({
+                  title: "Are you Want to delete?",
+                  text: "Once Delete, This will be Permanently Delete!",
+                  icon: "warning",
+                  buttons: true,
+                  dangerMode: true,
+                })
+                .then((willDelete) => {
+                  if (willDelete) {
+                       window.location.href = link;
+                  } else {
+                    swal("Safe Data!");
+                  }
+                });
+            });
+    </script>
+<!--**************** End Sweet Alert Script code *******************-->
+
+<!--**************** Start Sweet Alert Script code *******************-->
+<script>  
+         $(document).on("click", "#hide", function(e){
+             e.preventDefault();
+             var link = $(this).attr("href");
+                swal({
+                  title: "Are you Want to Block This User?",
+                  text: "If Block !!, Youser Can't Login !",
+                  icon: "warning",
+                  buttons: true,
+                  dangerMode: true,
+                })
+                .then((willDelete) => {
+                  if (willDelete) {
+                       window.location.href = link;
+                  } else {
+                    swal("Safe Data!");
+                  }
+                });
+            });
+    </script>
+<!--**************** End Sweet Alert Script code *******************-->
+
+<!--**************** Start Sweet Alert Script code *******************-->
+<script>  
+         $(document).on("click", "#show", function(e){
+             e.preventDefault();
+             var link = $(this).attr("href");
+                swal({
+                  title: "Are you Want to UnBlock This User?",
+                  text: "If UnBlock !!, Youser Can Login !",
+                  icon: "success",
+                  buttons: true,
+                  dangerMode: true,
+                })
+                .then((willDelete) => {
+                  if (willDelete) {
+                       window.location.href = link;
+                  } else {
+                    swal("Safe Data!");
+                  }
+                });
+            });
+    </script>
+<!--**************** End Sweet Alert Script code *******************-->
 
 
     </body>

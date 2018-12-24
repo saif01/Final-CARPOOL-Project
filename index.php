@@ -8,57 +8,54 @@ if(isset($_POST['submit']))
     $logIn_id=$_POST['logIn_id'];
     $password=$_POST['password'];
 
-$ret=mysqli_query($con,"SELECT `logIn_id`, `user_pass` FROM `user` WHERE `logIn_id`='$logIn_id' AND `user_pass` = '$password' ");
+$UserSql=mysqli_query($con,"SELECT * FROM `user` WHERE `logIn_id`='$logIn_id' AND `user_pass` ='$password'");
    
-$num=mysqli_fetch_array($ret);
+$num=mysqli_num_rows($UserSql);
 if($num>0)
 {   
-
-    $ret= mysqli_query($con,"SELECT * FROM `user` WHERE `logIn_id` ='$logIn_id'");
-    while($row=mysqli_fetch_array($ret))
+    while($row=mysqli_fetch_array($UserSql))
                 {   
+        
 
+
+
+        //*********** User Login Log valus ************//
+                    $ip= UserInfo::get_ip();
+                    $os= UserInfo::get_os();
+                    $browser= UserInfo::get_browser();
+                    $device= UserInfo::get_device();
                     $user_id=$row['user_id'];
+                    $user_name=$row['user_name'];
+
+
+
                     $st=$row['user_status'];
 
-                    if ($st==1) 
-                    {  
-                        $_SESSION['user_id']=$user_id;
-                        $_SESSION['username']=$_POST['logIn_id'];
-                        $_SESSION['id']=$num['id'];
-                        $ip= UserInfo::get_ip();
-                        $os= UserInfo::get_os();
-                        $browser= UserInfo::get_browser();
-                        $device= gethostname();
-                              
-                        //$hostname=$_ENV['COMPUTERNAME'];                      
-                        $status=1;
+                  if ($st=='1') 
+                    { 
+                         $_SESSION['user_id']=$row['user_id'];
+                         $_SESSION['logIn_id']=$row['logIn_id'];
+                         $_SESSION['user_name']=$row['user_name'];
+                                                                      
+                        $c_u_st='1';
 
-                        $log=mysqli_query($con,"INSERT INTO `loginlog`(`user_name`, `user_id`, `user_ip`, `user_os`, `user_browser`, `user_device`, `user_status`) VALUES ('".$_SESSION['username']."','$user_id','$ip','$os','$browser','$device','$st')");
+                        $log=mysqli_query($con,"INSERT INTO `loginlog`(`user_name`, `user_id`, `user_ip`, `user_os`, `user_browser`, `user_device`, `user_status`) VALUES ('$user_name','$user_id','$ip','$os','$browser','$device','$c_u_st')");
                                                                 
                          header("Location: dashbord");
                         exit();
                         }
 
-                        elseif ($st==0)
+                    elseif ($st=='0')
                     {   
+                   
+                        $c_u_stB=0;
 
-                        $_SESSION['username']=$_POST['logIn_id'];
-                        $_SESSION['id']=$num['id'];
-                        $ip= UserInfo::get_ip();
-                        $os= UserInfo::get_os();
-                        $browser= UserInfo::get_browser();
-                        $device= gethostname();
-                              
-                        //$hostname=$_ENV['COMPUTERNAME'];                      
-                        $status=1;
-
-                        $log=mysqli_query($con,"INSERT INTO `loginlog`(`user_name`, `user_id`, `user_ip`, `user_os`, `user_browser`, `user_device`, `user_status`) VALUES ('".$_SESSION['username']."','$user_id','$ip','$os','$browser','$device','$st')");
+                       $log=mysqli_query($con,"INSERT INTO `loginlog`(`user_name`, `user_id`, `user_ip`, `user_os`, `user_browser`, `user_device`, `user_status`) VALUES ('$user_name','$user_id','$ip','$os','$browser','$device','$c_u_stB')");
 
                         echo "<script>
                         alert('Your Account Has been blocked .Please contact Admin  !!!');
                         window.open('index','_self'); </script>";
-
+                        exit();
                     }
 
                 }
@@ -67,14 +64,14 @@ if($num>0)
 else
     {
         $_SESSION['errmsg']="Invalid username or password";       
-        $_SESSION['username']=$_POST['logIn_id'];
+        $_SESSION['logIn_id']=$_POST['logIn_id'];
       
          $ip= UserInfo::get_ip();
          $os= UserInfo::get_os();
          $browser= UserInfo::get_browser();
          $device= UserInfo::get_device();
-         $status=0;                         
-         $log=mysqli_query($con,"INSERT INTO `loginlog`(`user_name`, `user_ip`, `user_os`, `user_browser`, `user_device`, `user_status`) VALUES ('".$_SESSION['username']."','$ip','$os','$browser','$device','$st')");
+         $status_E=0;                         
+         $log=mysqli_query($con,"INSERT INTO `loginlog`(`user_name`, `user_ip`, `user_os`, `user_browser`, `user_device`, `user_status`) VALUES ('".$_SESSION['logIn_id']."','$ip','$os','$browser','$device','$status_E')");
 
          header("location:index");
         exit();
@@ -128,11 +125,11 @@ else
 
                                 <div class="pick-up-date book-item">
                                     <h4>Login ID:</h4>
-                                    <input type="text" name="logIn_id" placeholder="--User LogIn ID--" required="">
+                                    <input type="text" class="text-center form-control" name="logIn_id" placeholder="Enter Your LogIn ID" required="">
 
                                     <div class="return-car">
                                         <h4>Password:</h4>
-                                        <input type="password" name="password" placeholder="--Password--" required="">
+                                        <input type="password" class="text-center form-control" name="password" placeholder="Enter Your Password" required="">
                                     </div>
                                 </div>
                                 <!--== Pick Up Location ==-->

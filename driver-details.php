@@ -1,11 +1,14 @@
 <?php
 session_start();
 error_reporting(0);
-if(strlen($_SESSION['username'])==0)
+if(strlen($_SESSION['logIn_id'])==0)
   { 
 header('location:index');
+date_default_timezone_set('Asia/Dhaka');// change according timezone
+$currentTime = date( 'Y-m-d H:i:s', time () );// H=24 hours and h=12 hours
 }
 else{ 
+$driver_id=$_GET['driver_id'];
 
  include('include/header.php');
  include('include/social_link_top.php'); 
@@ -32,7 +35,7 @@ else{
     <!--== Page Title Area End ==-->
 
 <?php 
-$driver_id=$_GET['driver_id'];
+
 $query=mysqli_query($con,"SELECT * FROM `car_driver` WHERE `driver_id`= $driver_id ");
 $value = $query->fetch_assoc();
 
@@ -63,6 +66,26 @@ $value = $query->fetch_assoc();
                                     else{
 
                                         echo date("F j, Y", strtotime($value['leave_start'])) ." -- To -- ".date("F j, Y", strtotime($value['leave_end']));
+                                    }
+
+                                    ?> 
+
+
+                            </li>
+                            <li> Police Requisition : 
+                            <?php 
+                         
+$police_req=mysqli_query($con,"SELECT * FROM `police_req` WHERE `driver_id`='$driver_id' AND `req_st` ='1' AND `req_end` >= '$currentTime' ORDER BY `req_id` DESC LIMIT 1 ");
+$police_num=mysqli_num_rows($police_req);
+$police_row=$police_req ->fetch_assoc();
+
+
+                                    if ($police_num == 0) {
+                                       echo "No Data Available";
+                                    }
+                                    else{
+
+                                        echo date("F j, Y", strtotime($police_row['req_start'])) ." -- To -- ".date("F j, Y", strtotime($police_row['req_end']));
                                     }
 
                                     ?> 

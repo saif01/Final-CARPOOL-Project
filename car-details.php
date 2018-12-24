@@ -1,7 +1,7 @@
 <?php
 session_start();
 error_reporting(0);
-if(strlen($_SESSION['username'])==0)
+if(strlen($_SESSION['logIn_id'])==0)
   { 
 header('location:index');
 }
@@ -57,7 +57,7 @@ while($row=mysqli_fetch_array($query))
                                 <img src="admin/p_img/carImg/<?php echo($row['car_img1']);?>"  alt="Image" />
                             </div>
                             <div class="single-car-preview">
-                                <img src="admin/p_img/carImg/<?php echo($row['car_img2']);?>" c alt="Image" />
+                                <img src="admin/p_img/carImg/<?php echo($row['car_img2']);?>" alt="Image" />
                             </div>
                             <div class="single-car-preview">
                                 <img src="admin/p_img/carImg/<?php echo($row['car_img3']);?>"  alt="Image" />

@@ -1,14 +1,14 @@
 <?php
 session_start();
 error_reporting(0);
-if(strlen($_SESSION['username'])==0)
+if(strlen($_SESSION['logIn_id'])==0)
   { 
 header('location:index');
 }
 else{  
  include('db/config.php');
 
-$user_name= $_SESSION['username'];
+$user_name= $_SESSION['logIn_id'];
 $user_id= $_SESSION['user_id'];
 
 
@@ -50,9 +50,15 @@ $user_id= $_SESSION['user_id'];
     <link href="assets/css/responsive.css" rel="stylesheet">
 
 
+
+<!--*********** Data Table Excel,PDF,Colunm Visable CSS CDN *********-->
 <!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css"> -->
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+<!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.bootstrap4.min.css">
+ -->
+<!--*********** Simple Data table CDN ***********************-->
+<!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css"> -->
+<link rel="stylesheet" type="text/css" href="assets/dataTable/data_table.css">
     
 </head>
 
@@ -89,7 +95,7 @@ $value = $query->fetch_assoc();
                     <div class="section-title  text-center">
 
                        <h2> 
-                        <?php echo htmlentities($_SESSION['username']) ?>'s Booking History</h2>
+                        <?php echo htmlentities($_SESSION['logIn_id']) ?>'s Booking History</h2>
                         <span class="title-line"><i class="fa fa-car"></i></span>
                         
                     </div>
@@ -111,7 +117,7 @@ $value = $query->fetch_assoc();
                    <th>Car</th>                  
                   <th>Booking Starts</th>
                   <th>Booking Ends</th>
-                  <th>Location</th>
+                  <th>Destination</th>
                   <th>Purpose</th>
                   <th>Days</th>
                   <th>Status</th>
@@ -187,31 +193,15 @@ $value = $query->fetch_assoc();
     <!--== About Page Content End ==-->
 
    <!--=======================Javascript============================-->
-    <!--=== Jquery Min Js ===-->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.bootstrap4.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js"></script>
 
-
+<!--********* Data Table js Link *********-->
+<script type="text/javascript" src="assets/dataTable/libry.js"></script>
+<script type="text/javascript" src="assets/dataTable/tbl.js"></script>
+<script type="text/javascript" src="assets/dataTable/boots.js"></script>
  
 <script type="text/javascript">
-  
-$(document).ready(function() {
-    var table = $('#example').DataTable( {
-        lengthChange: false,
-        buttons: [ 'copy', 'excel', 'pdf', 'colvis' ]
-    } );
- 
-    table.buttons().container()
-        .appendTo( '#example_wrapper .col-md-6:eq(0)' );
+    $(document).ready(function() {
+    $('#example').DataTable();
 } );
 </script>
 

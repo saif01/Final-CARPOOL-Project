@@ -4,7 +4,7 @@ error_reporting(0);
 date_default_timezone_set('Asia/Dhaka');// change according timezone
 $currentTime = date( 'Y-m-d h:i:s', time () );
 
-if(strlen($_SESSION['username'])==0)
+if(strlen($_SESSION['logIn_id'])==0)
   { 
 header('location:index');
 }
@@ -127,14 +127,14 @@ else{
                                     <ul>
                                         <li><a href="car-list">Car List</a></li>
                                         <li><a href="car-list2">Car List 2</a></li>
-                                        <li><a href="car-list3">Car List 3</a></li>
+                                        <li><a href="car-list-reg">Car List 3</a></li>
                                     </ul>
                                 </li>
                                 <!-- <li><a href="about.html">About</a></li> -->
                                 
 
                                  <!-- <li><a href="booking"> Booking</a></li> -->
-                                 <li><a href="user-info"> <?php echo htmlentities($_SESSION['username']); ?></a>
+                                 <li><a href="user-info"> <?php echo htmlentities($_SESSION['logIn_id']); ?></a>
                                     <ul>
                                         <li><a href="user-booked-car">My Booked Car</a></li>
                                         <li><a href="user-noncommented-car">None Commented </a></li>

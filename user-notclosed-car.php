@@ -2,8 +2,9 @@
 session_start();
 error_reporting(0);
 date_default_timezone_set('Asia/Dhaka');// change according timezone
-$currentTime = date( 'Y-m-d H:i:s', time () );//H, Time in 24 hours show , h, for 12 hours 
-if(strlen($_SESSION['username'])==0)
+$currentTime = date( 'Y-m-d H:i:s', time () );//H, Time in 24 hours show , h, for 12 hours
+$currentdate = date( 'Y-m-d' );
+if(strlen($_SESSION['logIn_id'])==0)
   { 
 header('location:index');
 }
@@ -24,7 +25,7 @@ else{
                     <div class="section-title  text-center">
 
                        <h2> 
-                        <?php echo htmlentities($_SESSION['username']) ?>'s Not Closed Comment</h2>
+                        <?php echo htmlentities($_SESSION['logIn_id']) ?>'s Not Closed Comment</h2>
                         <span class="title-line"><i class="fa fa-car"></i></span>
                         
                     </div>
@@ -50,7 +51,7 @@ else{
 
                             <?php
             $user_id=$_SESSION['user_id'];
-                           $query=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `user_id`='$user_id' AND `comit_st`='' AND `boking_status`='1' ORDER BY `start_date` ASC");
+            $query=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `user_id`='$user_id' AND `comit_st`='' AND `boking_status`='1' AND date(`start_date`) <= date('$currentdate') ORDER BY `start_date` ASC ");
                     while($row=mysqli_fetch_array($query))
                     {  
 
@@ -121,7 +122,7 @@ $edate2=$date2->format('d-m-Y h:i:s A');
                                                         </a>
                                                     </h2>
                                             <ul class="car-info-list">
-                                                <li> Location :<b> <?php echo htmlentities($row['location']); ?></b></li>
+                                                <li> Destination :<b> <?php echo htmlentities($row['location']); ?></b></li>
                                             </ul>
                                             <ul class="car-info-list">
                                                 <li>Purpose :<b> <?php echo htmlentities($row['purpose']); ?></b>

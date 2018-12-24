@@ -1,13 +1,13 @@
 <?php
 session_start();
 error_reporting(0);
-if(strlen($_SESSION['username'])==0)
+if(strlen($_SESSION['logIn_id'])==0)
   { 
 header('location:index');
 }
 else{  
 
-$user_name= $_SESSION['username'];
+$user_name= $_SESSION['logIn_id'];
 $user_id= $_SESSION['user_id'];
 
  include('include/header.php');
@@ -30,7 +30,7 @@ $value = $query->fetch_assoc();
                     <div class="section-title  text-center">
 
                        <h2> 
-                        <?php echo htmlentities($_SESSION['username']) ?>'s Profile Info.</h2>
+                        <?php echo htmlentities($_SESSION['logIn_id']) ?>'s Profile Info.</h2>
                         <span class="title-line"><i class="fa fa-car"></i></span>
                         
                     </div>

@@ -1,7 +1,7 @@
 <?php
 session_start();
 error_reporting(0);
-if(strlen($_SESSION['username'])==0)
+if(strlen($_SESSION['logIn_id'])==0)
   { 
 header('location:index');
 }
@@ -10,27 +10,56 @@ date_default_timezone_set('Asia/Dhaka');// change according timezone
 $currentTime = date( 'Y-m-d H:i:s', time () );
 
 
-$user_id=$_SESSION['username'];
+$user_id=$_SESSION['logIn_id'];
 $start_book=$_SESSION['start_book'];
 $end_book=$_SESSION['end_book'];
 $location=$_SESSION['location'];
 
 include('db/config.php');
+include('line/lineMsg.php');
 
 if (isset($_POST['cancel'])) {
-	$sql=mysqli_query($con,"UPDATE `car_booking` SET `boking_status`='0' WHERE `user_name`='$user_id' ORDER BY `booking_id` DESC LIMIT 1");
-
-				?>
-			  <script>
-              alert('Your Booking Cancel successfull..  !');
-               window.open('car-list3.php','_self');
-               </script>
-               <?php 
-
-}
+	$sql2=mysqli_query($con,"UPDATE `car_booking` SET `boking_status`='0' WHERE `user_name`='$user_id' ORDER BY `booking_id` DESC LIMIT 1");
 
 
-?>
+  //**************Three table joining*****************//
+$sql=mysqli_query($con,"SELECT car_booking.car_number, car_booking.start_date, car_booking.end_date, car_booking.location, car_booking.purpose, car_driver.driver_name, user.user_name, user.user_department FROM car_booking INNER JOIN car_driver ON car_booking.car_id=car_driver.car_id INNER JOIN user ON car_booking.user_id=user.user_id WHERE car_booking.user_name='$user_id' ORDER BY car_booking.booking_id DESC LIMIT 1 ");
+
+while ($row3=mysqli_fetch_array($sql)) {
+  // $start_book3= date("M j, g:i a", strtotime($row3['start_date']));
+  // $end_book3= date("M j, g:i a", strtotime($row3['end_date']));
+  $start_book3= $row3['start_date'];
+  $end_book3= $row3['end_date'];
+  $U_realName= $row3['user_name'];
+  $dept=$row3['user_department']; 
+  $location3= $row3['location'];
+  $purpose3= $row3['purpose'];
+  $dariver_name=$row3['driver_name'];
+  $car_number3=$row3['car_number'];
+
+ $u_dept=str_replace('&', 'and', $dept);
+  $purposeLine = str_replace('&', 'and', $purpose3);
+    $locationLine = str_replace('&', 'and', $location3);
+
+//*************For Sending Line Group Message*******************//
+        $message="Canceled Status %0A Canceled By: $U_realName,%0A Department: $u_dept,%0A Destination: $locationLine,%0A Purpose: $purposeLine,%0A Driver: $dariver_name,%0A Car: $car_number3,%0A Start: $start_book3,%0A End: $end_book3.";
+          lineMsg($message);
+  }
+
+
+
+
+
+      				?>
+
+<script>
+    alert('Your Booking canceled successfully..!!');
+    window.open('car-list-reg','_self');
+    </script>
+
+      <?php 
+
+}?>
 
 <!DOCTYPE html>
 <html class="no-js" lang="en">
@@ -68,14 +97,9 @@ if (isset($_POST['cancel'])) {
     <link href="assets/css/responsive.css" rel="stylesheet">
 
 
-<!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css"> -->
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.bootstrap4.min.css">
+<!--******** DataTable CSS Link *******-->
+<link rel="stylesheet" type="text/css" href="assets/dataTable/data_table.css">
     
-
-
-
-
 
 </head>
 
@@ -138,7 +162,7 @@ if (isset($_POST['cancel'])) {
                   <th>Car</th>                  
                   <th>Booking Starts</th>
                   <th>Booking Ends</th>
-                  <th>Location</th>
+                  <th>Destination</th>
                   <th>Purpose</th>
                   <th>Days</th>
                   <th>Action</th>
@@ -196,7 +220,7 @@ $query2=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `user_name`='$user_
                    <th>Car</th>                 
                   <th>Booking Starts</th>
                   <th>Booking Ends</th>
-                  <th>Location</th>
+                  <th>Destination</th>
                   <th>Purpose</th>
                   <th>Days</th>
                   
@@ -256,11 +280,21 @@ $query=mysqli_query($con,"SELECT * FROM `car_booking` LEFT JOIN `user` ON car_bo
             </div>
     
     <!--== About Page Content End ==-->
+<!--********* Data Table JS Link **********-->
+<script type="text/javascript" src="assets/dataTable/libry.js"></script>
+<script type="text/javascript" src="assets/dataTable/tbl.js"></script>
+<script type="text/javascript" src="assets/dataTable/boots.js"></script>
+ 
 
+<script type="text/javascript">
+    $(document).ready(function() {
+    $('#example').DataTable();
+} );
+</script>
 
    <!--=======================Javascript============================-->
     <!--=== Jquery Min Js ===-->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
@@ -286,7 +320,7 @@ $(document).ready(function() {
         .appendTo( '#example_wrapper .col-md-6:eq(0)' );
 } );
 </script>
-
+ -->
 
    <!--== Footer Area Start ==-->
     <section id="footer-area">

@@ -26,7 +26,7 @@ if($num>0)
                     if ($st==1) 
                     {  
                         $_SESSION['user_id']=$user_id;
-                        $_SESSION['username']=$_POST['username'];
+                        $_SESSION['logIn_id']=$_POST['username'];
                         $_SESSION['id']=$num['id'];
                         $ip= UserInfo::get_ip();
                         $os= UserInfo::get_os();
@@ -36,7 +36,7 @@ if($num>0)
                         //$hostname=$_ENV['COMPUTERNAME'];                      
                         $status=1;
 
-                        $log=mysqli_query($con,"INSERT INTO `loginlog`(`user_name`, `user_id`, `user_ip`, `user_os`, `user_browser`, `user_device`, `user_status`) VALUES ('".$_SESSION['username']."','$user_id','$ip','$os','$browser','$device','$st')");
+                        $log=mysqli_query($con,"INSERT INTO `loginlog`(`user_name`, `user_id`, `user_ip`, `user_os`, `user_browser`, `user_device`, `user_status`) VALUES ('".$_SESSION['logIn_id']."','$user_id','$ip','$os','$browser','$device','$st')");
                          
                                        
                          header("Location: dashbord");
@@ -48,7 +48,7 @@ if($num>0)
                         elseif ($st==0)
                     {   
 
-                        $_SESSION['username']=$_POST['username'];
+                        $_SESSION['logIn_id']=$_POST['username'];
                         $_SESSION['id']=$num['id'];
                         $ip= UserInfo::get_ip();
                         $os= UserInfo::get_os();
@@ -58,7 +58,7 @@ if($num>0)
                         //$hostname=$_ENV['COMPUTERNAME'];                      
                         $status=1;
 
-                        $log=mysqli_query($con,"INSERT INTO `loginlog`(`user_name`, `user_id`, `user_ip`, `user_os`, `user_browser`, `user_device`, `user_status`) VALUES ('".$_SESSION['username']."','$user_id','$ip','$os','$browser','$device','$st')");
+                        $log=mysqli_query($con,"INSERT INTO `loginlog`(`user_name`, `user_id`, `user_ip`, `user_os`, `user_browser`, `user_device`, `user_status`) VALUES ('".$_SESSION['logIn_id']."','$user_id','$ip','$os','$browser','$device','$st')");
 
                         echo "<script>
                         alert('Your Account Has been blocked .Please contact Admin  !!!');
@@ -72,14 +72,14 @@ if($num>0)
 else
     {
         $_SESSION['errmsg']="Invalid username or password";       
-        $_SESSION['username']=$_POST['username'];
+        $_SESSION['logIn_id']=$_POST['username'];
       
          $ip= UserInfo::get_ip();
          $os= UserInfo::get_os();
          $browser= UserInfo::get_browser();
          $device= UserInfo::get_device();
          $status=0;                         
-         $log=mysqli_query($con,"INSERT INTO `loginlog`(`user_name`, `user_ip`, `user_os`, `user_browser`, `user_device`, `user_status`) VALUES ('".$_SESSION['username']."','$ip','$os','$browser','$device','$st')");
+         $log=mysqli_query($con,"INSERT INTO `loginlog`(`user_name`, `user_ip`, `user_os`, `user_browser`, `user_device`, `user_status`) VALUES ('".$_SESSION['logIn_id']."','$ip','$os','$browser','$device','$st')");
 
          header("location:index");
         exit();

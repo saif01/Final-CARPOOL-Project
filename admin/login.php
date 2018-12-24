@@ -9,7 +9,7 @@ if(isset($_POST['submit']))
     $adminName=$_POST['adminName'];
     $password=$_POST['password'];
 
-
+ 
 $ret=mysqli_query($con,"SELECT * FROM `admin` WHERE `admin_name` = '$adminName' AND `admin_password` = '$password' ");
 
  $rowcount=mysqli_num_rows($ret);  
@@ -41,7 +41,7 @@ if($rowcount>0 )
 
                               
                                             
-                        $log=mysqli_query($con,"INSERT INTO `loginlog`(`user_name`, `user_id`, `user_ip`, `user_os`, `user_browser`, `user_device`, `user_status`) VALUES ('".$_SESSION['adminName']."','".$_SESSION['admin_id']."','$ip','$os','$browser','$device','$admin_status')");
+                        $log=mysqli_query($con,"INSERT INTO `loginlog`(`user_name`, `user_id`, `user_ip`, `user_os`, `user_browser`, `user_device`, `user_status`) VALUES ('".$_SESSION['SadminName']."','".$_SESSION['admin_id']."','$ip','$os','$browser','$device','$admin_status')");
                                         
                          header("Location:../superadmin");
                         exit(); 

@@ -1,14 +1,14 @@
 <?php
 session_start();
 error_reporting(0);
-if(strlen($_SESSION['username'])==0)
+if(strlen($_SESSION['logIn_id'])==0)
   { 
 header('location:index');
 }
 else{  
  include('db/config.php');
 
-$user_name= $_SESSION['username'];
+$user_name= $_SESSION['logIn_id'];
 $user_id= $_SESSION['user_id'];
 
 
@@ -17,10 +17,11 @@ $user_id= $_SESSION['user_id'];
 // $start_date= date("Y-m-d H:i:s", strtotime($Sdate));
 // $end_date= date("Y-m-d H:i:s", strtotime($Edate));
 
-$Sdate=$_POST['startDate'];
-$Edate=$_POST['endDate'];
-$start_date= date("Y-m-d", strtotime($Sdate));
-$end_date= date("Y-m-d", strtotime($Edate));
+$start_date=$_POST['startDate'];
+$end_date=$_POST['endDate'];
+
+// $start_date= date("Y-m-d", strtotime($Sdate));
+// $end_date= date("Y-m-d", strtotime($Edate));
 
 $location=$_POST['location'];
 
@@ -67,14 +68,9 @@ $location=$_POST['location'];
     <!--=== Responsive CSS ===-->
     <link href="assets/css/responsive.css" rel="stylesheet">
 
-
-<!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css"> -->
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.bootstrap4.min.css">
     
-
-
-
+<!--******** DataTable CSS Link *******-->
+<link rel="stylesheet" type="text/css" href="assets/dataTable/data_table.css">
 
 
 </head>
@@ -145,7 +141,7 @@ $location=$_POST['location'];
                    <th>Car</th>                 
                   <th>Booking Starts</th>
                   <th>Booking Ends</th>
-                  <th>Location</th>
+                  <th>Destination</th>
                   <th>Purpose</th>
                   <th>Days</th>
                   
@@ -195,11 +191,22 @@ $location=$_POST['location'];
             </div>
     
     <!--== About Page Content End ==-->
+    
+<!--********* Data Table JS Link **********-->
+<script type="text/javascript" src="assets/dataTable/libry.js"></script>
+<script type="text/javascript" src="assets/dataTable/tbl.js"></script>
+<script type="text/javascript" src="assets/dataTable/boots.js"></script>
+ 
 
+<script type="text/javascript">
+    $(document).ready(function() {
+    $('#example').DataTable();
+} );
+</script>
 
    <!--=======================Javascript============================-->
     <!--=== Jquery Min Js ===-->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
@@ -224,7 +231,7 @@ $(document).ready(function() {
     table.buttons().container()
         .appendTo( '#example_wrapper .col-md-6:eq(0)' );
 } );
-</script>
+</script> -->
 
 
    <!--== Footer Area Start ==-->

@@ -5,7 +5,7 @@ date_default_timezone_set('Asia/Dhaka');// change according timezone
 $currentTime = date( 'Y-m-d H:i:s', time () );//H, Time in 24 hours show , h, for 12 hours 
 $currentDate=date('Y-m-d');
 
-if(strlen($_SESSION['username'])==0)
+if(strlen($_SESSION['logIn_id'])==0)
   { 
 header('location:index');
 }
@@ -26,7 +26,7 @@ else{
                     <div class="section-title  text-center">
 
                        <h2> 
-                        <?php echo htmlentities($_SESSION['username']) ?>'s Booked car</h2>
+                        <?php echo htmlentities($_SESSION['logIn_id']) ?>'s Booked car</h2>
                         <span class="title-line"><i class="fa fa-car"></i></span>
                         
                     </div>

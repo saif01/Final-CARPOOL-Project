@@ -4,7 +4,7 @@ error_reporting(0);
 date_default_timezone_set('Asia/Dhaka');// change according timezone
 $currentTime = date( 'Y-m-d h:i:s', time () );
 
-if(strlen($_SESSION['username'])==0)
+if(strlen($_SESSION['logIn_id'])==0)
   { 
 header('location:index');
 }
@@ -69,7 +69,7 @@ include('include/manu.php'); ?>
 
     
 
-    <h1 style="text-align: center; text-transform: capitalize;"><?php echo htmlentities($_SESSION['username']); ?>'s Booking History</h1>
+    <h1 style="text-align: center; text-transform: capitalize;"><?php echo htmlentities($_SESSION['logIn_id']); ?>'s Booking History</h1>
 
 
 <table id="example" class="table table-striped table-bordered" style="width:100%">

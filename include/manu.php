@@ -54,22 +54,28 @@
 
 
                             <ul>
-                                <!-- <li class="notification"><a href="#" >
-                              
-                              <span class="badge" > <i class="material-icons"></i> 3</span>
-                            </a></li> -->
+                               
                             <li>
                                 <?php
-                                include('db/config.php');            
-                                $logIn_id=$_SESSION['username'];
 
-                                    $notify=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `user_name`='$logIn_id' AND `comit_st`='' AND `boking_status`='1' ");
-                                    $number=mysqli_num_rows($notify);
-
-                                    if ($number>0) {?>
-                                       <a href="user-notclosed-car" style="float:right;" ><span class="notification"><?php echo $number; ?></span><i class="material-icons" style="font-size:32px;">notifications_active</i></a>   
+      include('db/config.php');
+      date_default_timezone_set('Asia/Dhaka');// change according timezone            
+      $currentdate = date( 'Y-m-d' );                
+            $user_id=$_SESSION['user_id'];
+            $notify=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `user_id`='$user_id' AND `comit_st`='' AND `boking_status`='1' AND date(`start_date`) <= date('$currentdate') ");
+                  $number=mysqli_num_rows($notify);
+                  ?>
+                                   
+                    <a href="user-notclosed-car" style="float:right;" >
+                      <?php
+                      if ($number>0) {?>
+                        <span class="notification"><?php echo $number; ?></span>
+                      <?php }?>
+                      
+                      <i class="material-icons" style="font-size:32px;">notifications_active</i>
+                    </a>   
                                         
-                                   <?php } ?> 
+                                   
 
                             </li>
 
@@ -82,7 +88,7 @@
                                    
                                     <?php
                         include('db/config.php');            
-                        $logIn_id=$_SESSION['username'];
+                        $logIn_id=$_SESSION['logIn_id'];
                         $query2=mysqli_query($con,"SELECT `user_img` FROM `user` WHERE `logIn_id`='$logIn_id'");
                         $row2=$query2->fetch_assoc();
                          ?>                                     
@@ -99,7 +105,7 @@
 
                                   <li><a href="#"> Car List </a>
                                     <ul>
-                                        <li><a href="car-list3">Regular Car</a></li>
+                                        <li><a href="car-list-reg">Regular Car</a></li>
                                         <li><a href="car-list-temp">Temporary Car</a></li>
                                         
                                     </ul>

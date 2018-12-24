@@ -1,7 +1,7 @@
 <?php
 session_start();
 error_reporting(0);
-if(strlen($_SESSION['username'])==0)
+if(strlen($_SESSION['logIn_id'])==0)
   { 
 header('location:index');
 }
@@ -10,7 +10,7 @@ else{
 include('db/config.php');
 
 $user_id=$_SESSION['user_id'];
-$user_name=$_SESSION['username'];
+$user_name=$_SESSION['logIn_id'];
 $car_id=$_GET['car_id'];
 //  All data fetch from database by ID
 $query=mysqli_query($con,"SELECT * FROM `tbl_car` WHERE `car_id` = $car_id ");
@@ -91,7 +91,7 @@ if (isset($_POST['submit'])) {
                           
 
                         alert('This Car Already Booked At this Date  !!!!');
-                        //window.open('car-list3.php','_self');
+                        //window.open('car-list-reg.php','_self');
                         //location.reload();
                         </script>
                     <?php

@@ -32,11 +32,11 @@ $file_name=uniqid().date("Y-m-d-H-i-s").str_replace(" ", "_", $_FILES['user_img'
 
 $query=mysqli_query($con," INSERT INTO `user`(`logIn_id`, `user_pass`, `user_name`, `user_department`, `user_contract`, `user_img`, `user_officeId`, `user_status`) VALUES ('$logIn_id','$user_pass','$user_name','$user_department','$user_contract','$file_name','$user_officeId','$user_status')");
 
-?>
+        ?>
     <script>
         alert('Update successfull.  !');
-        window.open('user-all-info', '_self'); //for locating other page.
-        //window.location.reload(); //For reload Same page
+        window.open('user-all-info', '_self'); 
+ 
     </script>
     <?php } ?>
 
@@ -59,6 +59,7 @@ $query=mysqli_query($con," INSERT INTO `user`(`logIn_id`, `user_pass`, `user_nam
         <link rel="stylesheet" href="css/style.css">
         <!-- endinject -->
         <link rel="shortcut icon" href="images/favicon.png" />
+
 
         <script>
             function userAvailability() {

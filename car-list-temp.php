@@ -4,7 +4,7 @@ error_reporting(0);
 date_default_timezone_set('Asia/Dhaka');// change according timezone
 // $currentTime = date( 'Y-m-d H:i:s', time () ); 
 
-if(strlen($_SESSION['username'])==0)
+if(strlen($_SESSION['logIn_id'])==0)
   { 
 header('location:index');
 }
@@ -66,17 +66,30 @@ else{
                                             <div class="article-date">
 
                                     <?php
+                             $driver_id=$row['driver_id'];
                              $currTime = date('Y-m-d H:i:s');
                              $car_id=$row['car_id'];
 
                              $query3=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `car_id`='$car_id' AND `boking_status`='1' AND '$currTime' BETWEEN `start_date` AND `end_date`");
+//********* Driver Leave status checkinig by Current Date *****************//
+                             $drivLev=mysqli_query($con,"SELECT * FROM `driver_leave` WHERE `leave_status`='1' AND `driver_id`='$driver_id' AND '$currTime' BETWEEN `driver_leave_start` AND `driver_leave_end`");
+//********* Police Requisition status checkinig by Current Date *****************//
+                             $polic_req=mysqli_query($con,"SELECT * FROM `police_req` WHERE `car_id`='$car_id' AND `req_st`='1' AND '$currTime' BETWEEN `req_start` AND `req_end`");
 
                              //$row3=$query3->fetch_assoc();
                              $row3=mysqli_num_rows($query3);
+                             $row4=mysqli_num_rows($drivLev);
+                             $p_row=mysqli_num_rows($polic_req);
 
                             if ($row3>0) {
                                 //echo "Book";
                                 ?> <p style="color: red;"> Booked</p> <?php
+                            }
+                            elseif ($row4>0) {
+                                 ?> <p style="color: red;">Busy</p> <?php
+                            }
+                            elseif ($p_row>0) {
+                                 ?> <p style="color: red;">Busy</p> <?php
                             }
                             else{
                                 echo "Free";
@@ -106,7 +119,7 @@ else{
                                                
                                             </table>
 
-                                             <a href="calendar-view-temp?car_id=<?php echo htmlentities($row['car_id']);?>" class="readmore-btn">Book  <i class="fa fa-long-arrow-right"></i></a>
+                                             <a href="booking-car-temp?car_id=<?php echo htmlentities($row['car_id']);?>" class="readmore-btn">Book  <i class="fa fa-long-arrow-right"></i></a>
 
                                             
                                         </div>
@@ -150,9 +163,21 @@ else{
 
                                 
                                     <p><?php echo htmlentities($row['driver_name']) ; ?> </p> 
-                                    <p style="background-color: red;  color: white; ">Leave <?php echo $leavedays ; ?> days from now </p>                                                                    
+                                    <p style="background-color: red;  color: white; ">On Leave</p>                                                                    
                                 </div>
 
+
+                         <?php }
+                        elseif($p_row>0) { ?>
+
+                                <div class="article-thumb-s" >
+                                                                      
+                                    <a href="driver-details.php?driver_id=<?php echo htmlentities($row['driver_id']);?>" > <img src="admin/p_img/driverimg/<?php echo($row['driver_img']);?>" class="img-responsive mx-auto d-block"  alt="Image" /> </a>
+
+                                
+                                    <p><?php echo htmlentities($row['driver_name']) ; ?> </p> 
+                                    <p style="background-color: red;  color: white; ">Police REQ.</p>                                                                    
+                                </div>
 
                          <?php } 
                           elseif ($st==0) { ?>

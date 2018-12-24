@@ -1,12 +1,19 @@
 <?php
 session_start();
 error_reporting(0);
-if(strlen($_SESSION['username'])==0)
+if(strlen($_SESSION['logIn_id'])==0)
   { 
 header('location:index');
 }
 else{ 
 include('db/config.php');
+date_default_timezone_set('Asia/Dhaka');// change according timezone            
+      $currentdate = date( 'Y-m-d' );                
+$user_id=$_SESSION['user_id'];
+$notify2=mysqli_query($con,"SELECT * FROM `car_booking` WHERE `user_id`='$user_id' AND `comit_st`='' AND `boking_status`='1' AND date(`start_date`) <= date('$currentdate') ");
+$number2=mysqli_num_rows($notify2);
+
+
  ?>
 
 <!DOCTYPE html>
@@ -43,6 +50,33 @@ include('db/config.php');
     <!--=== Responsive CSS ===-->
     <link href="assets/css/responsive.css" rel="stylesheet">
 
+     <!--************* google material icons ****************-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <!--*********start Sweet alert For Submiting data **********-->
+  <!-- <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script> -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
+<!--*********end Sweet alert For Submiting data **********-->
+
+<!--*************Start For Auto Load Model ***************-->
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+<script type="text/javascript">
+  $(window).load(function()   
+{
+
+var noncom=<?php echo $number2; ?>;
+
+  if (noncom >= 2) {
+    $('#myModal').modal('show');
+  }
+});
+</script>
+<!--*************End For Auto Load Model ***************-->
+
 </head>
 
 <body class="loader-active">
@@ -69,26 +103,28 @@ include('db/config.php');
                     <div class="slideshowcontent">
                         <div class="display-table">
                             <div class="display-table-cell">
-                               <a href="car-list3" > <h1>BOOK A CAR TODAY!</h1> </a>
+                               <a href="car-list-reg" > <h1>BOOK A CAR TODAY!</h1> </a>
 
                                  <div class="book-ur-car">
 
 
-                                    <form action="search-result.php" method="POST" >
+                                <form action="search-result.php" method="POST" onsubmit="return Validate(this);">
                                         
                                         <div class="pick-date bookinput-item">
-                                            <input id="startDate2" name="startDate" placeholder="Pick Date"/>
+                                            <!-- <input id="startDate2" name="startDate" placeholder="Pick Date"/> -->
+                                            <input type="DATE" class="custom-select" id="first" name="startDate" required>
                                         </div>
 
                                         <div class="retern-date bookinput-item">
-                                            <input id="endDate2" name="endDate" placeholder="Return Date"/>
+                                            <!-- <input id="endDate2" name="endDate" placeholder="Return Date"/> -->
+
+                                            <input type="DATE" class="custom-select" id="second" name="endDate" required>
                                         </div>
 
-                                       
 
                                        <div class="pick-location bookinput-item">
-                                            <select name="location" class="custom-select" style="text-align-last:center;">
-                                              <option selected>Pick Location</option>
+                                        <select name="location" class="custom-select" required>
+                                              <option selected>Pick Destination</option>
                                              <?php
                                         $query2=mysqli_query($con,"SELECT `location` FROM `location` ORDER BY `location`");
 
@@ -118,7 +154,69 @@ include('db/config.php');
     <!--== SlideshowBg Area End ==-->
 
 
-  <?php include('include/footer.php'); ?>
+<!--Start Modal -->
+<div class="modal show" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header ">
+        <h5 class="modal-title text-info" id="exampleModalLongTitle">Non Commented Notification</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center text-danger font-italic text-justify" style="font-size: 20px;" >
+        <!-- <i class="material-icons text-danger" style="">notifications_active</i> --> 
+       
 
+        <ul class="list-group">
+          <li class="list-group-item list-group-item-action list-group-item-danger">
+            Your non commented booked number
+            <span class="badge badge-danger badge-pill"><?php echo $number2; ?></span>
+          </li>
+          <li class="list-group-item list-group-item-action list-group-item-secondary">
+            Please Fulfill comment section.
+            
+          </li>
+          <li class="list-group-item list-group-item-action list-group-item-warning">
+            Otherwise you can't book in future. 
+            
+          </li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--End Modal -->
+
+
+
+<script type="text/javascript">
+        function Validate(objForm) {
+
+           
+            var date1 = document.getElementById("first").value;
+            var date2 = document.getElementById("second").value;
+
+           if(date1 > date2)
+            {
+    swal({
+              title: "Invalid Input",
+              text: "You Can't Put Lower Time from Start Time !! ",
+              type: "warning",
+              buttons: true,
+              dangerMode: true,
+            });
+    return false;
+            }
+
+            return true;
+        }
+    </script>
+
+  <?php include('include/footer.php'); ?>
+ 
     
 <?php } ?>

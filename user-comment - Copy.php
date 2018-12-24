@@ -4,7 +4,7 @@ error_reporting(0);
 date_default_timezone_set('Asia/Dhaka');// change according timezone
     $currentDate = date( 'Y-m-d');
 
-if(strlen($_SESSION['username'])==0)
+if(strlen($_SESSION['logIn_id'])==0)
   { 
 header('location:index');
 }
